@@ -36,7 +36,10 @@ export const fetchUserLanguages = createAsyncThunk(
   }
 );
 
-export const updateUserLanguage = createAsyncThunk(
+export const updateUserLanguage = createAsyncThunk<
+  void,
+  { languageId: number }
+>(
   "language/updateUserlanguage",
   async (body, { rejectWithValue, dispatch }) => {
     try {
