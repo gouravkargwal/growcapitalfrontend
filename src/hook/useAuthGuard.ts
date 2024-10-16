@@ -8,7 +8,7 @@ const useAuthGuard = () => {
 
   useEffect(() => {
     if (!loading) {
-      const requestedPath = router.asPath; // The page user is trying to access
+      const requestedPath = window.location.pathname; // The page user is trying to access
 
       if (!user) {
         // User is not logged in, redirect to sign-in with redirect parameter

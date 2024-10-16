@@ -3,6 +3,7 @@ import {
   getAuth,
   onAuthStateChanged,
   setPersistence,
+  User,
 } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { initializeApp } from "firebase/app";
@@ -21,7 +22,7 @@ const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 
 export const useAuth = () => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

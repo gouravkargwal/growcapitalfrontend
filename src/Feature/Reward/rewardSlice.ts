@@ -3,6 +3,26 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getRewardData } from "./reward.service";
 import { handleAxiosError } from "@/lib/apiError";
 
+export interface Reward {
+  rewardType: string;
+  rewardAmount: number;
+  referralCount: number;
+  referralCountRequired: number;
+  isEligible: boolean;
+  claimed: boolean;
+  configId: string;
+}
+
+export interface RewardState {
+  data: Reward[]; // Array of rewards
+  loading: boolean;
+}
+
+const initialState: RewardState = {
+  data: [], // Initialize as an empty array of Reward objects
+  loading: false,
+};
+
 export const fetchRewards = createAsyncThunk(
   "reward/fetchRewards",
   async (_, { rejectWithValue, dispatch }) => {
@@ -19,10 +39,7 @@ export const fetchRewards = createAsyncThunk(
 
 const rewardSlice = createSlice({
   name: "reward",
-  initialState: {
-    data: [],
-    loading: false,
-  },
+  initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder

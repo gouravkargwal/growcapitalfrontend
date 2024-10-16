@@ -4,28 +4,32 @@ import { useSelector } from "react-redux";
 import {
   fetchStockSuggestion,
   fetchUserStocks,
+  Stock,
+  StockSuggestion,
   updateStockSubscription,
 } from "@/Feature/Stock/stockSlice";
 import { useAppDispatch } from "@/hook/useAppDispatch";
 import { RootState } from "@/Store/store";
 import _ from "lodash";
-import { fetchUserPlan } from "@/Feature/User/userSlice";
+import { fetchUserPlan, UserState } from "@/Feature/User/userSlice";
 
 const StocksList: React.FC = () => {
   const dispatch = useAppDispatch();
   const { stockSuggestion, stockSuggestionLoading } = useSelector(
     (state: RootState) => state.stock
   );
-  const { data: userPlan } = useSelector((state: RootState) => state.user);
+  const { data: userPlan } = useSelector<RootState, UserState>(
+    (state) => state.user
+  );
   const { data: trackedStocks } = useSelector(
     (state: RootState) => state.stock
   );
 
-  const [stocks, setStocks] = useState<any[]>([]); // Start with an empty array
+  const [stocks, setStocks] = useState<Stock[]>([]); // Start with an empty array
   const [editMode, setEditMode] = useState<boolean>(false);
   const [inputValue, setInputValue] = useState<string>("");
 
-  const planLimit = userPlan?.plan?.stocksLimit;
+  const planLimit = userPlan?.plan?.stocksLimit || 0;
 
   useEffect(() => {
     // Fetch user stocks and user plan on initial render
@@ -54,15 +58,29 @@ const StocksList: React.FC = () => {
   }, 300);
 
   // Handle adding a new stock
-  const handleAddStock = (stock: {
-    ticker_symbol: string;
-    company_name: string;
-    scrip_code: string;
-    isin_number: string;
-    industry: string;
-  }) => {
-    if (!stocks.some((s) => s.ticker_symbol === stock.ticker_symbol)) {
-      setStocks([...stocks, stock]);
+  // const handleAddStock = (stock: {
+  //   ticker_symbol: string;
+  //   company_name: string;
+  //   scrip_code: string;
+  //   isin_number: string;
+  //   industry: string;
+  // }) => {
+  //   if (!stocks.some((s) => s.ticker_symbol === stock.ticker_symbol)) {
+  //     setStocks([...stocks, stock]);
+  //   }
+  //   setInputValue("");
+  // };
+
+  const handleAddStock = (suggestion: StockSuggestion) => {
+    // You can modify the logic here to handle StockSuggestion without the missing fields
+    const newStock = {
+      ...suggestion,
+      isin_number: "", // Add fallback if needed
+      industry: "",
+    };
+
+    if (!stocks.some((s) => s.ticker_symbol === newStock.ticker_symbol)) {
+      setStocks([...stocks, newStock]);
     }
     setInputValue("");
   };

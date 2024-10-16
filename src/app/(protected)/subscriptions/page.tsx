@@ -1,6 +1,11 @@
 "use client";
-import { fetchAllPlans, upgradeUserPlan } from "@/Feature/Plan/planSlice";
-import { fetchUserPlan } from "@/Feature/User/userSlice";
+import {
+  fetchAllPlans,
+  Plan,
+  PlanState,
+  upgradeUserPlan,
+} from "@/Feature/Plan/planSlice";
+import { fetchUserPlan, UserState } from "@/Feature/User/userSlice";
 import { useAppDispatch } from "@/hook/useAppDispatch";
 import { RootState } from "@/Store/store";
 import React, { useEffect, useState } from "react";
@@ -8,10 +13,14 @@ import { useSelector } from "react-redux";
 
 const Subscriptions = () => {
   const dispatch = useAppDispatch();
-  const { data: plans } = useSelector((state: RootState) => state.plan);
-  const { data: userPlan } = useSelector((state: RootState) => state.user);
+  const { data: plans } = useSelector<RootState, PlanState>(
+    (state) => state.plan
+  );
+  const { data: userPlan } = useSelector<RootState, UserState>(
+    (state: RootState) => state.user
+  );
 
-  const [selectedPlan, setSelectedPlan] = useState(null);
+  const [selectedPlan, setSelectedPlan] = useState<Plan | null>(null);
   const [activationType, setActivationType] = useState<
     "IMMEDIATE" | "AFTER_EXPIRY"
   >("IMMEDIATE");
@@ -37,7 +46,7 @@ const Subscriptions = () => {
     // Dispatch the upgradeUserPlan action with the selected plan, activationType, and duration
     dispatch(
       upgradeUserPlan({
-        userId: userPlan?.userId, // Assuming userPlan has userId
+        userId: userPlan?.userId || "", // Assuming userPlan has userId
         planId: selectedPlan.planId,
         activationType,
         durationInMonths,
@@ -62,17 +71,23 @@ const Subscriptions = () => {
         <p className="text-gray-600 mt-2">₹{userPlan?.plan?.planPrice}</p>
         <p className="text-gray-600 mt-2">
           {userPlan?.endDate
-            ? `End Date: ${new Date(userPlan.endDate)
-                .getDate()
-                .toString()
-                .padStart(2, "0")} - ${new Date(
-                userPlan.endDate
-              ).toLocaleString("default", { month: "short" })} - ${new Date(
-                userPlan.endDate
-              ).getFullYear()} (${Math.ceil(
-                (new Date(userPlan.endDate) - new Date()) /
-                  (1000 * 60 * 60 * 24)
-              )} days left)`
+            ? (() => {
+                const endDate = new Date(userPlan.endDate);
+                if (isNaN(endDate.getTime())) {
+                  return "Invalid End Date"; // Handle invalid date
+                }
+
+                const day = endDate.getDate().toString().padStart(2, "0");
+                const month = endDate.toLocaleString("default", {
+                  month: "short",
+                });
+                const year = endDate.getFullYear();
+                const daysLeft = Math.ceil(
+                  (endDate.getTime() - new Date().getTime()) /
+                    (1000 * 60 * 60 * 24)
+                );
+                return `End Date: ${day} - ${month} - ${year} (${daysLeft} days left)`;
+              })()
             : "No End Date"}
         </p>
       </div>

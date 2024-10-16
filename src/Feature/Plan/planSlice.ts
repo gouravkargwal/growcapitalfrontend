@@ -4,6 +4,32 @@ import { getAllPlans, updateUserPlanApi } from "./plan.service";
 import { handleAxiosError } from "@/lib/apiError";
 import { fetchUserPlan } from "../User/userSlice";
 
+export interface Plan {
+  planId: number;
+  planName: string;
+  planPrice: number;
+  stocksLimit: number;
+}
+
+export interface PlanState {
+  data: Plan[];
+  loading: boolean;
+  updateUserPlanLoading: boolean;
+}
+
+const initialState: PlanState = {
+  data: [],
+  loading: false,
+  updateUserPlanLoading: false,
+};
+
+export type PlanPayload = {
+  userId: string;
+  planId: number;
+  activationType: "IMMEDIATE" | "AFTER_EXPIRY";
+  durationInMonths: number;
+};
+
 export const fetchAllPlans = createAsyncThunk(
   "plan/fetchAllPlans",
   async (_, { rejectWithValue, dispatch }) => {
@@ -20,15 +46,7 @@ export const fetchAllPlans = createAsyncThunk(
 
 export const upgradeUserPlan = createAsyncThunk(
   "plan/upgradeUserPlan",
-  async (
-    payload: {
-      userId: string;
-      planId: number;
-      activationType: "IMMEDIATE" | "AFTER_EXPIRY";
-      durationInMonths: number;
-    },
-    { rejectWithValue, dispatch }
-  ) => {
+  async (payload: PlanPayload, { rejectWithValue, dispatch }) => {
     try {
       const { data } = await updateUserPlanApi(payload);
       dispatch(fetchUserPlan());
@@ -43,11 +61,7 @@ export const upgradeUserPlan = createAsyncThunk(
 
 const planSlice = createSlice({
   name: "plan",
-  initialState: {
-    data: [],
-    loading: false,
-    updateUserPlanLoading: false,
-  },
+  initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder

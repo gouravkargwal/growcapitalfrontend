@@ -24,7 +24,7 @@ const formSchema = yup.object().shape({
   password: passwordStrength,
   confirmPassword: yup
     .string()
-    .oneOf([yup.ref("password"), null], "Passwords must match")
+    .oneOf([yup.ref("password"), undefined], "Passwords must match")
     .required("Please confirm your password"),
 });
 

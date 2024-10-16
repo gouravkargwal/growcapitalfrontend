@@ -7,7 +7,10 @@ import GoogleAuthentication from "./GoogleAuthentication";
 import InputField from "../UI/InputField";
 import Link from "next/link";
 import { RootState } from "@/Store/store";
-import { fetchLanguages } from "@/Feature/Language/languageSlice";
+import {
+  fetchLanguages,
+  LanguageState,
+} from "@/Feature/Language/languageSlice";
 import { signupUser } from "@/Feature/Auth/authSlice";
 import { useAppDispatch } from "@/hook/useAppDispatch";
 import { useForm } from "react-hook-form";
@@ -39,13 +42,14 @@ const formSchema = yup.object().shape({
 
 type UserFormValue = yup.InferType<typeof formSchema>;
 
-const SignupForm = ({ referralCode }) => {
+const SignupForm = ({ referralCode }: { referralCode: string | undefined }) => {
   const router = useRouter();
   const dispatch = useAppDispatch();
   const { signupLoading } = useSelector((state: RootState) => state.auth);
-  const { loading: languageLoading, data: languages } = useSelector(
-    (state: RootState) => state.language
-  );
+  const { loading: languageLoading, data: languages } = useSelector<
+    RootState,
+    LanguageState
+  >((state: RootState) => state.language);
 
   const {
     register,

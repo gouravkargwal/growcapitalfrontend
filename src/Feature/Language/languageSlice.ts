@@ -13,14 +13,23 @@ export interface Language {
   isSelected: boolean;
 }
 
+export interface LanguageData {
+  languageId: number;
+  languageName: string;
+}
+
 export interface LanguageState {
   userLanguages: Language[]; // This ensures that userLanguages is an array of Language objects
   userLanguagesLoading: boolean;
   updateUserLanguageLoading: boolean;
+  data: LanguageData[];
+  loading: boolean;
 }
 
 const initialState: LanguageState = {
   userLanguages: [], // Initialize as an empty array of Language
+  data: [],
+  loading: false,
   userLanguagesLoading: false,
   updateUserLanguageLoading: false,
 };
@@ -74,13 +83,7 @@ export const updateUserLanguage = createAsyncThunk<
 
 const languageSlice = createSlice({
   name: "language",
-  initialState: {
-    data: [],
-    loading: false,
-    userLanguages: [],
-    userLanguagesLoading: false,
-    updateUserLanguageLoading: false,
-  },
+  initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder

@@ -3,6 +3,27 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getReferData } from "./refer.service";
 import { handleAxiosError } from "@/lib/apiError";
 
+export interface ReferralRecord {
+  name: string;
+  date: string;
+  status: string;
+}
+
+export interface ReferData {
+  referralCode: string;
+  records: ReferralRecord[];
+}
+
+export interface ReferState {
+  data: ReferData | null;
+  loading: boolean;
+}
+
+const initialState: ReferState = {
+  data: null,
+  loading: false,
+};
+
 export const fetchReferrals = createAsyncThunk(
   "refer/fetchReferrals",
   async (_, { rejectWithValue, dispatch }) => {
@@ -19,10 +40,7 @@ export const fetchReferrals = createAsyncThunk(
 
 const referSlice = createSlice({
   name: "refer",
-  initialState: {
-    data: [],
-    loading: false,
-  },
+  initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder

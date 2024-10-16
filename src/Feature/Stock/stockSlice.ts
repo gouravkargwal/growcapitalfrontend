@@ -7,6 +7,36 @@ import {
 } from "./stock.service";
 import { handleAxiosError } from "@/lib/apiError";
 
+export interface Stock {
+  ticker_symbol: string;
+  company_name: string;
+  scrip_code: string;
+  isin_number: string;
+  industry: string;
+}
+
+export interface StockSuggestion {
+  ticker_symbol: string;
+  company_name: string;
+  scrip_code: string;
+}
+
+interface StockState {
+  data: Stock[]; // Array of user's tracked stocks
+  loading: boolean;
+  stockSuggestion: StockSuggestion[]; // Array of stock suggestions
+  stockSuggestionLoading: boolean;
+}
+
+const initialState: StockState = {
+  data: [],
+  loading: false,
+  stockSuggestion: [],
+  stockSuggestionLoading: false,
+};
+
+export type StockPayload = { addedStocks: string[]; deletedStocks: string[] };
+
 export const fetchUserStocks = createAsyncThunk(
   "stock/fetchUserStocks",
   async (_, { rejectWithValue, dispatch }) => {
@@ -37,7 +67,7 @@ export const fetchStockSuggestion = createAsyncThunk(
 
 export const updateStockSubscription = createAsyncThunk(
   "stock/updateStockSubscription",
-  async (body, { rejectWithValue, dispatch }) => {
+  async (body: StockPayload, { rejectWithValue, dispatch }) => {
     try {
       const { data } = await updateStockSubscriptionApi(body);
       return data;
@@ -51,12 +81,7 @@ export const updateStockSubscription = createAsyncThunk(
 
 const stockSlice = createSlice({
   name: "stock",
-  initialState: {
-    data: [],
-    loading: false,
-    stockSuggestion: [],
-    stockSuggestionLoading: false,
-  },
+  initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder

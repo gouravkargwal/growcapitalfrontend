@@ -159,7 +159,7 @@ const ReferAndEarn: React.FC = () => {
                     <div className="animate-pulse h-4 bg-gray-200 rounded w-full"></div>
                   </td>
                 </tr>
-              ) : data?.records?.length > 0 ? (
+              ) : data?.records && data?.records?.length > 0 ? (
                 data.records.map((person, index) => (
                   <tr
                     key={index}

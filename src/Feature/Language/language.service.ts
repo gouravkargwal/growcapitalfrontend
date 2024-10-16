@@ -8,6 +8,6 @@ export const getUserAndAllLanguages = async () => {
   return await axiosInstance.get("/user-language");
 };
 
-export const updateUserLanguageApi = async (data) => {
+export const updateUserLanguageApi = async (data: { languageId: number }) => {
   return await axiosInstance.put("/user-language", data);
 };

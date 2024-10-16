@@ -3,6 +3,7 @@
 import EmailVerification from "@/Components/Form/EmailVerificationForm";
 import PasswordResetForm from "@/Components/Form/PasswordResetForm";
 import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 
 const EmailActionPage = () => {
   const searchParams = useSearchParams();
@@ -18,4 +19,11 @@ const EmailActionPage = () => {
   );
 };
 
-export default EmailActionPage;
+// Export the Signup component wrapped with Suspense
+export default function EmailVerified() {
+  return (
+    <Suspense fallback={<div>Loading signup...</div>}>
+      <EmailActionPage />
+    </Suspense>
+  );
+}

@@ -2,6 +2,7 @@
 
 import SignupForm from "@/Components/Form/SignupForm";
 import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 
 const SignUpPage = () => {
   const searchParams = useSearchParams();
@@ -11,4 +12,10 @@ const SignUpPage = () => {
   return <SignupForm referralCode={referralCode || undefined} />;
 };
 
-export default SignUpPage;
+export default function Signup() {
+  return (
+    <Suspense fallback={<div>Loading signup...</div>}>
+      <SignUpPage />
+    </Suspense>
+  );
+}

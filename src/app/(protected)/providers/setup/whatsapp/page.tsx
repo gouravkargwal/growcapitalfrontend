@@ -14,7 +14,6 @@ const WhatsAppSetupPage = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [otpSent, setOtpSent] = useState(false);
-  const [resendTimer, setResendTimer] = useState(0);
 
   const handleSendVerificationCode = async () => {
     setError("");
@@ -30,11 +29,11 @@ const WhatsAppSetupPage = () => {
     const fullPhoneNumber = `+91${phoneNumber}`;
     try {
       // Send OTP using Firebase without reCAPTCHA
-      const confirmationResult = await signInWithPhoneNumber(
-        auth,
-        fullPhoneNumber
-      );
-      setVerificationId(confirmationResult.verificationId);
+      // const confirmationResult = await signInWithPhoneNumber(
+      //   auth,
+      //   fullPhoneNumber
+      // );
+      // setVerificationId(confirmationResult.verificationId);
       setSuccess("Verification code sent to your phone!");
       setOtpSent(true);
       setResendTimer(180); // Set a 3-minute timer
@@ -52,11 +51,11 @@ const WhatsAppSetupPage = () => {
     setSuccess("");
 
     try {
-      const credential = window.firebase.auth.PhoneAuthProvider.credential(
-        verificationId,
-        verificationCode
-      );
-      await getAuth().signInWithCredential(credential);
+      // const credential = window.firebase.auth.PhoneAuthProvider.credential(
+      //   verificationId,
+      //   verificationCode
+      // );
+      // await getAuth().signInWithCredential(credential);
       setSuccess("Phone number verified successfully!");
 
       // Call your service to configure WhatsApp here
@@ -70,13 +69,21 @@ const WhatsAppSetupPage = () => {
       setLoading(false);
     }
   };
-
+  const [resendTimer, setResendTimer] = useState<number>(60); // Example initial value for resendTimer
   useEffect(() => {
-    let timer;
+    let timer: ReturnType<typeof setInterval> | undefined;
+
     if (resendTimer > 0) {
-      timer = setInterval(() => setResendTimer((prev) => prev - 1), 1000);
+      timer = setInterval(() => {
+        setResendTimer((prev) => prev - 1);
+      }, 1000);
     }
-    return () => clearInterval(timer);
+
+    return () => {
+      if (timer) {
+        clearInterval(timer);
+      }
+    };
   }, [resendTimer]);
 
   if (authLoading) return <p>Loading...</p>; // Optional: handle loading state for auth
