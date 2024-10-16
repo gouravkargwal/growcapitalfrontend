@@ -1,0 +1,78 @@
+@tailwind base;
+@tailwind components;
+.loader {
+  border: 4px solid rgba(255, 255, 255, 0.2);
+  border-top: 4px solid #007bff; /* Adjust the color as needed */
+  border-radius: 50%;
+  width: 24px; /* Size of the loader */
+  height: 24px; /* Size of the loader */
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes swipe {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.inner {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  height: 5rem;
+}
+
+.wrapper {
+  position: absolute;
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+section {
+  display: flex;
+  animation: swipe var(--speed) linear infinite;
+  flex-shrink: 0;
+}
+.toggle-switch {
+  appearance: none;
+  width: 40px;
+  height: 20px;
+  background-color: #d1d5db; /* Default color */
+  border-radius: 999px;
+  position: relative;
+  transition: background-color 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.toggle-switch::before {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  background-color: #ffffff;
+  border-radius: 999px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.toggle-switch:checked {
+  background-color: #3b82f6; /* Color when checked */
+}
+
+.toggle-switch:checked::before {
+  transform: translateX(20px); /* Move the switch when checked */
+}
+
+@tailwind utilities;
