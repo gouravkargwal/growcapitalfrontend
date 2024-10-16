@@ -7,6 +7,24 @@ import {
 } from "./language.service";
 import { handleAxiosError } from "@/lib/apiError";
 
+export interface Language {
+  languageId: number;
+  languageName: string;
+  isSelected: boolean;
+}
+
+export interface LanguageState {
+  userLanguages: Language[]; // This ensures that userLanguages is an array of Language objects
+  userLanguagesLoading: boolean;
+  updateUserLanguageLoading: boolean;
+}
+
+const initialState: LanguageState = {
+  userLanguages: [], // Initialize as an empty array of Language
+  userLanguagesLoading: false,
+  updateUserLanguageLoading: false,
+};
+
 export const fetchLanguages = createAsyncThunk(
   "language/fetchLanguages",
   async (_, { rejectWithValue, dispatch }) => {

@@ -1,6 +1,7 @@
 "use client";
 import {
   fetchUserLanguages,
+  LanguageState,
   updateUserLanguage,
 } from "@/Feature/Language/languageSlice";
 import { useAppDispatch } from "@/hook/useAppDispatch";
@@ -14,7 +15,7 @@ const Languages = () => {
     dispatch(fetchUserLanguages());
   }, [dispatch]);
   const { userLanguages, userLanguagesLoading, updateUserLanguageLoading } =
-    useSelector((state: RootState) => state.language);
+    useSelector<RootState, LanguageState>((state) => state.language);
 
   const handleLanguageSelection = async (languageId: number) => {
     if (!updateUserLanguageLoading) {
