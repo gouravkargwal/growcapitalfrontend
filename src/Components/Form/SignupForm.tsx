@@ -14,6 +14,7 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
 import { yupResolver } from "@hookform/resolvers/yup";
+import Image from "next/image";
 
 const passwordStrength = yup
   .string()
@@ -83,11 +84,14 @@ const SignupForm = ({ referralCode }) => {
       {/* Image Section */}
       <div className="hidden md:flex w-full md:w-1/2 bg-gray-900 text-white items-center justify-center">
         <div className="text-center p-8">
-          <img
+          <Image
             src="https://via.placeholder.com/600x300"
-            alt="Signup Image"
+            alt="Dashboard Overview"
+            width={600}
+            height={300}
             className="w-full h-auto mb-4 rounded-lg"
           />
+
           <div className="bg-black p-8 rounded-lg">
             <h2 className="text-4xl font-semibold text-white mb-4">Join Us!</h2>
             <p className="text-lg text-gray-300 mb-6">

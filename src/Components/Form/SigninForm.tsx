@@ -11,6 +11,7 @@ import { useAppDispatch } from "@/hook/useAppDispatch";
 import GoogleAuthentication from "./GoogleAuthentication";
 import { useSelector } from "react-redux";
 import { RootState } from "@/Store/store";
+import Image from "next/image";
 
 const passwordStrength = yup
   .string()
@@ -62,11 +63,14 @@ const SigninForm = () => {
       {/* Image Section (hidden on mobile, shown on md and larger) */}
       <div className="hidden md:flex w-full md:w-1/2 bg-gray-900 text-white items-center justify-center">
         <div className="text-center p-8">
-          <img
+          <Image
             src="https://via.placeholder.com/600x300"
             alt="Dashboard Overview"
+            width={600}
+            height={300}
             className="w-full h-auto mb-4 rounded-lg"
           />
+
           <div className="bg-black p-8 rounded-lg">
             <h2 className="text-4xl font-semibold text-white mb-4">Finlab</h2>
             <p className="text-lg text-gray-300 mb-6">
