@@ -59,24 +59,24 @@ const SigninForm = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col md:flex-row bg-gray-100">
+    <div className="min-h-screen flex flex-col md:flex-row bg-gray-50">
       {/* Image Section (hidden on mobile, shown on md and larger) */}
-      <div className="hidden md:flex w-full md:w-1/2 bg-gray-900 text-white items-center justify-center">
+      <div className="hidden md:flex w-full md:w-1/2 bg-gradient-to-r from-primary to-blue-600 text-white items-center justify-center">
         <div className="text-center p-8">
           <Image
             src="https://via.placeholder.com/600x300"
             alt="Dashboard Overview"
             width={600}
             height={300}
-            className="w-full h-auto mb-4 rounded-lg"
+            className="w-full h-auto mb-4 rounded-lg shadow-lg"
           />
 
-          <div className="bg-black p-8 rounded-lg">
+          <div className="bg-black bg-opacity-30 p-8 rounded-lg shadow-md backdrop-blur-md">
             <h2 className="text-4xl font-semibold text-white mb-4">Finlab</h2>
-            <p className="text-lg text-gray-300 mb-6">
-              Let’s empower your financial task today with Findash.
+            <p className="text-lg text-gray-100 mb-6">
+              Empower your financial tasks today with Findash.
             </p>
-            <p className="text-gray-400 mb-6">
+            <p className="text-gray-200 mb-6">
               The one-stop platform for all financial management of small and
               medium-sized businesses.
             </p>
@@ -85,10 +85,10 @@ const SigninForm = () => {
       </div>
 
       {/* Form Section */}
-      <div className="w-full h-screen md:w-1/2 flex justify-center items-center">
-        <div className="max-w-md w-full p-6 sm:p-8 rounded-lg shadow-lg bg-white">
-          <h2 className="text-3xl font-bold text-gray-900 mb-6 text-center">
-            Signin
+      <div className="w-full h-screen md:w-1/2 flex justify-center items-center bg-white">
+        <div className="max-w-md w-full p-6 sm:p-8 rounded-lg shadow-lg border border-gray-200">
+          <h2 className="text-4xl font-extrabold text-primary mb-6 text-center">
+            Sign in
           </h2>
           <form onSubmit={handleSubmit(onSubmit)}>
             <InputField
@@ -109,20 +109,22 @@ const SigninForm = () => {
             <div className="text-right">
               <Link
                 href="forgotpassword"
-                className="text-sm text-green-500 hover:underline"
+                className="text-sm text-primary hover:underline"
               >
                 Forgot Password?
               </Link>
             </div>
             <FormButton label="Continue" loading={signinLoading} />
             <p className="text-center text-gray-600 mt-4">
-              Don't have an account?{" "}
-              <Link href="signup" className="text-green-500">
+              Don’t have an account?{" "}
+              <Link href="signup" className="text-accent hover:underline">
                 Register
               </Link>
             </p>
           </form>
-          <GoogleAuthentication />
+          <div className="mt-6">
+            <GoogleAuthentication />
+          </div>
         </div>
       </div>
     </div>

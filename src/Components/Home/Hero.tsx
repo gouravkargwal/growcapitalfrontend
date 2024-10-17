@@ -1,44 +1,64 @@
 import React from "react";
+import { motion } from "framer-motion";
 
 const Hero = () => {
   return (
-    <div className="bg-gradient-to-b from-white to-blue-50 h-[80vh] flex items-center justify-center">
-      <div className="text-center max-w-4xl px-4">
+    <div className="bg-gradient-to-b from-white to-neutral h-[80vh] flex items-center justify-center relative overflow-hidden pt-hero-padding sm:pt-20 md:pt-hero-padding">
+      <div className="text-center max-w-4xl px-4 relative z-10">
         {/* Title */}
-        <h1 className="text-3xl font-bold text-blue-900 mb-4 leading-tight sm:text-4xl md:text-7xl">
-          The #1 Trade Copier for{" "}
-          <span className="text-blue-600">MetaTrader</span> &{" "}
-          <span className="text-blue-600">Telegram</span>
-        </h1>
+        <motion.h1
+          className="text-3xl sm:text-4xl md:text-6xl font-extrabold text-primary mb-4 leading-tight"
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          Stay Ahead with{" "}
+          <span className="text-accent">Real-Time Stock News</span>
+        </motion.h1>
 
         {/* Subtitle */}
-        <p className="text-sm text-gray-500 mb-6 sm:text-base md:text-lg">
-          Lightning Fast Execution. Join Thousands of Traders Globally. No VPS
-          Needed.
-        </p>
+        <motion.p
+          className="text-base sm:text-lg md:text-xl text-textSecondary mb-8"
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+        >
+          Subscribe to stock news delivered directly to WhatsApp, Telegram, and
+          more. Get impact scores to stay informed.
+        </motion.p>
 
         {/* Buttons */}
-        <div className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-x-4 sm:space-y-0">
+        <motion.div
+          className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-x-6 sm:space-y-0"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+        >
           <a
             href="#"
-            className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition"
+            className="px-6 py-3 sm:px-8 sm:py-3 bg-primary text-white rounded-btn-lg font-semibold shadow-btn-shadow hover:bg-accent transition-all duration-300 transform hover:scale-105"
           >
-            Join Waitlist
+            Subscribe Now
           </a>
           <a
             href="#"
-            className="border border-blue-600 text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-blue-600 hover:text-white transition"
+            className="border border-primary text-primary px-6 py-3 sm:px-8 sm:py-3 rounded-btn-lg font-semibold hover:bg-primary hover:text-white transition-all duration-300 transform hover:scale-105"
           >
             Join Community
           </a>
-        </div>
+        </motion.div>
 
         {/* Features */}
-        <div className="mt-6 flex flex-col justify-center items-center space-y-3 sm:flex-row sm:space-x-6 sm:space-y-0 text-xs sm:text-sm text-gray-500">
-          <p>⚡ Lightning Fast Execution</p>
-          <p>🌍 Join Thousands of Traders Globally</p>
-          <p>🚫 No VPS Needed</p>
-        </div>
+        <motion.div
+          className="mt-6 sm:mt-10 flex flex-col justify-center items-center space-y-3 sm:flex-row sm:space-x-6 sm:space-y-0 text-xs sm:text-sm md:text-base text-textSecondary"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+        >
+          <p>⚡ Real-Time Updates</p>
+          <p>🌍 Global Traders</p>
+          <p>📊 Impact Scores</p>
+        </motion.div>
       </div>
     </div>
   );

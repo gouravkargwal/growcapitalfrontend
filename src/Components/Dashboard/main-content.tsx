@@ -4,7 +4,7 @@ import Card from "./details-cards";
 import NewsCard from "./news-card";
 import StocksList from "./stocks-list";
 import Settings from "./settings";
-import Footer from "../common/footer";
+import Footer from "../Header/Footer";
 
 const MainContent = () => {
   const cards = [

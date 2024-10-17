@@ -1,18 +1,18 @@
 "use client";
-import React, { useRef, useEffect, useState } from "react";
-import PricingSection from "../Components/Home/pricing";
-import Faqs from "../Components/Home/faqs";
-import Trial from "../Components/Home/trial";
-import Reviews from "../Components/Home/reviews";
-import Features from "../Components/Home/features";
-import Footer from "../Components/common/footer";
-import Navbar from "../Components/common/navbar";
+import React from "react";
+import PricingSection from "../Components/Home/Pricing";
+import Faqs from "../Components/Home/Faqs";
+import Trial from "../Components/Home/Trial";
+import Footer from "../Components/Header/Footer";
 import Hero from "@/Components/Home/Hero";
+import PublicNavbar from "../Components/Header/PublicNavbar";
+import Features from "@/Components/Home/features";
+import Reviews from "@/Components/Home/reviews";
 
 const Home: React.FC = () => {
   return (
-    <div>
-      <Navbar />
+    <>
+      <PublicNavbar />
       <Hero />
       <Features />
       <Reviews />
@@ -20,7 +20,7 @@ const Home: React.FC = () => {
       <Trial />
       <Faqs />
       <Footer />
-    </div>
+    </>
   );
 };
 

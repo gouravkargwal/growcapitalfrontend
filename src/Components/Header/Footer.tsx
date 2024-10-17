@@ -6,7 +6,6 @@ const Footer: React.FC = () => {
     <footer className="bg-white py-10 border-t">
       <div className="container mx-auto px-6 md:px-12 lg:px-16">
         <div className="flex flex-col md:flex-row justify-between space-y-8 md:space-y-0">
-
           {/* Left Section (Logo and Description) */}
           <div className="md:w-1/3">
             <img

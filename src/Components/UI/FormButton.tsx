@@ -19,10 +19,11 @@ const FormButton: React.FC<ButtonProps> = ({
     type={type}
     onClick={onClick}
     disabled={disabled || loading}
-    className={`w-full py-3 rounded-lg font-semibold transition duration-300 flex items-center justify-center ${
+    aria-disabled={disabled || loading}
+    className={`w-full py-3 rounded-btn-lg font-semibold transition duration-300 flex items-center justify-center focus:outline-none focus:ring-4 focus:ring-primary focus:ring-opacity-50 ${
       loading || disabled
-        ? "bg-gray-400 cursor-not-allowed"
-        : "bg-green-500 hover:bg-green-600 text-white"
+        ? "bg-gray-400 cursor-not-allowed text-gray-800"
+        : "bg-primary hover:bg-blue-600 text-white"
     }`}
   >
     {loading ? (

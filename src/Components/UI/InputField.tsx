@@ -1,31 +1,37 @@
-const InputField = ({
-  label,
-  register,
-  type = "text",
-  placeholder,
-  error,
-}: {
+import React from "react";
+
+interface InputFieldProps {
   label: string;
   register: any;
   type?: string;
   placeholder: string;
   error?: string | undefined;
+}
+
+const InputField: React.FC<InputFieldProps> = ({
+  label,
+  register,
+  type = "text",
+  placeholder,
+  error,
 }) => {
   return (
-    <div className="mb-4">
-      <label className="block text-gray-700 text-sm font-bold mb-2">
+    <div className="mb-6">
+      <label className="block text-textPrimary text-sm font-semibold mb-2">
         {label}
       </label>
       <input
         {...register}
         type={type}
         placeholder={placeholder}
-        className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
-          error ? "border-red-500" : ""
+        className={`shadow-sm appearance-none border rounded-btn-lg w-full py-3 px-4 text-textPrimary leading-tight focus:outline-none focus:ring-2 ${
+          error
+            ? "border-red-500 focus:ring-red-500"
+            : "border-gray-300 focus:ring-primary"
         }`}
       />
-      {/* Reserve space for the error message */}
-      <p className="text-red-500 text-xs italic h-4">{error ?? ""}</p>
+      {/* Error Message */}
+      <p className="text-red-500 text-xs italic mt-2">{error ?? ""}</p>
     </div>
   );
 };
