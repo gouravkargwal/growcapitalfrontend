@@ -1,7 +1,7 @@
 "use client";
-import { useState } from "react";
+
 import Sidebar from "@/Components/Dashboard/sidebar";
-import useAuthGuard from "@/hook/useAuthGuard";
+import { useState } from "react";
 
 export default function RootLayout({
   children,
@@ -9,15 +9,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
-  const { user, loading } = useAuthGuard();
   const toggleSidebar = () => setSidebarOpen(!isSidebarOpen);
   const closeSidebar = () => setSidebarOpen(false);
-  if (loading) {
-    return <h1>Loading...</h1>;
-  }
-  if (!user) {
-    return null;
-  }
+  // const { user, loading } = useAuthGuard();
+  // if (loading) {
+  //   return <h1>Loading...</h1>;
+  // }
+  // if (!user) {
+  //   return null;
+  // }
   return (
     <div className="min-h-screen flex flex-row">
       {/* Sidebar for Desktop */}

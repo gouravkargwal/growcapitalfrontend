@@ -1,10 +1,20 @@
 "use client";
 
+import { Suspense, useEffect, useState } from "react";
+
 import axiosInstance from "@/lib/axiosInstance";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
 
 const TelegramSetupPage = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <TelegramSetupContent />
+    </Suspense>
+  );
+};
+
+
+const TelegramSetupContent = () => {
   const searchParams = useSearchParams();
   const providerId = searchParams.get("providerId");
   const [loading, setLoading] = useState(false);

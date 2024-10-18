@@ -1,24 +1,25 @@
 import * as yup from "yup";
 
-import { useEffect, useState } from "react";
+import {
+  LanguageState,
+  fetchLanguages,
+} from "@/Feature/Language/languageSlice";
 
 import FormButton from "../UI/FormButton";
 import GoogleAuthentication from "./GoogleAuthentication";
+import Image from "next/image";
 import InputField from "../UI/InputField";
 import Link from "next/link";
 import { RootState } from "@/Store/store";
-import {
-  fetchLanguages,
-  LanguageState,
-} from "@/Feature/Language/languageSlice";
 import { signupUser } from "@/Feature/Auth/authSlice";
 import { useAppDispatch } from "@/hook/useAppDispatch";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
 import { yupResolver } from "@hookform/resolvers/yup";
-import Image from "next/image";
 
+// Validation schema
 const passwordStrength = yup
   .string()
   .required("Password is required")
@@ -36,15 +37,19 @@ const formSchema = yup.object().shape({
   password: passwordStrength,
   firstName: yup.string().required("First name is required"),
   lastName: yup.string().required("Last name is required"),
-  languageId: yup.number().required("Language selection is required"),
+  languageId: yup
+    .number()
+    .typeError("languageId must be a number")
+    .transform((value) => (isNaN(value) ? undefined : value))
+    .required("Language selection is required"),
   referralCode: yup.string().optional(),
 });
 
 type UserFormValue = yup.InferType<typeof formSchema>;
 
 const SignupForm = ({ referralCode }: { referralCode: string | undefined }) => {
-  const router = useRouter();
   const dispatch = useAppDispatch();
+  const router = useRouter();
   const { signupLoading } = useSelector((state: RootState) => state.auth);
   const { loading: languageLoading, data: languages } = useSelector<
     RootState,
@@ -78,27 +83,26 @@ const SignupForm = ({ referralCode }: { referralCode: string | undefined }) => {
       })
     );
     if (signupUser.fulfilled.match(resultAction)) {
-      // await sendEmailVerification(userCredential.user);
       router.push("/emailverification");
     }
   };
 
   return (
-    <div className="min-h-screen flex flex-col md:flex-row bg-gray-100">
+    <div className="min-h-screen flex flex-col md:flex-row bg-gray-50">
       {/* Image Section */}
-      <div className="hidden md:flex w-full md:w-1/2 bg-gray-900 text-white items-center justify-center">
+      <div className="hidden md:flex w-full md:w-1/2 bg-gradient-to-r from-primary to-blue-600 text-white items-center justify-center">
         <div className="text-center p-8">
           <Image
             src="https://via.placeholder.com/600x300"
-            alt="Dashboard Overview"
+            alt="Sign Up Preview"
             width={600}
             height={300}
-            className="w-full h-auto mb-4 rounded-lg"
+            className="w-full h-auto mb-4 rounded-lg shadow-lg"
           />
 
-          <div className="bg-black p-8 rounded-lg">
-            <h2 className="text-4xl font-semibold text-white mb-4">Join Us!</h2>
-            <p className="text-lg text-gray-300 mb-6">
+          <div className="bg-black bg-opacity-30 p-6 rounded-lg shadow-md backdrop-blur-md">
+            <h2 className="text-3xl font-semibold text-white mb-2">Join Us!</h2>
+            <p className="text-sm text-gray-100 mb-4">
               Start your journey with our platform and explore new
               opportunities.
             </p>
@@ -107,12 +111,14 @@ const SignupForm = ({ referralCode }: { referralCode: string | undefined }) => {
       </div>
 
       {/* Form Section */}
-      <div className="w-full h-screen md:w-1/2 flex justify-center items-center h-full">
-        <div className="max-w-md w-full p-6 sm:p-8 rounded-lg shadow-lg bg-white">
-          <h2 className="text-2xl font-semibold text-center">Sign Up</h2>
+      <div className="w-full h-screen md:w-1/2 flex justify-center items-center bg-white">
+        <div className="max-w-md w-full p-6 sm:p-6 rounded-lg shadow-lg border border-gray-200">
+          <h2 className="text-3xl font-bold text-primary mb-4 text-center">
+            Sign Up
+          </h2>
           <form onSubmit={handleSubmit(onSubmit)}>
-            {/* First Name and Last Name in One Line */}
-            <div className="flex space-x-4">
+            {/* First Name and Last Name */}
+            <div className="grid grid-cols-2 gap-3">
               <InputField
                 label="First Name"
                 type="text"
@@ -135,7 +141,7 @@ const SignupForm = ({ referralCode }: { referralCode: string | undefined }) => {
               type="email"
               register={register("email")}
               error={errors.email?.message}
-              placeholder="Email"
+              placeholder="yourname@gmail.com"
             />
 
             {/* Password */}
@@ -144,55 +150,86 @@ const SignupForm = ({ referralCode }: { referralCode: string | undefined }) => {
               type="password"
               register={register("password")}
               error={errors.password?.message}
-              placeholder="Password"
+              placeholder="********"
             />
 
-            {/* Language Selection */}
-            <div className="flex space-x-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700">
+            {/* Language Selection and Referral Code */}
+            <div className="grid grid-cols-2 gap-3 mt-2">
+              {/* Language Selection */}
+              <div className="mb-6">
+                <label className="block text-textPrimary text-sm font-semibold mb-2">
                   Language
                 </label>
-                <select
-                  {...register("languageId")}
-                  className="w-full mt-1 p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  disabled={languageLoading}
-                >
-                  <option value="">Select Language</option>
-                  {languageLoading ? (
-                    <option disabled>Loading languages...</option>
-                  ) : (
-                    languages?.map((lang) => (
-                      <option key={lang.languageId} value={lang.languageId}>
-                        {lang.languageName}
-                      </option>
-                    ))
-                  )}
-                </select>
-                <p className="text-red-600 text-sm mt-1 m-2">
-                  {errors.languageId?.message}
+                <div className="relative">
+                  <select
+                    {...register("languageId")}
+                    className={`shadow-sm appearance-none border rounded-btn-lg w-full py-3 px-4 text-textPrimary leading-tight focus:outline-none focus:ring-2 ${
+                      errors.languageId
+                        ? "border-red-500 focus:ring-red-500"
+                        : "border-gray-300 focus:ring-primary"
+                    }`}
+                    disabled={languageLoading}
+                  >
+                    <option value="">Select Language</option>
+                    {languageLoading ? (
+                      <option disabled>Loading languages...</option>
+                    ) : (
+                      languages?.map((lang) => (
+                        <option key={lang.languageId} value={lang.languageId}>
+                          {lang.languageName}
+                        </option>
+                      ))
+                    )}
+                  </select>
+                  <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                    {/* Improved Dropdown Arrow */}
+                    <svg
+                      className="w-5 h-5 text-gray-500"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M19 9l-7 7-7-7"
+                      />
+                    </svg>
+                  </div>
+                </div>
+                {/* Error Message */}
+                <p className="text-red-500 text-xs italic mt-2">
+                  {errors.languageId?.message ?? ""}
                 </p>
               </div>
-              <InputField
-                label="Referral Code (optional)"
-                type="text"
-                register={register("referralCode")}
-                error={errors.referralCode?.message}
-                placeholder="Enter referral code"
-              />
+
+              {/* Referral Code */}
+              <div className="flex flex-col">
+                <InputField
+                  label="Referral Code (optional)"
+                  type="text"
+                  register={register("referralCode")}
+                  error={errors.referralCode?.message}
+                  placeholder="Referral code"
+                />
+              </div>
             </div>
 
             {/* Submit Button */}
             <FormButton label="Continue" loading={signupLoading} />
 
-            <p className="text-center text-gray-600 mt-4">
+            <p className="text-center text-gray-600 text-sm mt-3">
               Already have an account?{" "}
-              <Link href="signin" className="text-green-500">
+              <Link href="signin" className="text-accent hover:underline">
                 Login
               </Link>
             </p>
           </form>
-          <GoogleAuthentication />
+          <div className="mt-4">
+            <GoogleAuthentication />
+          </div>
         </div>
       </div>
     </div>

@@ -1,13 +1,14 @@
 "use client";
-import React from "react";
-import PricingSection from "../Components/Home/Pricing";
-import Faqs from "../Components/Home/Faqs";
-import Trial from "../Components/Home/Trial";
+
+import Faqs from "@/Components/Home/Faqs";
+import Features from "@/Components/Home/Features";
 import Footer from "../Components/Header/Footer";
 import Hero from "@/Components/Home/Hero";
+import PricingSection from "@/Components/Home/Pricing";
 import PublicNavbar from "../Components/Header/PublicNavbar";
-import Features from "@/Components/Home/Features";
+import React from "react";
 import Reviews from "@/Components/Home/Reviews";
+import Trial from "@/Components/Home/Trial";
 
 const Home: React.FC = () => {
   return (
