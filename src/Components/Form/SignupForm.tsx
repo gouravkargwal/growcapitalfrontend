@@ -112,10 +112,19 @@ const SignupForm = ({ referralCode }: { referralCode: string | undefined }) => {
 
       {/* Form Section */}
       <div className="w-full h-screen md:w-1/2 flex justify-center items-center bg-white">
-        <div className="max-w-md w-full p-6 sm:p-6 rounded-lg shadow-lg border border-gray-200">
-          <h2 className="text-3xl font-bold text-primary mb-4 text-center">
+        <div className="max-w-md w-full p-6 sm:p-6 rounded-none md:rounded-lg shadow-none md:shadow-lg md:border md:border-gray-200">
+          {/* Back button */}
+          <button
+            className="mb-4 text-primary hover:text-primary-dark"
+            onClick={() => router.push("/")}
+          >
+            ← Back
+          </button>
+
+          <h2 className="text-3xl font-bold text-primary mb-4 text-left md:text-center">
             Sign Up
           </h2>
+
           <form onSubmit={handleSubmit(onSubmit)}>
             {/* First Name and Last Name */}
             <div className="grid grid-cols-2 gap-3">

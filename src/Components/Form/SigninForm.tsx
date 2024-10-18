@@ -1,18 +1,20 @@
 import * as yup from "yup";
-import { useForm } from "react-hook-form";
-import { auth } from "@/lib/firebase";
-import { useRouter } from "next/navigation";
-import { yupResolver } from "@hookform/resolvers/yup";
-import Link from "next/link";
-import InputField from "../UI/InputField";
+
 import FormButton from "../UI/FormButton";
+import GoogleAuthentication from "./GoogleAuthentication";
+import Image from "next/image";
+import InputField from "../UI/InputField";
+import Link from "next/link";
+import { RootState } from "@/Store/store";
+import { auth } from "@/lib/firebase";
 import { signInUser } from "@/Feature/Auth/authSlice";
 import { useAppDispatch } from "@/hook/useAppDispatch";
-import GoogleAuthentication from "./GoogleAuthentication";
+import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
-import { RootState } from "@/Store/store";
-import Image from "next/image";
+import { yupResolver } from "@hookform/resolvers/yup";
 
+// Validation schema
 const passwordStrength = yup
   .string()
   .required("Password is required")
@@ -86,8 +88,14 @@ const SigninForm = () => {
 
       {/* Form Section */}
       <div className="w-full h-screen md:w-1/2 flex justify-center items-center bg-white">
-        <div className="max-w-md w-full p-6 sm:p-8 rounded-lg shadow-lg border border-gray-200">
-          <h2 className="text-4xl font-extrabold text-primary mb-6 text-center">
+        <div className="max-w-md w-full p-6 sm:p-8 rounded-none md:rounded-lg shadow-none md:shadow-lg md:border md:border-gray-200">
+          <button
+            className="mb-4 text-primary hover:text-primary-dark"
+            onClick={() => router.push("/")}
+          >
+            ← Back
+          </button>
+          <h2 className="text-4xl font-extrabold text-primary mb-6 md:text-center text-left">
             Sign in
           </h2>
           <form onSubmit={handleSubmit(onSubmit)}>
