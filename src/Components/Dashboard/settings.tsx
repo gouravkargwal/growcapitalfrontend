@@ -1,9 +1,9 @@
 "use client";
-import React from "react";
-import { useRouter } from "next/navigation";
 
 import Languages from "./Languages";
 import NotificationFilter from "./NotificationFilter";
+import React from "react";
+import { useRouter } from "next/navigation";
 
 const Settings: React.FC = () => {
   const router = useRouter();

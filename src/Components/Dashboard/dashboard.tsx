@@ -4,7 +4,7 @@ import Footer from "../Header/Footer";
 import NewsCard from "../UI/NewsCard";
 import React from "react";
 import Settings from "./settings";
-import StocksList from "./stocks-list";
+import StocksList from "./StocksList"
 
 const Dashboard = () => {
   const cards = [

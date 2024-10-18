@@ -1,11 +1,13 @@
 "use client";
+
+import React, { useState } from "react";
 import {
   fetchUserNewsTypes,
   updateUserNewsTypes,
 } from "@/Feature/News/newsSlice";
-import { useAppDispatch } from "@/hook/useAppDispatch";
+
 import { RootState } from "@/Store/store";
-import React, { useState } from "react";
+import { useAppDispatch } from "@/hook/useAppDispatch";
 import { useSelector } from "react-redux";
 
 const NotificationFilter = () => {
@@ -15,6 +17,7 @@ const NotificationFilter = () => {
   );
   const [isAccordionOpen, setIsAccordionOpen] = useState(false);
 
+  // Handle accordion toggle and fetch data if opening for the first time
   const toggleAccordion = () => {
     if (!loading && !updateLoading && !isAccordionOpen) {
       dispatch(fetchUserNewsTypes());
@@ -22,6 +25,7 @@ const NotificationFilter = () => {
     setIsAccordionOpen(!isAccordionOpen); // Toggle accordion state
   };
 
+  // Handle toggling the subscription for a specific news type
   const toggleSubscription = async (
     newsTypeId: number,
     isSubscribed: boolean
@@ -32,18 +36,18 @@ const NotificationFilter = () => {
   };
 
   return (
-    <div className="mb-2">
+    <div className="mb-4">
       <div className="flex flex-row justify-between items-center">
         <div className="flex flex-col">
           <h2 className="text-xl font-bold">Notification Filters</h2>
           <p className="text-sm text-gray-400 mb-4">
             Control the type of updates you receive on WhatsApp. Disable updates
-            based on categories like technical analysis etc.
+            based on categories like technical analysis, news updates, etc.
           </p>
         </div>
         <button
           onClick={toggleAccordion}
-          className={`text-blue-400 border border-blue-500 rounded-2xl px-4 py-1 hover:text-white hover:bg-blue-500 ${
+          className={`text-blue-500 border border-blue-500 rounded-2xl px-4 py-1 hover:text-white hover:bg-blue-500 transition-colors ${
             loading || updateLoading ? "cursor-not-allowed opacity-50" : ""
           }`}
           disabled={loading || updateLoading}
@@ -51,19 +55,18 @@ const NotificationFilter = () => {
           {isAccordionOpen ? "Close" : "Open"}
         </button>
       </div>
+
+      {/* Loading State for Skeleton Loader */}
       {loading ? (
-        // Proper Skeleton Loading UI
         <div className="bg-gray-100 p-4 rounded-lg mt-2">
           <h3 className="text-lg font-semibold mb-4">Loading...</h3>
           <div className="flex flex-col gap-3">
-            {[1, 2, 3, 4, 5, 6].map((_, index) => (
+            {[1, 2, 3].map((_, index) => (
               <div
                 key={index}
                 className="animate-pulse flex items-center justify-between"
               >
-                <div className="flex-1">
-                  <div className="h-8 bg-gray-300 rounded w-3/4 mb-2"></div>
-                </div>
+                <div className="h-8 bg-gray-300 rounded-lg w-3/4"></div>
                 <div className="w-10 h-8 bg-gray-300 rounded-lg"></div>
               </div>
             ))}
@@ -71,42 +74,54 @@ const NotificationFilter = () => {
         </div>
       ) : (
         isAccordionOpen && (
-          <div className="bg-gray-100 p-4 rounded-lg mt-2">
+          <div
+            className="bg-gray-100 p-4 rounded-lg mt-2 transition-all duration-300 ease-in-out"
+            style={{ maxHeight: isAccordionOpen ? "1000px" : "0px" }}
+          >
             <h3 className="text-lg font-semibold mb-4">
               Select Notification Provider
             </h3>
-            <div className="flex flex-col gap-3">
-              {data.map((newsType) => (
-                <label
-                  key={newsType?.newsTypeId}
-                  className={`flex items-center justify-between p-2 rounded-lg ${
-                    !newsType?.isEligible
-                      ? "bg-gray-200 text-gray-400 cursor-not-allowed"
-                      : updateLoading
-                      ? "bg-yellow-100"
-                      : "bg-white"
-                  }`}
-                >
-                  <span>{newsType?.newsTypeName}</span>
-                  <input
-                    type="checkbox"
-                    className={`toggle-switch ${
-                      !newsType?.isEligible || updateLoading
-                        ? "cursor-not-allowed opacity-50"
-                        : ""
+
+            {/* Show feedback if no data is available */}
+            {data?.length === 0 ? (
+              <p className="text-gray-500">No notification types available.</p>
+            ) : (
+              <div className="flex flex-col gap-3">
+                {data.map((newsType) => (
+                  <label
+                    key={newsType.newsTypeId}
+                    className={`flex items-center justify-between p-3 rounded-lg transition-colors ${
+                      !newsType.isEligible
+                        ? "bg-gray-200 text-gray-400 cursor-not-allowed"
+                        : updateLoading
+                        ? "bg-yellow-100"
+                        : "bg-white hover:bg-blue-50"
                     }`}
-                    checked={newsType?.isSubscribed}
-                    disabled={!newsType?.isEligible || updateLoading} // Disable if not eligible or during update
-                    onChange={() =>
-                      toggleSubscription(
-                        newsType?.newsTypeId,
-                        !newsType?.isSubscribed
-                      )
-                    }
-                  />
-                </label>
-              ))}
-            </div>
+                  >
+                    <span>{newsType.newsTypeName}</span>
+                    <input
+                      type="checkbox"
+                      className="toggle-checkbox h-5 w-5 cursor-pointer"
+                      checked={newsType.isSubscribed}
+                      disabled={!newsType.isEligible || updateLoading}
+                      onChange={() =>
+                        toggleSubscription(
+                          newsType.newsTypeId,
+                          !newsType.isSubscribed
+                        )
+                      }
+                    />
+                  </label>
+                ))}
+              </div>
+            )}
+
+            {/* Loading state during update */}
+            {updateLoading && (
+              <p className="text-yellow-500 text-sm mt-2">
+                Updating your preferences...
+              </p>
+            )}
           </div>
         )
       )}
