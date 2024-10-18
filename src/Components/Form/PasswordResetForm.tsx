@@ -116,11 +116,7 @@ const PasswordResetForm = () => {
             </button>
           </div>
 
-          <FormButton
-            label="Reset Password"
-            loading={loading}
-            className="w-full bg-primary hover:bg-accent text-white py-3 rounded-btn-lg shadow-btn-shadow transition-all duration-300 ease-in-out"
-          />
+          <FormButton label="Reset Password" loading={loading} />
         </form>
       </div>
     </div>
