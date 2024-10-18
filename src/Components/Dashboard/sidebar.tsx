@@ -1,54 +1,69 @@
 "use client";
-import React from "react";
-import { IoMdHelpCircleOutline } from "react-icons/io";
-import { CiLogout } from "react-icons/ci";
-import avatar from "../../../assets/avatar.jpg";
-import Image from "next/image";
-import { useRouter, usePathname } from "next/navigation";
-import { PiLineVerticalBold } from "react-icons/pi";
-import { signOut } from "firebase/auth";
-import { auth } from "@/lib/firebase";
 
-const Sidebar = ({ closeSidebar }: { closeSidebar: () => void }) => {
+import { CiLogout } from "react-icons/ci";
+import Image from "next/image";
+import { IoMdHelpCircleOutline } from "react-icons/io";
+import React from "react";
+import { auth } from "@/lib/firebase";
+import avatar from "../../../assets/avatar.jpg";
+import { signOut } from "firebase/auth";
+import { useRouter } from "next/navigation";
+
+const Sidebar = ({
+  closeSidebar,
+  onTabSelect,
+  selectedTab,
+}: {
+  closeSidebar: () => void;
+  onTabSelect: (tab: string) => void;
+  selectedTab: string; // New prop for the selected tab
+}) => {
   const router = useRouter();
-  const pathname = usePathname();
+
+  // Helper function to check if a tab is active
+  const isActive = (tabName: string) => selectedTab === tabName;
 
   const goToDashboard = () => {
+    onTabSelect("Home"); // Pass the tab name when a tab is clicked
     router.push("/dashboard");
     closeSidebar();
   };
 
   const goToReferAndEarn = () => {
+    onTabSelect("Refer And Earn");
     router.push("/referAndEarn");
     closeSidebar();
   };
 
   const goToSubscription = () => {
+    onTabSelect("Subscriptions");
     router.push("/subscriptions");
     closeSidebar();
   };
 
   const goToYourtimeline = () => {
+    onTabSelect("Your Timeline");
     router.push("/yourtimeline");
     closeSidebar();
   };
 
   const goToProfileSettings = () => {
+    onTabSelect("Profile Settings");
     router.push("/profileSettings");
     closeSidebar();
   };
 
   const goToProviders = () => {
+    onTabSelect("Notification Provider Config");
     router.push("/providers");
     closeSidebar();
   };
 
   const goToStocksTracked = () => {
+    onTabSelect("Stocks Tracked");
     router.push("/addStocks");
     closeSidebar();
   };
-
-  const isActive = (path: string) => pathname === path;
 
   return (
     <div className="w-full h-full p-4 bg-white">
@@ -71,122 +86,108 @@ const Sidebar = ({ closeSidebar }: { closeSidebar: () => void }) => {
         </div>
       </div>
 
-      <div>
-        <ul className="space-y-2">
-          <li>
-            <button
-              className={`w-full text-left p-2 flex items-center transition-all duration-300 ease-in-out ${
-                isActive("/dashboard")
-                  ? "bg-blue-500 text-white"
-                  : "hover:bg-gray-200"
-              } rounded-lg`}
-              onClick={goToDashboard}
-            >
-              {isActive("/dashboard") && <PiLineVerticalBold />}
-              Home
-            </button>
-          </li>
-          <li>
-            <button
-              className={`w-full text-left p-2 flex items-center transition-all duration-300 ease-in-out ${
-                isActive("/yourtimeline")
-                  ? "bg-blue-500 text-white"
-                  : "hover:bg-gray-200"
-              } rounded-lg`}
-              onClick={goToYourtimeline}
-            >
-              {isActive("/yourtimeline") && <PiLineVerticalBold />}
-              Your Timeline
-            </button>
-          </li>
-          <li>
-            <button
-              className={`w-full text-left p-2 flex items-center transition-all duration-300 ease-in-out ${
-                isActive("/referAndEarn")
-                  ? "bg-blue-500 text-white"
-                  : "hover:bg-gray-200"
-              } rounded-lg`}
-              onClick={goToReferAndEarn}
-            >
-              {isActive("/referAndEarn") && <PiLineVerticalBold />}
-              Refer And Earn
-            </button>
-          </li>
-          <li>
-            <button
-              className={`w-full text-left p-2 flex items-center transition-all duration-300 ease-in-out ${
-                isActive("/subscriptions")
-                  ? "bg-blue-500 text-white"
-                  : "hover:bg-gray-200"
-              } rounded-lg`}
-              onClick={goToSubscription}
-            >
-              {isActive("/subscriptions") && <PiLineVerticalBold />}
-              Subscriptions
-            </button>
-
-            <li>
-              <button
-                className={`w-full text-left p-2 flex items-center transition-all duration-300 ease-in-out ${
-                  isActive("/profileSettings")
-                    ? "bg-blue-500 text-white"
-                    : "hover:bg-gray-200"
-                } rounded-lg`}
-                onClick={goToProfileSettings}
-              >
-                {isActive("/profileSettings") && <PiLineVerticalBold />}
-                Profile Settings
-              </button>
-            </li>
-
-            <li>
-              <button
-                className={`w-full text-left p-2 flex items-center transition-all duration-300 ease-in-out ${
-                  isActive("/providers")
-                    ? "bg-blue-500 text-white"
-                    : "hover:bg-gray-200"
-                } rounded-lg`}
-                onClick={goToProviders}
-              >
-                {isActive("/providers") && <PiLineVerticalBold />}
-                Notification Provider Config
-              </button>
-            </li>
-
-            <li>
-              <button
-                className={`w-full text-left p-2 flex items-center transition-all duration-300 ease-in-out ${
-                  isActive("/addStocks")
-                    ? "bg-blue-500 text-white"
-                    : "hover:bg-gray-200"
-                } rounded-lg`}
-                onClick={goToStocksTracked}
-              >
-                {isActive("/addStocks") && <PiLineVerticalBold />}
-                Stocks Tracked
-              </button>
-            </li>
-          </li>
-        </ul>
-      </div>
+      <ul className="space-y-2">
+        <li>
+          <button
+            className={`w-full text-left p-2 flex items-center transition-all duration-300 ease-in-out rounded-lg ${
+              isActive("Home") ? "bg-blue-500 text-white" : "hover:bg-gray-200"
+            }`}
+            onClick={goToDashboard}
+          >
+            Home
+          </button>
+        </li>
+        <li>
+          <button
+            className={`w-full text-left p-2 flex items-center transition-all duration-300 ease-in-out rounded-lg ${
+              isActive("Your Timeline")
+                ? "bg-blue-500 text-white"
+                : "hover:bg-gray-200"
+            }`}
+            onClick={goToYourtimeline}
+          >
+            Your Timeline
+          </button>
+        </li>
+        <li>
+          <button
+            className={`w-full text-left p-2 flex items-center transition-all duration-300 ease-in-out rounded-lg ${
+              isActive("Refer And Earn")
+                ? "bg-blue-500 text-white"
+                : "hover:bg-gray-200"
+            }`}
+            onClick={goToReferAndEarn}
+          >
+            Refer And Earn
+          </button>
+        </li>
+        <li>
+          <button
+            className={`w-full text-left p-2 flex items-center transition-all duration-300 ease-in-out rounded-lg ${
+              isActive("Subscriptions")
+                ? "bg-blue-500 text-white"
+                : "hover:bg-gray-200"
+            }`}
+            onClick={goToSubscription}
+          >
+            Subscriptions
+          </button>
+        </li>
+        <li>
+          <button
+            className={`w-full text-left p-2 flex items-center transition-all duration-300 ease-in-out rounded-lg ${
+              isActive("Profile Settings")
+                ? "bg-blue-500 text-white"
+                : "hover:bg-gray-200"
+            }`}
+            onClick={goToProfileSettings}
+          >
+            Profile Settings
+          </button>
+        </li>
+        <li>
+          <button
+            className={`w-full text-left p-2 flex items-center transition-all duration-300 ease-in-out rounded-lg ${
+              isActive("Notification Provider Config")
+                ? "bg-blue-500 text-white"
+                : "hover:bg-gray-200"
+            }`}
+            onClick={goToProviders}
+          >
+            Notification Provider Config
+          </button>
+        </li>
+        <li>
+          <button
+            className={`w-full text-left p-2 flex items-center transition-all duration-300 ease-in-out rounded-lg ${
+              isActive("Stocks Tracked")
+                ? "bg-blue-500 text-white"
+                : "hover:bg-gray-200"
+            }`}
+            onClick={goToStocksTracked}
+          >
+            Stocks Tracked
+          </button>
+        </li>
+      </ul>
 
       <div className="mt-auto">
         <ul className="space-y-2">
-          <li className="flex-row flex items-center">
-            <IoMdHelpCircleOutline />
-            <button className="w-full text-left p-2 hover:bg-gray-200 rounded-lg transition-all duration-300 ease-in-out">
+          <li>
+            <button className="w-full text-left p-2 hover:bg-gray-200 rounded-lg transition-all duration-300 ease-in-out flex gap-2 items-center">
+              <IoMdHelpCircleOutline/>
               Help Center
             </button>
           </li>
-          <li className="flex-row flex items-center">
-            <CiLogout />
+          <li>
             <button
-              className="w-full text-left p-2 hover:bg-gray-200 rounded-lg transition-all duration-300 ease-in-out"
+              className="w-full text-left p-2 hover:bg-gray-200 rounded-lg transition-all duration-300 ease-in-out flex gap-2 items-center"
               onClick={() => {
                 signOut(auth);
                 closeSidebar();
               }}
             >
+              <CiLogout />
               Logout
             </button>
           </li>
