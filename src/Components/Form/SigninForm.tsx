@@ -53,7 +53,7 @@ const SigninForm = () => {
       if (user?.emailVerified) {
         router.push("/dashboard");
       } else {
-        router.push("/emailVerification");
+        router.push("/emailverification");
       }
     } else {
       await auth.signOut();
