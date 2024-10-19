@@ -5,6 +5,48 @@ import { getAllNewsType, updateUserNewsTypesApi } from "./news.service";
 import { openSnackbar } from "../Snackbar/snackbarSlice";
 import { NewsTypeDto, UpdateNewsTypeDto } from "./news.dto";
 
+const dummyNews = [
+  {
+    imageSrc: "https://via.placeholder.com/150",
+    source: "Netflix",
+    timeAgo: "12 minutes ago",
+    title: "Where To Watch 'John Wick: Chapter 4'",
+    description: "Lionsgate's release details for John Wick: Chapter 4",
+    category: "Movies",
+    readTime: "4 min read",
+  },
+  {
+    imageSrc: "https://via.placeholder.com/150",
+    source: "HBO",
+    timeAgo: "1 hour ago",
+    title: "Game of Thrones Spin-Off: What We Know So Far",
+    description:
+      "HBO is planning to release multiple spin-offs of the hit show.",
+    category: "Entertainment",
+    readTime: "5 min read",
+  },
+  // Add more dummy data if needed
+];
+
+export const fetchNews = createAsyncThunk(
+  "news/fetchNews",
+  async (page: number) => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        const hasMore = page < 5; // Let's assume we have 5 pages of dummy data
+        resolve({ dummyNews, hasMore });
+      }, 1000); // Simulate network delay
+    });
+  }
+);
+
+interface TimelineData {
+  news: Array<any>;
+  loading: boolean;
+  hasMore: boolean;
+  currentPage: number;
+}
+
 export const fetchUserNewsTypes = createAsyncThunk(
   "news/fetchUserNewsTypes",
   async (_, { rejectWithValue, dispatch }) => {
@@ -42,16 +84,24 @@ export const updateUserNewsTypes = createAsyncThunk(
   }
 );
 
-type NewsState = {
+export type NewsState = {
   data: NewsTypeDto[];
   loading: boolean;
   updateLoading: boolean;
+  timelineData: TimelineData[];
+  timelineDataLoading: boolean;
+  hasMore: boolean;
+  currentPage: number;
 };
 
 const initialState: NewsState = {
   data: [],
   loading: false,
   updateLoading: false,
+  timelineData: [],
+  timelineDataLoading: false,
+  hasMore: true,
+  currentPage: 1,
 };
 
 const newsSlice = createSlice({

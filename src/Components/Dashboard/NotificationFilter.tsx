@@ -61,7 +61,7 @@ const NotificationFilter = () => {
         <div className="bg-gray-100 p-4 rounded-lg mt-2">
           <h3 className="text-lg font-semibold mb-4">Loading...</h3>
           <div className="flex flex-col gap-3">
-            {[1, 2, 3].map((_, index) => (
+            {[1, 2, 3, 4].map((_, index) => (
               <div
                 key={index}
                 className="animate-pulse flex items-center justify-between"

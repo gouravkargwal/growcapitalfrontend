@@ -2,6 +2,7 @@
 
 import PrivateNavbar from "@/Components/Dashboard/PrivateNavbar";
 import Sidebar from "@/Components/Dashboard/Sidebar";
+import useAuthGuard from "@/hook/useAuthGuard";
 import { useState } from "react";
 
 export default function RootLayout({
@@ -20,6 +21,15 @@ export default function RootLayout({
     setSelectedTab(tabName);
     closeSidebar(); // Close sidebar after selecting a tab
   };
+
+  const { user, loading } = useAuthGuard();
+  if (loading) {
+    <h1>Loading...</h1>;
+  }
+
+  if (!user) {
+    return null;
+  }
 
   return (
     <div className="min-h-screen flex flex-row">

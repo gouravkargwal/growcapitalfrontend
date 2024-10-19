@@ -1,4 +1,4 @@
-import CardSkeleton from "./CardSkeleton";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 interface CardProps {
@@ -7,7 +7,7 @@ interface CardProps {
   label: string;
   color: string;
   borderColor: string;
-  isLoading?: boolean;
+  route: string;
 }
 
 const Card: React.FC<CardProps> = ({
@@ -16,12 +16,9 @@ const Card: React.FC<CardProps> = ({
   label,
   color,
   borderColor,
-  isLoading = true,
+  route,
 }) => {
-  if (isLoading) {
-    return <CardSkeleton />;
-  }
-
+  const router = useRouter();
   return (
     <div
       className="flex flex-col justify-between rounded-lg w-full sm:w-64 h-auto sm:h-36 border transition-shadow duration-300 ease-in-out hover:shadow-lg"
@@ -44,7 +41,12 @@ const Card: React.FC<CardProps> = ({
         className="flex justify-between items-center px-4 text-sm md:text-base my-2"
         style={{ color: borderColor }}
       >
-        <span className="font-semibold cursor-pointer hover:underline">
+        <span
+          className="font-semibold cursor-pointer hover:underline duration-300 ease-in-out transition-all"
+          onClick={() => {
+            router.push(route);
+          }}
+        >
           See Details
         </span>
         <span className="text-xl">→</span>

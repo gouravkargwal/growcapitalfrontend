@@ -1,60 +1,68 @@
-import React from 'react';
-import NewsCard from './newsCard';
+import React, { useEffect, useRef, useCallback } from "react";
+import NewsCard from "./TimelineNewsCard";
+import { useAppDispatch } from "@/hook/useAppDispatch";
+import { useSelector } from "react-redux";
+import { RootState } from "@/Store/store";
+import { fetchNews } from "@/Feature/News/newsSlice";
+
+// Skeleton Loader
+const NewsSkeleton: React.FC = () => (
+  <div className="animate-pulse bg-gray-200 p-4 rounded-lg shadow-md h-48">
+    <div className="bg-gray-300 h-32 w-full mb-4"></div>
+    <div className="h-4 bg-gray-300 mb-2"></div>
+    <div className="h-4 bg-gray-300 w-3/4"></div>
+  </div>
+);
 
 const NewsList: React.FC = () => {
-    const newsData = [
-        {
-            imageSrc: 'https://via.placeholder.com/150',
-            source: 'Netflix',
-            timeAgo: '12 minutes ago',
-            title: "Where To Watch 'John Wick: Chapter 4'",
-            description: "There's been no official announcement regarding John Wick-Chapter 4's streaming release. However, given it's a Lionsgate film, John Wick: Chapter 4 will eventually be released on Starz.",
-            category: 'Movies',
-            readTime: '4 min read',
-        },
-        {
-            imageSrc: 'https://via.placeholder.com/150',
-            source: 'HBO',
-            timeAgo: '1 hour ago',
-            title: "Game of Thrones Spin-Off: What We Know So Far",
-            description: "HBO is planning to release multiple spin-offs of the hit show Game of Thrones. Here's what we know about the upcoming series.",
-            category: 'Entertainment',
-            readTime: '5 min read',
-        },
-        {
-            imageSrc: 'https://via.placeholder.com/150',
-            source: 'CNN',
-            timeAgo: '3 hours ago',
-            title: "Stock Market Volatility: What Investors Should Know",
-            description: "The stock market has been highly volatile recently. Here's what investors should be doing to safeguard their portfolios.",
-            category: 'Finance',
-            readTime: '6 min read',
-        },
-        {
-            imageSrc: 'https://via.placeholder.com/150',
-            source: 'HBO',
-            timeAgo: '1 hour ago',
-            title: "Game of Thrones Spin-Off: What We Know So Far",
-            description: "HBO is planning to release multiple spin-offs of the hit show Game of Thrones. Here's what we know about the upcoming series.",
-            category: 'Entertainment',
-            readTime: '5 min read',
-        },
-        {
-            imageSrc: 'https://via.placeholder.com/150',
-            source: 'HBO',
-            timeAgo: '1 hour ago',
-            title: "Game of Thrones Spin-Off: What We Know So Far",
-            description: "HBO is planning to release multiple spin-offs of the hit show Game of Thrones. Here's what we know about the upcoming series.",
-            category: 'Entertainment',
-            readTime: '5 min read',
-        },
-    ];
+  const dispatch = useAppDispatch();
+  const { timelineData, timelineDataLoading, currentPage, hasMore } =
+    useSelector((state: RootState) => state.news);
+  const observer = useRef<IntersectionObserver | null>(null);
 
-    return (
-        <div className="container mx-auto p-4">
-            {newsData.map((newsItem, index) => (
-                <NewsCard
-                    key={index}
+  // Infinite Scroll Observer
+  const lastNewsElementRef = useCallback(
+    (node: HTMLElement | null) => {
+      if (timelineDataLoading) return;
+      if (observer.current) observer.current.disconnect();
+
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && hasMore) {
+          dispatch(fetchNews(currentPage)); // Fetch more news when the last item is visible
+        }
+      });
+      if (node) observer.current.observe(node);
+    },
+    [timelineDataLoading, hasMore, currentPage, dispatch]
+  );
+
+  useEffect(() => {
+    if (currentPage === 1) {
+      dispatch(fetchNews(1)); // Load initial data on mount
+    }
+  }, [dispatch, currentPage]);
+
+  return (
+    <section className="container mx-auto px-4 py-8">
+      {/* Heading */}
+      <h2 className="text-3xl font-bold text-gray-900 mb-6">Latest News</h2>
+
+      {/* Check if no data is available and not loading */}
+      {!timelineDataLoading && timelineData.length === 0 && (
+        <div className="text-center text-gray-500">
+          <p>No news available at the moment. Please check back later.</p>
+        </div>
+      )}
+
+      {/* News Grid */}
+      {timelineData.length > 0 && (
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {timelineData.map((newsItem, index) => {
+            if (timelineData.length === index + 1) {
+              // Attach the ref to the last news card for infinite scroll
+              return (
+                <div ref={lastNewsElementRef} key={index}>
+                  <NewsCard
                     imageSrc={newsItem.imageSrc}
                     source={newsItem.source}
                     timeAgo={newsItem.timeAgo}
@@ -62,10 +70,37 @@ const NewsList: React.FC = () => {
                     description={newsItem.description}
                     category={newsItem.category}
                     readTime={newsItem.readTime}
+                  />
+                </div>
+              );
+            } else {
+              return (
+                <NewsCard
+                  key={index}
+                  imageSrc={newsItem.imageSrc}
+                  source={newsItem.source}
+                  timeAgo={newsItem.timeAgo}
+                  title={newsItem.title}
+                  description={newsItem.description}
+                  category={newsItem.category}
+                  readTime={newsItem.readTime}
                 />
-            ))}
+              );
+            }
+          })}
         </div>
-    );
+      )}
+
+      {/* Display Skeletons while loading */}
+      {timelineDataLoading && (
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <NewsSkeleton />
+          <NewsSkeleton />
+          <NewsSkeleton />
+        </div>
+      )}
+    </section>
+  );
 };
 
 export default NewsList;

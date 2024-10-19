@@ -1,5 +1,5 @@
 "use client";
-import NewsList from "@/Components/timeline/maintimeline";
+import NewsList from "@/Components/Timeline/MainTimeline";
 import React from "react";
 
 const ReferAndEarnPage: React.FC = () => {
