@@ -25,27 +25,28 @@ const dummyNews = [
     category: "Entertainment",
     readTime: "5 min read",
   },
-  // Add more dummy data if needed
 ];
+export const fetchNews = createAsyncThunk<
+  { news: News[]; hasMore: boolean }, // Specify the return type here
+  number // Specify the argument type (page number)
+>("news/fetchNews", async (page: number) => {
+  return new Promise<{ news: News[]; hasMore: boolean }>((resolve) => {
+    setTimeout(() => {
+      const hasMore = page < 5; // Let's assume we have 5 pages of dummy data
+      resolve({ news: dummyNews, hasMore }); // Correct the return structure
+    }, 1000); // Simulate network delay
+  });
+});
 
-export const fetchNews = createAsyncThunk(
-  "news/fetchNews",
-  async (page: number) => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        const hasMore = page < 5; // Let's assume we have 5 pages of dummy data
-        resolve({ dummyNews, hasMore });
-      }, 1000); // Simulate network delay
-    });
-  }
-);
-
-interface TimelineData {
-  news: Array<any>;
-  loading: boolean;
-  hasMore: boolean;
-  currentPage: number;
-}
+type News = {
+  imageSrc: string; // URL or path to the image
+  source: string; // News source name
+  timeAgo: string; // How long ago the news was posted
+  title: string; // Title of the news article
+  description: string; // Brief description or summary of the article
+  category: string; // News category (e.g., Sports, Tech, etc.)
+  readTime: string; // Estimated reading time for the article
+};
 
 export const fetchUserNewsTypes = createAsyncThunk(
   "news/fetchUserNewsTypes",
@@ -88,7 +89,7 @@ export type NewsState = {
   data: NewsTypeDto[];
   loading: boolean;
   updateLoading: boolean;
-  timelineData: TimelineData[];
+  timelineData: News[];
   timelineDataLoading: boolean;
   hasMore: boolean;
   currentPage: number;

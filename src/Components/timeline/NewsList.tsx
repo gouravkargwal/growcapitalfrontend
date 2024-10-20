@@ -55,7 +55,7 @@ const NewsList: React.FC = () => {
       )}
 
       {/* News Grid */}
-      {timelineData.length > 0 && (
+      {timelineData && timelineData.length > 0 && (
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {timelineData.map((newsItem, index) => {
             if (timelineData.length === index + 1) {

@@ -38,15 +38,15 @@ const Subscriptions = () => {
     { date: "Jul 10, 2023", amount: "$20", status: "Paid" },
   ];
 
-  const handleUpgrade = () => {
+  const handleUpgrade = async () => {
     if (!selectedPlan) {
       dispatch(
         openSnackbar({ message: "Please select a plan.", severity: "warning" })
       );
       return;
     }
-    // Dispatch the upgradeUserPlan action with the selected plan, activationType, and duration
-    dispatch(
+
+    const result = await dispatch(
       upgradeUserPlan({
         userId: userPlan?.userId || "", // Assuming userPlan has userId
         planId: selectedPlan.planId,
@@ -54,21 +54,30 @@ const Subscriptions = () => {
         durationInMonths,
       })
     );
+    if (upgradeUserPlan.fulfilled.match(result)) {
+      setSelectedPlan(null); // Reset the plan selection
+      setDurationInMonths(1); // Reset duration
+      setActivationType("IMMEDIATE"); // Reset activation type
+    }
   };
 
   return (
     <div className="container mx-auto p-6">
-      <h1 className="text-2xl font-bold mb-6">Subscriptions</h1>
+      <h1 className="text-hero-title font-bold text-primary mb-6">
+        Subscriptions
+      </h1>
 
       {/* Current Plan */}
-      <div className="bg-white shadow-md rounded-lg p-6 mb-6">
-        <h2 className="text-xl font-semibold">Current Plan</h2>
-        <p className="text-gray-600">
+      <div className="bg-neutral shadow-md rounded-lg p-6 mb-8">
+        <h2 className="text-xl font-semibold text-textPrimary">Current Plan</h2>
+        <p className="text-textSecondary">
           You are currently subscribed to the{" "}
           <span className="font-bold">{userPlan?.plan?.planName}</span> plan.
         </p>
-        <p className="text-gray-600 mt-2">₹{userPlan?.plan?.planPrice}</p>
-        <p className="text-gray-600 mt-2">
+        <p className="text-textPrimary mt-2">
+          ₹{userPlan?.plan?.finalPrice ?? userPlan?.plan?.planPrice}
+        </p>
+        <p className="text-textSecondary mt-2">
           {userPlan?.endDate
             ? (() => {
                 const endDate = new Date(userPlan.endDate);
@@ -91,21 +100,39 @@ const Subscriptions = () => {
         </p>
       </div>
 
-      {/* Available Plans */}
-      <div className="bg-white shadow-md rounded-lg p-6 mb-6">
-        <h2 className="text-xl font-semibold">Upgrade or Downgrade</h2>
+      <div className="bg-neutral shadow-md rounded-lg p-6 mb-6">
+        <h2 className="text-xl font-semibold text-textPrimary">
+          Upgrade or Downgrade
+        </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
           {plans?.map((plan, index) => (
             <div
               key={index}
               className={`border border-gray-300 rounded-lg p-4 ${
-                selectedPlan?.planId === plan.planId ? "border-blue-500" : ""
+                selectedPlan?.planId === plan.planId ? "border-primary" : ""
               }`}
             >
-              <h3 className="text-lg font-bold">{plan?.planName}</h3>
-              <p className="text-gray-600 mt-2">₹{plan?.planPrice}</p>
+              <h3 className="text-lg font-bold text-textPrimary">
+                {plan?.planName}
+              </h3>
+
+              {/* Show finalPrice if available, otherwise show planPrice */}
+              {plan?.finalPrice ? (
+                <div>
+                  <p className="text-textSecondary mt-2 line-through">
+                    ₹{plan?.planPrice}
+                  </p>
+                  <p className="text-accent text-lg font-bold">
+                    ₹{plan?.finalPrice}{" "}
+                    <span className="text-sm text-accent">(Discounted)</span>
+                  </p>
+                </div>
+              ) : (
+                <p className="text-textPrimary mt-2">₹{plan?.planPrice}</p>
+              )}
+
               <button
-                className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition"
+                className="mt-4 px-4 py-2 bg-primary text-white rounded-btn-lg shadow-btn-shadow hover:bg-primary-light transition"
                 onClick={() => setSelectedPlan(plan)}
               >
                 {selectedPlan?.planId === plan.planId
@@ -119,8 +146,10 @@ const Subscriptions = () => {
         {/* Plan Options */}
         {selectedPlan && (
           <div className="mt-6">
-            <h3 className="text-lg font-semibold mb-2">Choose Duration</h3>
-            <label className="block mb-2 text-gray-600">
+            <h3 className="text-lg font-semibold mb-2 text-textPrimary">
+              Choose Duration
+            </h3>
+            <label className="block mb-2 text-textSecondary">
               Duration (in months):
             </label>
             <input
@@ -131,9 +160,11 @@ const Subscriptions = () => {
               min={1}
             />
 
-            <h3 className="text-lg font-semibold mt-6 mb-2">Activation Type</h3>
+            <h3 className="text-lg font-semibold mt-6 mb-2 text-textPrimary">
+              Activation Type
+            </h3>
             <div className="flex gap-4">
-              <label>
+              <label className="text-textPrimary">
                 <input
                   type="radio"
                   name="activationType"
@@ -144,7 +175,7 @@ const Subscriptions = () => {
                 />
                 Activate Immediately
               </label>
-              <label>
+              <label className="text-textPrimary">
                 <input
                   type="radio"
                   name="activationType"
@@ -158,7 +189,7 @@ const Subscriptions = () => {
             </div>
 
             <button
-              className="mt-4 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition"
+              className="mt-4 px-4 py-2 bg-accent text-white rounded-btn-lg shadow-btn-shadow hover:bg-accent-light transition"
               onClick={handleUpgrade}
             >
               Confirm Plan Upgrade
@@ -168,7 +199,7 @@ const Subscriptions = () => {
       </div>
 
       {/* Billing History */}
-      {/* <div className="bg-white shadow-md rounded-lg p-6">
+      {/* <div className="bg-neutral shadow-md rounded-lg p-6">
         <h2 className="text-xl font-semibold mb-4">Billing History</h2>
         <table className="min-w-full bg-white">
           <thead>

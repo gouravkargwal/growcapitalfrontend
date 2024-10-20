@@ -10,6 +10,7 @@ export interface Plan {
   planName: string;
   planPrice: number;
   stocksLimit: number;
+  finalPrice: number;
 }
 
 export interface PlanState {

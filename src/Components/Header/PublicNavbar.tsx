@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { FiMenu } from "react-icons/fi"; // Menu icon for mobile
 import { IoClose } from "react-icons/io5"; // Close icon for mobile
 import { motion, AnimatePresence } from "framer-motion"; // For animations
+import { useRouter } from "next/navigation";
 
 const Navbar = () => {
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -65,18 +67,22 @@ const Navbar = () => {
 
         {/* Desktop Buttons */}
         <div className="hidden lg:flex space-x-4">
-          <a
-            href="#"
+          <button
             className="px-6 py-2 border border-primary text-primary rounded-btn-lg font-semibold hover:bg-primary hover:text-white transition-all duration-300 transform hover:scale-105 shadow-btn-shadow"
+            onClick={() => {
+              router.push("/signin");
+            }}
           >
             Sign In
-          </a>
-          <a
-            href="#"
+          </button>
+          <button
             className="px-6 py-2 bg-primary text-white rounded-btn-lg font-semibold hover:bg-accent transition-all duration-300 transform hover:scale-105 shadow-btn-shadow"
+            onClick={() => {
+              router.push("/signup");
+            }}
           >
             Get Started
-          </a>
+          </button>
         </div>
 
         {/* Mobile Menu Icon */}
@@ -129,26 +135,30 @@ const Navbar = () => {
                 initial="hidden"
                 animate="visible"
               >
-                <a
-                  href="#"
+                <button
                   className="block px-6 py-2 border border-primary text-primary rounded-btn-lg font-semibold hover:bg-primary hover:text-white transition-all duration-300 transform hover:scale-105 shadow-btn-shadow"
-                  onClick={toggleMenu}
+                  onClick={() => {
+                    router.push("/signin");
+                    toggleMenu();
+                  }}
                 >
                   Sign In
-                </a>
+                </button>
               </motion.li>
               <motion.li
                 variants={linkVariants}
                 initial="hidden"
                 animate="visible"
               >
-                <a
-                  href="#"
+                <button
                   className="block px-6 py-2 bg-primary text-white rounded-btn-lg font-semibold hover:bg-accent transition-all duration-300 transform hover:scale-105 shadow-btn-shadow"
-                  onClick={toggleMenu}
+                  onClick={() => {
+                    router.push("/signin");
+                    toggleMenu();
+                  }}
                 >
                   Get Started
-                </a>
+                </button>
               </motion.li>
             </ul>
           </motion.div>
