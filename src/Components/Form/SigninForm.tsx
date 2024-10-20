@@ -52,6 +52,8 @@ const SigninForm = () => {
       const user = result.payload.user;
       if (user?.emailVerified) {
         router.push("/dashboard");
+      } else if (user?.forcePasswordChange) {
+        router.push("/forgotpassword");
       } else {
         router.push("/emailverification");
       }
