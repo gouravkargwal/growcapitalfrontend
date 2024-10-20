@@ -59,12 +59,6 @@ const Sidebar = ({
     closeSidebar();
   };
 
-  const goToStocksTracked = () => {
-    onTabSelect("Stocks Tracked");
-    router.push("/addStocks");
-    closeSidebar();
-  };
-
   return (
     <div className="w-full h-full p-4 bg-white">
       <h1 className="text-2xl font-bold mb-6 text-blue-700">Grow Capital</h1>
@@ -157,25 +151,13 @@ const Sidebar = ({
             Notification Provider Config
           </button>
         </li>
-        <li>
-          <button
-            className={`w-full text-left p-2 flex items-center transition-all duration-300 ease-in-out rounded-lg ${
-              isActive("Stocks Tracked")
-                ? "bg-blue-500 text-white"
-                : "hover:bg-gray-200"
-            }`}
-            onClick={goToStocksTracked}
-          >
-            Stocks Tracked
-          </button>
-        </li>
       </ul>
 
       <div className="mt-auto">
         <ul className="space-y-2">
           <li>
             <button className="w-full text-left p-2 hover:bg-gray-200 rounded-lg transition-all duration-300 ease-in-out flex gap-2 items-center">
-              <IoMdHelpCircleOutline/>
+              <IoMdHelpCircleOutline />
               Help Center
             </button>
           </li>

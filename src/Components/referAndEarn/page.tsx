@@ -2,6 +2,7 @@
 
 import { fetchReferrals } from "@/Feature/Refer/referSlice";
 import { fetchRewards } from "@/Feature/Reward/rewardSlice";
+import { openSnackbar } from "@/Feature/Snackbar/snackbarSlice";
 import { useAppDispatch } from "@/hook/useAppDispatch";
 import { RootState } from "@/Store/store";
 import React, { useEffect } from "react";
@@ -25,11 +26,21 @@ const ReferAndEarn: React.FC = () => {
 
   const handleCopy = () => {
     navigator.clipboard.writeText(referralLink);
-    alert("Referral link copied to clipboard!");
+    dispatch(
+      openSnackbar({
+        message: "Referral link copied to clipboard!",
+        severity: "success",
+      })
+    );
   };
 
   const handleClaimReward = (rewardId: string) => {
-    alert(`Claiming reward for reward ID: ${rewardId}`);
+    dispatch(
+      openSnackbar({
+        message: `Claiming reward for reward ID: ${rewardId}`,
+        severity: "success",
+      })
+    );
   };
 
   return (

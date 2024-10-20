@@ -5,6 +5,7 @@ import {
   PlanState,
   upgradeUserPlan,
 } from "@/Feature/Plan/planSlice";
+import { openSnackbar } from "@/Feature/Snackbar/snackbarSlice";
 import { fetchUserPlan, UserState } from "@/Feature/User/userSlice";
 import { useAppDispatch } from "@/hook/useAppDispatch";
 import { RootState } from "@/Store/store";
@@ -39,10 +40,11 @@ const Subscriptions = () => {
 
   const handleUpgrade = () => {
     if (!selectedPlan) {
-      alert("Please select a plan.");
+      dispatch(
+        openSnackbar({ message: "Please select a plan.", severity: "warning" })
+      );
       return;
     }
-
     // Dispatch the upgradeUserPlan action with the selected plan, activationType, and duration
     dispatch(
       upgradeUserPlan({
@@ -51,9 +53,6 @@ const Subscriptions = () => {
         activationType,
         durationInMonths,
       })
-    );
-    alert(
-      `Upgrading to ${selectedPlan.planName} for ${durationInMonths} month(s)`
     );
   };
 

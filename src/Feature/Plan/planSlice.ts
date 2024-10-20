@@ -3,6 +3,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getAllPlans, updateUserPlanApi } from "./plan.service";
 import { handleAxiosError } from "@/lib/apiError";
 import { fetchUserPlan } from "../User/userSlice";
+import { openSnackbar } from "../Snackbar/snackbarSlice";
 
 export interface Plan {
   planId: number;
@@ -49,6 +50,12 @@ export const upgradeUserPlan = createAsyncThunk(
   async (payload: PlanPayload, { rejectWithValue, dispatch }) => {
     try {
       const { data } = await updateUserPlanApi(payload);
+      dispatch(
+        openSnackbar({
+          message: "Plan upgraded successfully",
+          severity: "success",
+        })
+      );
       dispatch(fetchUserPlan());
       return data;
     } catch (error) {
@@ -72,7 +79,7 @@ const planSlice = createSlice({
         state.loading = false;
         state.data = action.payload || []; // Save the user data
       })
-      .addCase(fetchAllPlans.rejected, (state, action) => {
+      .addCase(fetchAllPlans.rejected, (state) => {
         state.loading = false;
       });
 
@@ -81,10 +88,10 @@ const planSlice = createSlice({
       .addCase(upgradeUserPlan.pending, (state) => {
         state.updateUserPlanLoading = true;
       })
-      .addCase(upgradeUserPlan.fulfilled, (state, action) => {
+      .addCase(upgradeUserPlan.fulfilled, (state) => {
         state.updateUserPlanLoading = false;
       })
-      .addCase(upgradeUserPlan.rejected, (state, action) => {
+      .addCase(upgradeUserPlan.rejected, (state) => {
         state.updateUserPlanLoading = false;
       });
   },

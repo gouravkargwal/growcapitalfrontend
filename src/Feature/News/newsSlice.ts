@@ -118,16 +118,16 @@ const newsSlice = createSlice({
         state.loading = false;
         state.data = action.payload || [];
       })
-      .addCase(fetchUserNewsTypes.rejected, (state, action) => {
+      .addCase(fetchUserNewsTypes.rejected, (state) => {
         state.loading = false;
       })
       .addCase(updateUserNewsTypes.pending, (state) => {
         state.updateLoading = true;
       })
-      .addCase(updateUserNewsTypes.fulfilled, (state, action) => {
+      .addCase(updateUserNewsTypes.fulfilled, (state) => {
         state.updateLoading = false;
       })
-      .addCase(updateUserNewsTypes.rejected, (state, action) => {
+      .addCase(updateUserNewsTypes.rejected, (state) => {
         state.updateLoading = false;
       });
   },

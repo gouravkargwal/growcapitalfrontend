@@ -34,7 +34,7 @@ const EmailVerification = () => {
           }
         } catch (error: any) {
           console.error("Error verifying email", error);
-          dispatch(openSnackbar({ message: error.message, status: "error" }));
+          dispatch(openSnackbar({ message: error.message, severity: "error" }));
           setVerificationStatus("not_verified"); // Set status to not verified
         }
       }
@@ -49,7 +49,12 @@ const EmailVerification = () => {
       const user = auth.currentUser;
       if (user) {
         await sendEmailVerification(user);
-        alert("Verification email sent. Please check your inbox."); // Notify user
+        dispatch(
+          openSnackbar({
+            message: "Verification email sent. Please check your inbox.",
+            severity: "success",
+          })
+        );
       }
     } catch (error: any) {
       console.error("Error resending email verification", error);

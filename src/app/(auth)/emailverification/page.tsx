@@ -29,11 +29,15 @@ const VerifyEmailPage = () => {
 
       if (user) {
         await sendEmailVerification(user);
-        alert("Verification email sent. Please check your inbox."); // Notify user
+        dispatch(
+          openSnackbar({
+            message: "Verification email sent. Please check your inbox.",
+            severity: "success",
+          })
+        );
       }
     } catch (error: any) {
-      console.error("Error resending email verification", error);
-      dispatch(openSnackbar({ message: error.message, status: "error" }));
+      dispatch(openSnackbar({ message: error.message, severity: "error" }));
     } finally {
       setResendLoading(false);
     }
