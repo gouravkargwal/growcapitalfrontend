@@ -10,23 +10,17 @@ import News from "./News";
 
 const Dashboard = () => {
   const strategies = [
-    {
-      id: "1",
-      name: "ADANIPORTS",
-      icon: "https://d140p29c73x6ns.cloudfront.net/temp/ADANIPORTS.NS.png",
-      result: "+",
-      color: "text-green-600",
-    },
-    {
-      id: "2",
-      name: "RELIANCE",
-      icon: "https://d140p29c73x6ns.cloudfront.net/temp/RELIANCE.NS.png",
-      result: "-",
-      color: "text-red-600",
-    },
-    // ...other strategies
+    { id: '1', name: 'ADANIPORTS', icon: 'https://d140p29c73x6ns.cloudfront.net/temp/ADANIPORTS.NS.png', result: '+', color: 'text-green-600' },
+    { id: '2', name: 'RELIANCE', icon: 'https://d140p29c73x6ns.cloudfront.net/temp/RELIANCE.NS.png', result: '-', color: 'text-red-600' },
+    { id: '3', name: 'PNB', icon: 'https://d140p29c73x6ns.cloudfront.net/temp/PNB.NS.png', result: '+', color: 'text-green-600' },
+    { id: '4', name: 'HAL', icon: 'https://d140p29c73x6ns.cloudfront.net/temp/HAL.NS.png', result: '-', color: 'text-red-600' },
+    { id: '5', name: 'CDSL', icon: 'https://d140p29c73x6ns.cloudfront.net/temp/CDSL.NS.png', result: '+', color: 'text-green-600' },
+    { id: '6', name: 'BSE', icon: 'https://d140p29c73x6ns.cloudfront.net/temp/BSE.NS.png', result: '-', color: 'text-red-600' },
+    { id: '7', name: 'CHAMBAL FERTILIZERS', icon: 'https://d140p29c73x6ns.cloudfront.net/temp/CHAMBLFERT.NS.png', result: '+', color: 'text-green-600' },
+    { id: '8', name: 'ZOMATO', icon: 'https://d140p29c73x6ns.cloudfront.net/temp/ZOMATO.NS.svg', result: '+', color: 'text-green-600' },
+    { id: '9', name: 'TATA MOTORS', icon: 'https://d140p29c73x6ns.cloudfront.net/temp/TATAMOTORS.NS.png', result: '-', color: 'text-red-600' },
+    { id: '10', name: 'MANKIND', icon: 'https://d140p29c73x6ns.cloudfront.net/temp/MANKIND.NS.png', result: '+', color: 'text-green-600' },
   ];
-
   return (
     <div className="flex-1 w-full overflow-y-auto">
       <div className="mx-auto bg-white">
