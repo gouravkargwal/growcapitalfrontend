@@ -4,6 +4,7 @@ import axiosInstance from "@/lib/axiosInstance";
 import useAuthGuard from "@/hook/useAuthGuard";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import _ from "lodash";
 
 type providerData = {
   providerId: number;
@@ -64,33 +65,40 @@ const Providers = () => {
                   : "bg-gray-100"
               }`}
             >
-              <span className="font-semibold">{provider.providerName}</span>
+              <span className="font-semibold">
+                {_.capitalize(provider.providerName)}
+              </span>
               <span
                 className={`text-sm ${
                   provider.isConfigured ? "text-green-500" : "text-red-500"
                 }`}
               >
-                {provider.isConfigured ? "Set Up" : "Not Set Up"}
+                {provider.isConfigured ? "Configured" : "Not Configured"}
               </span>
               <div className="flex space-x-2">
-                <button
-                  onClick={() => handleSetupClick(provider)}
-                  className={`px-3 py-1 rounded-md ${
-                    provider.isConfigured
-                      ? "bg-green-600 hover:bg-green-700"
-                      : "bg-blue-600 hover:bg-blue-700"
-                  } text-white`}
-                >
-                  {provider.isConfigured ? "Edit" : "Setup"}
-                </button>
-                {provider.isConfigured && (
+                {provider.isConfigured ? (
+                  ""
+                ) : (
+                  <button
+                    onClick={() => handleSetupClick(provider)}
+                    className={`px-3 py-1 rounded-md ${
+                      provider.isConfigured
+                        ? "bg-green-600 hover:bg-green-700"
+                        : "bg-blue-600 hover:bg-blue-700"
+                    } text-white`}
+                  >
+                    {provider.isConfigured ? "Edit" : "Setup"}
+                  </button>
+                )}
+
+                {/* {provider.isConfigured && (
                   <button
                     onClick={() => handleEditClick(provider)}
                     className="px-3 py-1 bg-yellow-600 hover:bg-yellow-700 rounded-md text-white"
                   >
                     Change Configuration
                   </button>
-                )}
+                )} */}
               </div>
             </li>
           ))}
@@ -98,7 +106,9 @@ const Providers = () => {
         {activeProvider && (
           <div className="mt-6">
             <h3 className="font-bold text-lg">Active Channel:</h3>
-            <p className="text-blue-600">{activeProvider.providerName}</p>
+            <p className="text-blue-600">
+              {_.capitalize(activeProvider.providerName)}
+            </p>
           </div>
         )}
       </div>

@@ -7,12 +7,13 @@ import InputField from "../UI/InputField";
 import Link from "next/link";
 import { RootState } from "@/Store/store";
 import { auth } from "@/lib/firebase";
-import { signInUser } from "@/Feature/Auth/authSlice";
+import { checkPasswordChange, signInUser } from "@/Feature/Auth/authSlice";
 import { useAppDispatch } from "@/hook/useAppDispatch";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { openSnackbar } from "@/Feature/Snackbar/snackbarSlice";
 
 // Validation schema
 const passwordStrength = yup
@@ -22,7 +23,10 @@ const passwordStrength = yup
   .matches(/[A-Z]/, "Password must contain at least one uppercase letter")
   .matches(/[a-z]/, "Password must contain at least one lowercase letter")
   .matches(/[0-9]/, "Password must contain at least one number")
-  .matches(/[@$!%*?&]/, "Password must contain at least one special character");
+  .matches(
+    /[@$!%*?&,><]/,
+    "Password must contain at least one special character"
+  );
 
 const formSchema = yup.object().shape({
   email: yup
@@ -47,18 +51,35 @@ const SigninForm = () => {
   });
 
   const onSubmit = async (data: UserFormValue) => {
-    const result = await dispatch(signInUser(data));
-    if (signInUser.fulfilled.match(result)) {
-      const user = result.payload.user;
-      if (user?.emailVerified) {
-        router.push("/dashboard");
-      } else if (user?.forcePasswordChange) {
+    const forcePassword = await dispatch(checkPasswordChange(data?.email));
+    if (checkPasswordChange.fulfilled.match(forcePassword)) {
+      console.log(forcePassword);
+      const x = forcePassword?.payload?.data;
+      if (x) {
         router.push("/forgotpassword");
+        return dispatch(
+          openSnackbar({
+            message: "Please reset your password",
+            severity: "error",
+          })
+        );
       } else {
-        router.push("/emailverification");
+        const result = await dispatch(signInUser(data));
+        if (signInUser.fulfilled.match(result)) {
+          const user = result.payload.user;
+          if (user?.emailVerified) {
+            router.push("/dashboard");
+          } else {
+            router.push("/emailverification");
+          }
+        } else {
+          await auth.signOut();
+        }
       }
     } else {
-      await auth.signOut();
+      return dispatch(
+        openSnackbar({ message: "Internal Server Error", severity: "error" })
+      );
     }
   };
 

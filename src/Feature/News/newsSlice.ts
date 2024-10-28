@@ -1,43 +1,24 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import { handleAxiosError } from "@/lib/apiError";
-import { getAllNewsType, updateUserNewsTypesApi } from "./news.service";
+import {
+  getAllNewsType,
+  getSentUserNews,
+  updateUserNewsTypesApi,
+} from "./news.service";
 import { openSnackbar } from "../Snackbar/snackbarSlice";
 import { NewsTypeDto, UpdateNewsTypeDto } from "./news.dto";
 
-const dummyNews = [
-  {
-    imageSrc: "https://via.placeholder.com/150",
-    source: "Netflix",
-    timeAgo: "12 minutes ago",
-    title: "Where To Watch 'John Wick: Chapter 4'",
-    description: "Lionsgate's release details for John Wick: Chapter 4",
-    category: "Movies",
-    readTime: "4 min read",
-  },
-  {
-    imageSrc: "https://via.placeholder.com/150",
-    source: "HBO",
-    timeAgo: "1 hour ago",
-    title: "Game of Thrones Spin-Off: What We Know So Far",
-    description:
-      "HBO is planning to release multiple spin-offs of the hit show.",
-    category: "Entertainment",
-    readTime: "5 min read",
-  },
-];
-export const fetchNews = createAsyncThunk<
-  { news: News[]; hasMore: boolean }, // Specify the return type here
-  number // Specify the argument type (page number)
->("news/fetchNews", async (page: number) => {
-  return new Promise<{ news: News[]; hasMore: boolean }>((resolve) => {
-    setTimeout(() => {
-      const hasMore = page < 5; // Let's assume we have 5 pages of dummy data
-      resolve({ news: dummyNews, hasMore }); // Correct the return structure
-    }, 1000); // Simulate network delay
-  });
-});
-
+export const fetchNews = createAsyncThunk(
+  "news/fetchNews",
+  async ({ page, limit = 10 }: { page: number; limit?: number }) => {
+    const response = await getSentUserNews(page, limit);
+    return {
+      data: response.data.data,
+      hasMore: response.data.hasMore,
+    };
+  }
+);
 type News = {
   imageSrc: string; // URL or path to the image
   source: string; // News source name
@@ -130,6 +111,20 @@ const newsSlice = createSlice({
       })
       .addCase(updateUserNewsTypes.rejected, (state) => {
         state.updateLoading = false;
+      })
+
+      // Handle fetchNews for infinite scroll
+      .addCase(fetchNews.pending, (state) => {
+        state.timelineDataLoading = true;
+      })
+      .addCase(fetchNews.fulfilled, (state, action) => {
+        state.timelineDataLoading = false;
+        state.timelineData = [...state.timelineData, ...action.payload.data];
+        state.hasMore = action.payload.hasMore;
+        state.currentPage += 1; // Increment current page
+      })
+      .addCase(fetchNews.rejected, (state) => {
+        state.timelineDataLoading = false;
       });
   },
 });

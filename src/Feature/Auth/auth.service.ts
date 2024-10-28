@@ -27,3 +27,15 @@ export const verifyEmailService = async (userId: string) => {
 export const verifyTokenService = async (token: string) => {
   return await axiosInstance.post("/auth/verify-token", { token });
 };
+
+export const checkForcePasswordChange = async (email: string) => {
+  return await axiosInstance.post("/auth/verify-force-password-change", {
+    email,
+  });
+};
+
+export const confirmPasswordChange = async (email: string) => {
+  return await axiosInstance.post("/auth/confirm-password-change", {
+    email,
+  });
+};

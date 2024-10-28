@@ -8,3 +8,7 @@ export const getAllNewsType = async () => {
 export const updateUserNewsTypesApi = async (data: UpdateNewsTypeDto) => {
   return await axiosInstance.patch("/user-news-plan", data);
 };
+
+export const getSentUserNews = async (page: number, limit?: number) => {
+  return await axiosInstance.get(`/stock-news?page=${page}&limit=${limit}`);
+};

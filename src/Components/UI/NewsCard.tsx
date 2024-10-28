@@ -15,7 +15,7 @@ const NewsCard: React.FC<NewsCardProps> = ({
   date,
   imageUrl,
   className,
-  isLoading = true, // Default value is false
+  isLoading, // Default value is false
 }) => {
   if (isLoading) {
     return <NewsCardSkeleton />;

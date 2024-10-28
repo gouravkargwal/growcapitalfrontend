@@ -1,6 +1,8 @@
-import { GoogleAuthData, SignupData } from "./auth.dto";
+import { SignupData } from "./auth.dto";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
+  checkForcePasswordChange,
+  confirmPasswordChange,
   googleAuthService,
   signupService,
   verifyEmailService,
@@ -90,6 +92,34 @@ export const signInUser = createAsyncThunk(
   }
 );
 
+export const checkPasswordChange = createAsyncThunk(
+  "auth/checkPasswordChange",
+  async (email: string, { dispatch, rejectWithValue }) => {
+    try {
+      const user = await checkForcePasswordChange(email);
+      return user;
+    } catch (error) {
+      const axiosError = handleAxiosError(error, rejectWithValue, dispatch);
+      if (axiosError) return axiosError;
+      return rejectWithValue(error);
+    }
+  }
+);
+
+export const confirmPassword = createAsyncThunk(
+  "auth/confirmPassword",
+  async (email: string, { dispatch, rejectWithValue }) => {
+    try {
+      const user = await confirmPasswordChange(email);
+      return user;
+    } catch (error) {
+      const axiosError = handleAxiosError(error, rejectWithValue, dispatch);
+      if (axiosError) return axiosError;
+      return rejectWithValue(error);
+    }
+  }
+);
+
 const authSlice = createSlice({
   name: "auth",
   initialState: {
@@ -110,7 +140,7 @@ const authSlice = createSlice({
         state.signupLoading = false;
         state.user = action.payload; // Save the user data
       })
-      .addCase(signupUser.rejected, (state, action) => {
+      .addCase(signupUser.rejected, (state) => {
         state.signupLoading = false;
       })
       .addCase(googleAuth.pending, (state) => {
@@ -120,7 +150,7 @@ const authSlice = createSlice({
         state.googleAuthLoading = false;
         state.user = action.payload; // Save the user data
       })
-      .addCase(googleAuth.rejected, (state, action) => {
+      .addCase(googleAuth.rejected, (state) => {
         state.googleAuthLoading = false;
       })
       .addCase(verifyEmail.pending, (state) => {

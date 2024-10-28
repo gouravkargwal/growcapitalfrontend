@@ -1,40 +1,54 @@
-import React from "react";
+"use client";
+import React, { useEffect } from "react";
 import NewsCard from "../UI/NewsCard";
+import { useAppDispatch } from "@/hook/useAppDispatch";
+import { useSelector } from "react-redux";
+import { RootState } from "@/Store/store";
+import { fetchNews } from "@/Feature/News/newsSlice";
+import { useRouter } from "next/navigation";
 
 const News = () => {
-  const newscards = [
-    {
-      title: "Bpcl increases dividend⚡️",
-      date: "Aug 21, 2023",
-      imageUrl:
-        "https://via.placeholder.com/300x150.png?text=Bpcl+increases+dividend⚡️",
-    },
-    {
-      title: "Adani ports volume trade done🔥",
-      date: "Jun 14, 2023",
-      imageUrl:
-        "https://via.placeholder.com/300x150.png?text=Adani+ports+trade",
-    },
-    // ...other news cards
-  ];
+  const dispatch = useAppDispatch();
+  const router = useRouter();
+  const { timelineData, timelineDataLoading, currentPage } = useSelector(
+    (state: RootState) => state.news
+  );
+
+  useEffect(() => {
+    if (currentPage === 1 && timelineData.length === 0) {
+      dispatch(fetchNews({ page: 1, limit: 5 })); // Load initial data on mount
+    }
+  }, [dispatch, currentPage, timelineData.length]);
+
   return (
     <div className="mx-2 p-2">
       <h2 className="text-lg font-bold mb-2">Your Timeline</h2>
       <p className="text-gray-500 mb-2">Browse top news from your portfolio</p>
-      <div className="flex space-x-4 overflow-x-auto whitespace-nowrap scrollbar-hide">
-        {newscards.map((card, index) => (
-          <NewsCard
-            key={index}
-            title={card.title}
-            date={card.date}
-            imageUrl={card.imageUrl}
-            className="w-48 flex-shrink-0"
-          />
-        ))}
-        <div className="rounded-lg flex-shrink-0 p-4 flex items-center justify-center">
-          <span className="text-lg text-gray-500">More News →</span>
+
+      {timelineData.length === 0 && !timelineDataLoading ? (
+        <p className="text-center text-gray-500">
+          No news available at the moment.
+        </p>
+      ) : (
+        <div className="flex space-x-4 overflow-x-auto whitespace-nowrap scrollbar-hide">
+          {timelineData.map((card, index) => (
+            <NewsCard
+              key={index}
+              title={card.title}
+              date={card.readTime}
+              imageUrl={card.imageSrc} // Use actual image URL
+              className="w-48 flex-shrink-0"
+              isLoading={timelineDataLoading}
+            />
+          ))}
+          <button
+            className="rounded-lg flex-shrink-0 p-4 flex items-center justify-center hover:text-blue-500 transition duration-300"
+            onClick={() => router.push("/news")}
+          >
+            <span className="text-lg text-gray-500">More News →</span>
+          </button>
         </div>
-      </div>
+      )}
     </div>
   );
 };

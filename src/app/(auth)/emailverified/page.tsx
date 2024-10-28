@@ -10,12 +10,10 @@ const EmailActionPage = () => {
   const mode = searchParams.get("mode"); // Get the mode (verifyEmail or resetPassword)
 
   return (
-    <div className="min-h-screen flex justify-center items-center bg-gray-100">
-      <div className="max-w-md w-full p-6 sm:p-8 rounded-lg shadow-lg bg-white">
-        {mode === "verifyEmail" && <EmailVerification />}
-        {mode === "resetPassword" && <PasswordResetForm />}
-      </div>
-    </div>
+    <>
+      {mode === "verifyEmail" && <EmailVerification />}
+      {mode === "resetPassword" && <PasswordResetForm />}
+    </>
   );
 };
 
