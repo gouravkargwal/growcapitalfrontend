@@ -28,7 +28,7 @@ const NewsList: React.FC = () => {
 
       observer.current = new IntersectionObserver((entries) => {
         if (entries[0].isIntersecting && hasMore) {
-          dispatch(fetchNews(currentPage + 1)); // Fetch more news when the last item is visible
+          dispatch(fetchNews({ page: currentPage + 1 })); // Add an object with "page" key
         }
       });
       if (node) observer.current.observe(node);
@@ -38,7 +38,7 @@ const NewsList: React.FC = () => {
 
   useEffect(() => {
     if (currentPage === 1 && timelineData.length === 0) {
-      dispatch(fetchNews(1)); // Load initial data on mount
+      dispatch(fetchNews({ page: 1 })); // Pass an object with "page" key
     }
   }, [dispatch, currentPage, timelineData.length]);
 
