@@ -7,55 +7,17 @@ import React from "react";
 import { auth } from "@/lib/firebase";
 import avatar from "../../../assets/avatar.jpg";
 import { signOut } from "firebase/auth";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 
-const Sidebar = ({
-  closeSidebar,
-  onTabSelect,
-  selectedTab,
-}: {
-  closeSidebar: () => void;
-  onTabSelect: (tab: string) => void;
-  selectedTab: string; // New prop for the selected tab
-}) => {
+const Sidebar = ({ closeSidebar }: { closeSidebar: () => void }) => {
   const router = useRouter();
+  const pathname = usePathname();
 
-  // Helper function to check if a tab is active
-  const isActive = (tabName: string) => selectedTab === tabName;
+  // Check if the current route matches the given route path
+  const isActive = (routePath: string) => pathname === routePath;
 
-  const goToDashboard = () => {
-    onTabSelect("Home"); // Pass the tab name when a tab is clicked
-    router.push("/dashboard");
-    closeSidebar();
-  };
-
-  const goToReferAndEarn = () => {
-    onTabSelect("Refer And Earn");
-    router.push("/referAndEarn");
-    closeSidebar();
-  };
-
-  const goToSubscription = () => {
-    onTabSelect("Subscriptions");
-    router.push("/subscriptions");
-    closeSidebar();
-  };
-
-  const goToYourtimeline = () => {
-    onTabSelect("Your Timeline");
-    router.push("/yourtimeline");
-    closeSidebar();
-  };
-
-  const goToProfileSettings = () => {
-    onTabSelect("Profile Settings");
-    router.push("/profileSettings");
-    closeSidebar();
-  };
-
-  const goToProviders = () => {
-    onTabSelect("Notification Provider Config");
-    router.push("/providers");
+  const goToPage = (routePath: string) => {
+    router.push(routePath);
     closeSidebar();
   };
 
@@ -84,9 +46,11 @@ const Sidebar = ({
         <li>
           <button
             className={`w-full text-left p-2 flex items-center transition-all duration-300 ease-in-out rounded-lg ${
-              isActive("Home") ? "bg-blue-500 text-white" : "hover:bg-gray-200"
+              isActive("/dashboard")
+                ? "bg-blue-500 text-white"
+                : "hover:bg-gray-200"
             }`}
-            onClick={goToDashboard}
+            onClick={() => goToPage("/dashboard")}
           >
             Home
           </button>
@@ -94,11 +58,11 @@ const Sidebar = ({
         <li>
           <button
             className={`w-full text-left p-2 flex items-center transition-all duration-300 ease-in-out rounded-lg ${
-              isActive("Your Timeline")
+              isActive("/yourtimeline")
                 ? "bg-blue-500 text-white"
                 : "hover:bg-gray-200"
             }`}
-            onClick={goToYourtimeline}
+            onClick={() => goToPage("/yourtimeline")}
           >
             Your Timeline
           </button>
@@ -106,11 +70,11 @@ const Sidebar = ({
         <li>
           <button
             className={`w-full text-left p-2 flex items-center transition-all duration-300 ease-in-out rounded-lg ${
-              isActive("Refer And Earn")
+              isActive("/referAndEarn")
                 ? "bg-blue-500 text-white"
                 : "hover:bg-gray-200"
             }`}
-            onClick={goToReferAndEarn}
+            onClick={() => goToPage("/referAndEarn")}
           >
             Refer And Earn
           </button>
@@ -118,11 +82,11 @@ const Sidebar = ({
         <li>
           <button
             className={`w-full text-left p-2 flex items-center transition-all duration-300 ease-in-out rounded-lg ${
-              isActive("Subscriptions")
+              isActive("/subscriptions")
                 ? "bg-blue-500 text-white"
                 : "hover:bg-gray-200"
             }`}
-            onClick={goToSubscription}
+            onClick={() => goToPage("/subscriptions")}
           >
             Subscriptions
           </button>
@@ -130,11 +94,11 @@ const Sidebar = ({
         <li>
           <button
             className={`w-full text-left p-2 flex items-center transition-all duration-300 ease-in-out rounded-lg ${
-              isActive("Profile Settings")
+              isActive("/profileSettings")
                 ? "bg-blue-500 text-white"
                 : "hover:bg-gray-200"
             }`}
-            onClick={goToProfileSettings}
+            onClick={() => goToPage("/profileSettings")}
           >
             Profile Settings
           </button>
@@ -142,11 +106,11 @@ const Sidebar = ({
         <li>
           <button
             className={`w-full text-left p-2 flex items-center transition-all duration-300 ease-in-out rounded-lg ${
-              isActive("Notification Provider Config")
+              isActive("/providers")
                 ? "bg-blue-500 text-white"
                 : "hover:bg-gray-200"
             }`}
-            onClick={goToProviders}
+            onClick={() => goToPage("/providers")}
           >
             Notification Provider Config
           </button>

@@ -47,7 +47,6 @@ const Subscriptions = () => {
       return;
     }
 
-    // Dispatch the action to create the payment link
     const result = await dispatch(
       createPaymentLink({
         planId: selectedPlan.planId,
@@ -56,16 +55,14 @@ const Subscriptions = () => {
       })
     );
 
-    // Check if the action was successful
     if (createPaymentLink.fulfilled.match(result)) {
-      const paymentLink = result.payload.short_url; // Extract the payment link from the payload
+      const paymentLink = result.payload.short_url;
       const paymentWindow = window.open(
         paymentLink,
-        "popupWindow",
-        "height=570,width=520,top=200,left=200,scrollbars=yes"
+        "paymentWindow",
+        "height=800,width=600,top=200,left=200,scrollbars=yes"
       );
 
-      // If the window fails to open (e.g., popup blocker)
       if (!paymentWindow) {
         dispatch(
           openSnackbar({
@@ -76,7 +73,6 @@ const Subscriptions = () => {
         return;
       }
 
-      // Start polling for the payment status immediately
       dispatch(
         openSnackbar({
           message: "Checking for payment status...",
@@ -84,16 +80,11 @@ const Subscriptions = () => {
         })
       );
 
-      const abortController = new AbortController();
-      const { signal } = abortController;
+      const pollingPromise = dispatch(pollPaymentStatus(result.payload.id));
 
-      // Dispatch the polling action
-      dispatch(pollPaymentStatus(result?.payload?.id, { signal }));
-
-      // Monitor the window and handle window closure
       const windowCheckInterval = setInterval(() => {
         if (paymentWindow.closed) {
-          clearInterval(windowCheckInterval); // Clear the interval once the window is closed
+          clearInterval(windowCheckInterval);
           dispatch(paymentOverlay(false));
           dispatch(
             openSnackbar({
@@ -103,12 +94,10 @@ const Subscriptions = () => {
             })
           );
 
-          // Abort the polling action if the window is closed
-          abortController.abort();
+          pollingPromise.abort(); // Abort polling if the window is closed
         }
-      }, 1000); // Check every second
+      }, 1000);
 
-      // Reset the plan selection and other values
       setSelectedPlan(null);
       setDurationInMonths(1);
       setActivationType("IMMEDIATE");

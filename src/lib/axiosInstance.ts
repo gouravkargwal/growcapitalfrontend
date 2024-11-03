@@ -1,6 +1,5 @@
 import axios from "axios";
 import { auth } from "./firebase";
-import Router from "next/router"; // Import the Next.js Router
 
 const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_NEST_URL,

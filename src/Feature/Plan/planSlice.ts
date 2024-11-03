@@ -68,15 +68,9 @@ export const createPaymentLink = createAsyncThunk(
 export const pollPaymentStatus = createAsyncThunk(
   "plan/pollStatus",
   async (paymentId: string, { dispatch, rejectWithValue, signal }) => {
-    const maxAttempts = 12; // 2 minutes total (12 attempts with 10 sec interval)
-    const interval = 10000; // 10 seconds
+    const maxAttempts = 12;
+    const interval = 10000;
     let attempt = 0;
-
-    const abortPromise = new Promise((_, reject) => {
-      signal.addEventListener("abort", () => {
-        reject(new Error("Polling aborted"));
-      });
-    });
 
     while (attempt < maxAttempts) {
       if (signal.aborted) {
@@ -84,10 +78,7 @@ export const pollPaymentStatus = createAsyncThunk(
       }
 
       try {
-        const response = await Promise.race([
-          checkPaymentStatusApi(paymentId, signal),
-          abortPromise,
-        ]);
+        const response = await checkPaymentStatusApi(paymentId, signal);
 
         if (response && response.status === 200) {
           const { status } = response.data;
@@ -101,27 +92,13 @@ export const pollPaymentStatus = createAsyncThunk(
             dispatch(
               openSnackbar({ message: "Payment Failed", severity: "error" })
             );
-            return rejectWithValue(false); // Payment failed, exit polling
+            return rejectWithValue("Payment failed");
           }
         }
       } catch (error) {
-        if (error.message === "Polling aborted") {
-          dispatch(
-            openSnackbar({
-              message: "Payment polling has been aborted.",
-              severity: "warning",
-            })
-          );
-          return rejectWithValue("Polling aborted");
-        }
-
-        dispatch(
-          openSnackbar({
-            message: "An error occurred while checking payment status.",
-            severity: "error",
-          })
-        );
-        return rejectWithValue(error); // Exit polling on error
+        const axiosError = handleAxiosError(error, rejectWithValue, dispatch);
+        if (axiosError) return axiosError;
+        return rejectWithValue(error);
       }
 
       attempt++;
@@ -134,7 +111,7 @@ export const pollPaymentStatus = createAsyncThunk(
         severity: "error",
       })
     );
-    return rejectWithValue(false); // Max attempts reached, exit polling
+    return rejectWithValue("Max attempts reached");
   }
 );
 

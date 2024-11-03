@@ -2,6 +2,7 @@
 
 import { FaBell, FaSearch } from "react-icons/fa";
 import React, { useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 
 // Custom Hook to detect clicks outside the component
 const useOutsideClick = (
@@ -21,21 +22,38 @@ const useOutsideClick = (
   }, [ref, handler]);
 };
 
-const PrivateNavbar: React.FC<{
-  selectedTab: string;
-  toggleSidebar: () => void;
-}> = ({ selectedTab }) => {
+const PrivateNavbar: React.FC<{ toggleSidebar: () => void }> = () => {
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
-
   const notificationRef = useRef<HTMLDivElement>(null);
+  const pathname = usePathname();
 
   useOutsideClick(notificationRef, () => setIsNotificationOpen(false));
+
+  // Map pathname to the title
+  const getTitle = (path: string) => {
+    switch (path) {
+      case "/dashboard":
+        return "Home";
+      case "/yourtimeline":
+        return "Your Timeline";
+      case "/referAndEarn":
+        return "Refer And Earn";
+      case "/subscriptions":
+        return "Subscriptions";
+      case "/profileSettings":
+        return "Profile Settings";
+      case "/providers":
+        return "Notification Provider Config";
+      default:
+        return "Grow Capital";
+    }
+  };
 
   return (
     <nav className="bg-gradient-to-b from-blue-50 to-white p-4 flex flex-col relative w-screen sm:w-full">
       <div className="flex justify-between items-center">
-        {/* Display the selected tab in the navbar title */}
-        <div className="text-gray-600 text-2xl mr-4">{selectedTab}</div>
+        {/* Display the title based on the current route */}
+        <div className="text-gray-600 text-2xl mr-4">{getTitle(pathname)}</div>
 
         {/* Search Bar and other elements */}
         <div className="flex space-x-4">
