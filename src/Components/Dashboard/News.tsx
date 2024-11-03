@@ -52,7 +52,7 @@ const News = () => {
                       key={index}
                       title={card.title}
                       date={card.readTime}
-                      imageUrl={card.imageSrc} // Use actual image URL
+                      imageUrl="https://via.placeholder.com/150"
                       className="w-48 flex-shrink-0 md:w-60 lg:w-72"
                       isLoading={timelineDataLoading}
                     />
