@@ -30,7 +30,7 @@ const News = () => {
           No news available at the moment.
         </p>
       ) : (
-        <div className="flex space-x-4 overflow-x-auto whitespace-nowrap scrollbar-hide">
+        <div className="h-60 overflow-y-auto space-y-4 scrollbar-hide">
           {timelineData.map((card, index) => (
             <NewsCard
               key={index}

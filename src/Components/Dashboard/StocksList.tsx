@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   Stock,
   StockSuggestion,
@@ -84,11 +84,15 @@ const StocksList: React.FC = () => {
     debouncedFetchSuggestions(value);
   };
 
-  const debouncedFetchSuggestions = _.debounce((value: string) => {
-    if (value) {
-      dispatch(fetchStockSuggestion({ query: value }));
-    }
-  }, 300);
+  // Use useCallback to memoize the debounced function
+  const debouncedFetchSuggestions = useCallback(
+    _.debounce((value: string) => {
+      if (value) {
+        dispatch(fetchStockSuggestion({ query: value }));
+      }
+    }, 500),
+    [] // Only create the function once
+  );
 
   const handleAddStock = (suggestion: StockSuggestion) => {
     const newStock: Stock = { ...suggestion, isin_number: "", industry: "" };
