@@ -26,7 +26,7 @@ const VerifyEmailPage = () => {
     setResendLoading(true);
     try {
       const user = auth.currentUser;
-
+      console.log(user);
       if (user) {
         await sendEmailVerification(user);
         dispatch(

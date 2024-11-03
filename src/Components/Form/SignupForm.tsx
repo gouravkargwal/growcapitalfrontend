@@ -18,6 +18,8 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "@/lib/firebase";
 
 // Validation schema
 const passwordStrength = yup
@@ -86,6 +88,7 @@ const SignupForm = ({ referralCode }: { referralCode: string | undefined }) => {
       })
     );
     if (signupUser.fulfilled.match(resultAction)) {
+      await signInWithEmailAndPassword(auth, data?.email, data?.password);
       router.push("/emailverification");
     }
   };
