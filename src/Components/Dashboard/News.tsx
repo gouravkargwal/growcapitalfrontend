@@ -22,22 +22,25 @@ const News = () => {
 
   return (
     <div className="mx-2 p-2">
-      <h2 className="text-lg font-bold mb-2">Your Timeline</h2>
-      <p className="text-gray-500 mb-2">Browse top news from your portfolio</p>
+      <h2 className="text-lg font-bold mb-2 md:text-2xl">Your Timeline</h2>
+      <p className="text-gray-500 mb-4 md:text-base">
+        Browse top news from your portfolio
+      </p>
 
       {timelineData.length === 0 && !timelineDataLoading ? (
         <p className="text-center text-gray-500">
           No news available at the moment.
         </p>
       ) : (
-        <div className="h-60 overflow-y-auto space-y-4 scrollbar-hide">
+        // Horizontal scrollable container with fixed height
+        <div className="h-60 overflow-x-auto flex space-x-4 scrollbar-hide">
           {timelineData.map((card, index) => (
             <NewsCard
               key={index}
               title={card.title}
               date={card.readTime}
               imageUrl={card.imageSrc} // Use actual image URL
-              className="w-48 flex-shrink-0"
+              className="w-48 flex-shrink-0 md:w-60 lg:w-72"
               isLoading={timelineDataLoading}
             />
           ))}
@@ -45,7 +48,9 @@ const News = () => {
             className="rounded-lg flex-shrink-0 p-4 flex items-center justify-center hover:text-blue-500 transition duration-300"
             onClick={() => router.push("/news")}
           >
-            <span className="text-lg text-gray-500">More News →</span>
+            <span className="text-lg text-gray-500 md:text-xl">
+              More News →
+            </span>
           </button>
         </div>
       )}

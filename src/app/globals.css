@@ -102,4 +102,13 @@ section {
   transform: translateX(20px); /* Move the switch when checked */
 }
 
+/* Custom CSS to hide the scrollbar */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+
 @tailwind utilities;
