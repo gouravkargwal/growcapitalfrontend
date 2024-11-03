@@ -7,8 +7,9 @@ import { fetchNews } from "@/Feature/News/newsSlice";
 
 // Skeleton Loader
 const NewsSkeleton: React.FC = () => (
-  <div className="animate-pulse bg-gray-200 p-4 rounded-lg shadow-md h-48">
-    <div className="bg-gray-300 h-32 w-full mb-4"></div>
+  <div className="animate-pulse bg-gray-200 p-4 rounded-lg shadow-md">
+    <div className="bg-gray-300 h-40 w-full mb-4 sm:h-48 md:h-56"></div>{" "}
+    {/* Responsive height */}
     <div className="h-4 bg-gray-300 mb-2"></div>
     <div className="h-4 bg-gray-300 w-3/4"></div>
   </div>
@@ -45,7 +46,9 @@ const NewsList: React.FC = () => {
   return (
     <section className="container mx-auto px-4 py-8">
       {/* Heading */}
-      <h2 className="text-3xl font-bold text-gray-900 mb-6">Latest News</h2>
+      <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4 md:mb-6">
+        Latest News
+      </h2>
 
       {/* Check if no data is available and not loading */}
       {!timelineDataLoading && timelineData.length === 0 && (
@@ -56,7 +59,7 @@ const NewsList: React.FC = () => {
 
       {/* News Grid */}
       {timelineData && timelineData.length > 0 && (
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {timelineData.map((newsItem, index) => {
             if (timelineData.length === index + 1) {
               // Attach the ref to the last news card for infinite scroll
@@ -93,7 +96,7 @@ const NewsList: React.FC = () => {
 
       {/* Display Skeletons while loading */}
       {timelineDataLoading && (
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           <NewsSkeleton />
           <NewsSkeleton />
           <NewsSkeleton />
