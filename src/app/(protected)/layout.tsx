@@ -12,16 +12,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
-  const [selectedTab, setSelectedTab] = useState("Home"); // State to track selected tab
 
   const toggleSidebar = () => setSidebarOpen(!isSidebarOpen);
   const closeSidebar = () => setSidebarOpen(false);
-
-  // Update the selected tab based on user's selection
-  const handleTabSelection = (tabName: string) => {
-    setSelectedTab(tabName);
-    closeSidebar(); // Close sidebar after selecting a tab
-  };
 
   const { user, loading } = useAuthGuard();
   if (loading) {
@@ -36,11 +29,7 @@ export default function RootLayout({
     <div className="min-h-screen flex flex-row">
       {/* Sidebar for Desktop */}
       <div className="hidden lg:block lg:w-64 h-full">
-        <Sidebar
-          closeSidebar={closeSidebar}
-          onTabSelect={handleTabSelection}
-          selectedTab={selectedTab}
-        />
+        <Sidebar closeSidebar={closeSidebar} />
       </div>
 
       {/* Mobile Sidebar with animation */}
@@ -50,11 +39,7 @@ export default function RootLayout({
         }`}
       >
         <div className="w-64 h-full bg-white shadow-lg">
-          <Sidebar
-            closeSidebar={closeSidebar}
-            onTabSelect={handleTabSelection}
-            selectedTab={selectedTab}
-          />
+          <Sidebar closeSidebar={closeSidebar} />
         </div>
         {/* Overlay with fade-in/fade-out effect */}
         <div
@@ -80,10 +65,7 @@ export default function RootLayout({
 
         <div className="flex flex-col flex-1 h-screen">
           {/* Navbar with dynamic title */}
-          <PrivateNavbar
-            selectedTab={selectedTab}
-            toggleSidebar={toggleSidebar}
-          />
+          <PrivateNavbar toggleSidebar={toggleSidebar} />
 
           {/* Main Content */}
           <div className="flex-1 overflow-auto">{children}</div>
