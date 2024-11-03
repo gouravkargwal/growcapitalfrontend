@@ -2,6 +2,7 @@
 
 import PrivateNavbar from "@/Components/Dashboard/PrivateNavbar";
 import Sidebar from "@/Components/Dashboard/Sidebar";
+import FreshdeskWidget from "@/Components/help/freshdesk";
 import useAuthGuard from "@/hook/useAuthGuard";
 import { useState } from "react";
 
@@ -86,6 +87,7 @@ export default function RootLayout({
 
           {/* Main Content */}
           <div className="flex-1 overflow-auto">{children}</div>
+          <FreshdeskWidget />
         </div>
       </div>
     </div>
