@@ -3,7 +3,9 @@ import {
   fetchAllPlans,
   Plan,
   PlanState,
-  upgradeUserPlan,
+  createPaymentLink,
+  pollPaymentStatus,
+  paymentOverlay,
 } from "@/Feature/Plan/planSlice";
 import { openSnackbar } from "@/Feature/Snackbar/snackbarSlice";
 import { fetchUserPlan, UserState } from "@/Feature/User/userSlice";
@@ -14,13 +16,12 @@ import { useSelector } from "react-redux";
 
 const Subscriptions = () => {
   const dispatch = useAppDispatch();
-  const { data: plans } = useSelector<RootState, PlanState>(
+  const { data: plans, overlayStatus } = useSelector<RootState, PlanState>(
     (state) => state.plan
   );
   const { data: userPlan } = useSelector<RootState, UserState>(
     (state: RootState) => state.user
   );
-
   const [selectedPlan, setSelectedPlan] = useState<Plan | null>(null);
   const [activationType, setActivationType] = useState<
     "IMMEDIATE" | "AFTER_EXPIRY"
@@ -46,18 +47,71 @@ const Subscriptions = () => {
       return;
     }
 
+    // Dispatch the action to create the payment link
     const result = await dispatch(
-      upgradeUserPlan({
-        userId: userPlan?.userId || "", // Assuming userPlan has userId
+      createPaymentLink({
         planId: selectedPlan.planId,
         activationType,
         durationInMonths,
       })
     );
-    if (upgradeUserPlan.fulfilled.match(result)) {
-      setSelectedPlan(null); // Reset the plan selection
-      setDurationInMonths(1); // Reset duration
-      setActivationType("IMMEDIATE"); // Reset activation type
+
+    // Check if the action was successful
+    if (createPaymentLink.fulfilled.match(result)) {
+      const paymentLink = result.payload.short_url; // Extract the payment link from the payload
+      const paymentWindow = window.open(
+        paymentLink,
+        "popupWindow",
+        "height=570,width=520,top=200,left=200,scrollbars=yes"
+      );
+
+      // If the window fails to open (e.g., popup blocker)
+      if (!paymentWindow) {
+        dispatch(
+          openSnackbar({
+            message: "Popup blocked! Please allow popups for this website.",
+            severity: "error",
+          })
+        );
+        return;
+      }
+
+      // Start polling for the payment status immediately
+      dispatch(
+        openSnackbar({
+          message: "Checking for payment status...",
+          severity: "info",
+        })
+      );
+
+      const abortController = new AbortController();
+      const { signal } = abortController;
+
+      // Dispatch the polling action
+      dispatch(pollPaymentStatus(result?.payload?.id, { signal }));
+
+      // Monitor the window and handle window closure
+      const windowCheckInterval = setInterval(() => {
+        if (paymentWindow.closed) {
+          clearInterval(windowCheckInterval); // Clear the interval once the window is closed
+          dispatch(paymentOverlay(false));
+          dispatch(
+            openSnackbar({
+              message:
+                "Payment window closed. If payment was completed, please wait for confirmation.",
+              severity: "warning",
+            })
+          );
+
+          // Abort the polling action if the window is closed
+          abortController.abort();
+        }
+      }, 1000); // Check every second
+
+      // Reset the plan selection and other values
+      setSelectedPlan(null);
+      setDurationInMonths(1);
+      setActivationType("IMMEDIATE");
     }
   };
 
@@ -66,6 +120,15 @@ const Subscriptions = () => {
       <h1 className="text-hero-title font-bold text-primary mb-6">
         Subscriptions
       </h1>
+
+      {overlayStatus && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+          <div className="bg-white p-6 rounded-lg shadow-lg text-center">
+            <div className="animate-spin h-8 w-8 border-4 border-t-transparent border-gray-600 rounded-full"></div>
+            <p className="mt-4">Checking for payment status...</p>
+          </div>
+        </div>
+      )}
 
       {/* Current Plan */}
       <div className="bg-neutral shadow-md rounded-lg p-6 mb-8">
