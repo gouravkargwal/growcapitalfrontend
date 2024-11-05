@@ -5,8 +5,8 @@ export const getAllPlans = async () => {
   return await axiosInstance.get("/plans");
 };
 
-export const createPaymentLinkApi = async (data: PlanPayload) => {
-  return await axiosInstance.post("/payments/create-link", data);
+export const createPaymentOrderIdApi = async (data: PlanPayload) => {
+  return await axiosInstance.post("/payments/create-order", data);
 };
 
 export const checkPaymentStatusApi = async (

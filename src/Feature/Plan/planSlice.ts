@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import {
   checkPaymentStatusApi,
-  createPaymentLinkApi,
+  createPaymentOrderIdApi,
   getAllPlans,
 } from "./plan.service";
 import { handleAxiosError } from "@/lib/apiError";
@@ -51,11 +51,11 @@ export const fetchAllPlans = createAsyncThunk(
   }
 );
 
-export const createPaymentLink = createAsyncThunk(
-  "plan/createPaymentLink",
+export const createPaymentOrderId = createAsyncThunk(
+  "plan/createPaymentOrderId",
   async (payload: PlanPayload, { rejectWithValue, dispatch }) => {
     try {
-      const { data } = await createPaymentLinkApi(payload);
+      const { data } = await createPaymentOrderIdApi(payload);
       return data;
     } catch (error) {
       const axiosError = handleAxiosError(error, rejectWithValue, dispatch);
@@ -138,13 +138,13 @@ const planSlice = createSlice({
 
     // Upgrade user plan
     builder
-      .addCase(createPaymentLink.pending, (state) => {
+      .addCase(createPaymentOrderId.pending, (state) => {
         state.updateUserPlanLoading = true;
       })
-      .addCase(createPaymentLink.fulfilled, (state) => {
+      .addCase(createPaymentOrderId.fulfilled, (state) => {
         state.updateUserPlanLoading = false;
       })
-      .addCase(createPaymentLink.rejected, (state) => {
+      .addCase(createPaymentOrderId.rejected, (state) => {
         state.updateUserPlanLoading = false;
       });
 
