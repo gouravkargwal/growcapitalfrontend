@@ -18,11 +18,12 @@ const ReferAndEarn = () => {
       </div>
       <button
         onClick={handleReferAndEarnClick}
-        className="text-blue-400 border border-blue-500 rounded-2xl px-4 py-1 hover:text-white hover:bg-blue-500"
+        className="text-blue-400 border border-blue-500 rounded-2xl px-3 lg:px-4 py-1 hover:text-white hover:bg-blue-500 whitespace-nowrap"
       >
         Refer now
       </button>
     </div>
+
   );
 };
 

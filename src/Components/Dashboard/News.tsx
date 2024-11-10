@@ -1,16 +1,12 @@
 "use client";
 import React, { useEffect } from "react";
-import NewsCard from "../UI/NewsCard";
 import { useAppDispatch } from "@/hook/useAppDispatch";
 import { useSelector } from "react-redux";
 import { RootState } from "@/Store/store";
 import { fetchNews } from "@/Feature/News/newsSlice";
 import { useRouter } from "next/navigation";
-
-// Skeleton Loader Component
-const SkeletonCard = () => (
-  <div className="w-48 h-64 bg-gray-200 rounded-md animate-pulse flex-shrink-0 md:w-60 lg:w-72"></div>
-);
+import NewsCardSkeleton from "../UI/NewsCardSkeleton";
+import NewsCard from "../UI/NewsCard";
 
 const News = () => {
   const dispatch = useAppDispatch();
@@ -21,60 +17,49 @@ const News = () => {
 
   useEffect(() => {
     if (currentPage === 1 && timelineData.length === 0) {
-      dispatch(fetchNews({ page: 1, limit: 5 })); // Load initial data on mount
+      dispatch(fetchNews({ page: 1, limit: 5 })); 
     }
   }, [dispatch, currentPage, timelineData.length]);
-
   return (
-    <>
+    <div>
       <h2 className="text-lg font-bold">Your Timeline</h2>
       <p className="text-gray-500 mb-4 md:text-base">
         Browse top news from your portfolio
       </p>
 
       {timelineData.length === 0 && !timelineDataLoading ? (
-        <p className="text-center text-gray-500">
-          No news available at the moment.
-        </p>
+        <p className="text-center text-gray-500">No news available at the moment.</p>
       ) : (
-        <>
-          {/* Outer container with a maximum width set using 100vw */}
-          <div className="w-full overflow-x-hidden">
-            <div className="flex space-x-4">
-              {timelineDataLoading
-                ? // Show Skeleton Loaders when data is loading
-                  Array.from({ length: 5 }).map((_, index) => (
-                    <SkeletonCard key={index} />
-                  ))
-                : // Show actual NewsCards when data is loaded
-                  timelineData.map((card, index) => (
-                    <NewsCard
-                      key={index}
-                      title={card.title}
-                      date={card.readTime}
-                      imageUrl="https://via.placeholder.com/150"
-                      className="w-48 flex-shrink-0 md:w-60 lg:w-72"
-                      isLoading={timelineDataLoading}
-                    />
-                  ))}
-            </div>
+        <div className="flex flex-col w-full h-full">
+          <div className="flex flex-1 overflow-x-scroll overflow-hidden w-full">
+          {timelineDataLoading
+          ? Array.from({ length: 4 }).map((_, index) => (
+            <NewsCardSkeleton key={index} />
+          ))
+          : timelineData.slice(0, 4).map((card, index) => (
+            <NewsCard
+              key={index}
+              title={card.title}
+              date={card.readTime}
+              imageUrl={card.imageSrc || "https://via.placeholder.com/150"}
+              className="w-72 bg-blue-500"
+              isLoading={timelineDataLoading}
+            />
+          ))}
           </div>
-
-          {/* "More News" Button Positioned Separately */}
-          <div className="mt-4 flex justify-center">
+          {/* Button Section */}
+          <div className="mt-4 flex justify-start">
             <button
-              className="rounded-lg p-4 flex items-center justify-center hover:text-blue-500 transition duration-300"
+              className="p-4 hover:text-blue-500"
               onClick={() => router.push("/news")}
             >
-              <span className="text-lg text-gray-500 md:text-xl">
-                More News →
-              </span>
+              <span className="text-lg text-gray-500 md:text-xl">More News →</span>
             </button>
           </div>
-        </>
+        </div>
       )}
-    </>
-  );
-};
+    </div>
+  )
+}
 
 export default News;

@@ -1,13 +1,12 @@
 import Image from "next/image";
 import NewsCardSkeleton from "./NewsCardSkeleton";
 import React from "react";
-
 interface NewsCardProps {
   title: string;
   date: string;
   imageUrl: string;
   className?: string;
-  isLoading?: boolean; // New prop for loading state
+  isLoading?: boolean;
 }
 
 const NewsCard: React.FC<NewsCardProps> = ({
@@ -15,7 +14,7 @@ const NewsCard: React.FC<NewsCardProps> = ({
   date,
   imageUrl,
   className,
-  isLoading, // Default value is false
+  isLoading,
 }) => {
   if (isLoading) {
     return <NewsCardSkeleton />;
@@ -23,7 +22,7 @@ const NewsCard: React.FC<NewsCardProps> = ({
 
   return (
     <div
-      className={`rounded-lg shadow-lg overflow-hidden transition-transform transform hover:scale-105 duration-300 ease-in-out ${className}`}
+      className={`rounded-lg ${className}`}
     >
       <div className="relative w-full h-48 sm:h-64">
         <Image

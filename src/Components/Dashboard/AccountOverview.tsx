@@ -6,7 +6,6 @@ import { RootState } from "@/Store/store";
 import { useSelector } from "react-redux";
 import { fetchUserAccountOverview } from "@/Feature/User/userSlice";
 import CardSkeleton from "../UI/CardSkeleton";
-import { StringNullableChain } from "lodash";
 
 const AccountOverview: React.FC = () => {
   const dispatch = useAppDispatch();

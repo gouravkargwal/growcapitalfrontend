@@ -44,11 +44,8 @@ export default function RootLayout({
         />
       </div>
       <div className="flex flex-col flex-1 h-screen">
-        <div className="flex flex-col flex-1 h-screen">
-          <PrivateNavbar toggleSidebar={toggleSidebar} />
-          <div className="flex-1 overflow-auto">{children}</div>
-
-        </div>
+        <PrivateNavbar toggleSidebar={toggleSidebar} />
+        <div className="flex-1 overflow-x-hidden">{children}</div>
       </div>
       <FreshdeskWidget />
     </div>

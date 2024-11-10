@@ -155,7 +155,7 @@ const StocksList: React.FC = () => {
         </div>
         <button
           onClick={handleEditToggle}
-          className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition duration-300"
+          className="text-blue-400 border border-blue-500 rounded-2xl px-3 lg:px-4 py-1 hover:text-white hover:bg-blue-500 whitespace-nowrap min-w-max"
         >
           {editMode ? "Done" : "Edit"}
         </button>

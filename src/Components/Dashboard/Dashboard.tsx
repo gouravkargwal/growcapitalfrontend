@@ -22,35 +22,31 @@ const Dashboard = () => {
     { id: '10', name: 'MANKIND', icon: 'https://d140p29c73x6ns.cloudfront.net/temp/MANKIND.NS.png', result: '+', color: 'text-green-600' },
   ];
   return (
-    <div className="flex-1 w-full overflow-y-auto">
-      <div className="mx-auto bg-white">
-        <AccountOverview />
-
-        <div className="mx-2 p-2">
-          <News />
-        </div>
-        <div className="mx-2 p-2">
-          <StocksList />
-        </div>
-
-        <div className="mx-2 p-2">
-          <NotificationFilter />
-        </div>
-        <div className="mx-2 p-2">
-          <ReferAndEarn />
-        </div>
-        <div className="mx-2 p-2">
-          <Languages />
-        </div>
-        <div className="relative mx-2 p-4 mt-5 mb-10">
-          <h1 className="text-lg font-bold mb-2">Predictions 14 days*</h1>
-          <Banner strategies={strategies} speed={12000} />
-          <div className="absolute inset-0 bg-black bg-opacity-10 flex items-center justify-center text-black text-3xl font-bold rounded-md">
-            Coming Soon
-          </div>
-        </div>
-        <Footer />
+    <div className="w-full">
+      <AccountOverview />
+      <div className="mx-2 p-2 hidden lg:visible">
+        <News />
       </div>
+      <div className="mx-2 p-2">
+        <StocksList />
+      </div>
+      <div className="mx-2 p-2">
+        <NotificationFilter />
+      </div>
+      <div className="mx-2 p-2">
+        <ReferAndEarn />
+      </div>
+      <div className="mx-2 p-2">
+        <Languages />
+      </div>
+      <div className="relative mx-2 p-4 mt-5 mb-10">
+        <h1 className="text-lg font-bold mb-2">Predictions 14 days*</h1>
+        <Banner strategies={strategies} speed={12000} />
+        <div className="absolute inset-0 bg-black bg-opacity-10 flex items-center justify-center text-black text-3xl font-bold rounded-md">
+          Coming Soon
+        </div>
+      </div>
+      <Footer />
     </div>
   );
 };
