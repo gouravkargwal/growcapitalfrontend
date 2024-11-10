@@ -26,7 +26,7 @@ const Faqs: React.FC = () => {
   };
 
   return (
-    <section className="min-h-screen bg-neutral flex flex-col justify-center items-center p-8">
+    <section className="min-h-screen flex flex-col justify-center items-center p-8">
       {/* Motion wrapper for animation */}
       <motion.div
         variants={cardVariants}

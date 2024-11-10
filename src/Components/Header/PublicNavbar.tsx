@@ -32,8 +32,8 @@ const Navbar = () => {
   };
 
   return (
-    <header className="bg-blue-50 bg-opacity-90 backdrop-blur-sm fixed top-0 w-full z-50">
-      <nav className="container mx-auto flex justify-between items-center py-5 px-6">
+    <header className="bg-opacity-90 backdrop-blur-md fixed top-0 w-full z-50">
+      <nav className="flex justify-between items-baseline py-5 px-6">
         <div className="text-2xl font-extrabold text-primary">Grow Capital</div>
 
         {/* Desktop Buttons */}
