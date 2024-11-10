@@ -39,8 +39,8 @@ const News = () => {
       ) : (
         <>
           {/* Outer container with a maximum width set using 100vw */}
-          <div className="w-full max-w-[90vw] overflow-x-auto">
-            <div className="flex space-x-4 h-72">
+          <div className="w-full overflow-x-hidden">
+            <div className="flex space-x-4">
               {timelineDataLoading
                 ? // Show Skeleton Loaders when data is loading
                   Array.from({ length: 5 }).map((_, index) => (
