@@ -7,6 +7,7 @@ import NotificationFilter from "./NotificationFilter";
 import Languages from "./Languages";
 import ReferAndEarn from "./ReferAndEarn";
 import News from "./News";
+import Providers from "./setup";
 
 const Dashboard = () => {
   const strategies = [
@@ -38,6 +39,9 @@ const Dashboard = () => {
       </div>
       <div className="mx-2 p-2">
         <Languages />
+      </div>
+      <div className="mx-2 p-2">
+        <Providers />
       </div>
       <div className="relative mx-2 p-4 mt-5 mb-10">
         <h1 className="text-lg font-bold mb-2">Predictions 14 days*</h1>

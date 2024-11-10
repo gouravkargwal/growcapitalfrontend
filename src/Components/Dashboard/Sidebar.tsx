@@ -98,17 +98,6 @@ const Sidebar = ({ closeSidebar }: { closeSidebar: () => void }) => {
               Profile Settings
             </button>
           </li>
-          <li>
-            <button
-              className={`w-full text-left p-2 flex items-center transition-all duration-300 ease-in-out rounded-lg ${isActive("/providers")
-                ? "bg-blue-500 text-white"
-                : "hover:bg-gray-200"
-                }`}
-              onClick={() => goToPage("/providers")}
-            >
-              Notification Provider Config
-            </button>
-          </li>
         </ul>
       </div>
       <div className="">

@@ -52,9 +52,12 @@ const Providers = () => {
   if (loading) return <p>Loading...</p>;
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 p-8">
-      <h2 className="text-xl mb-4">Communication Channels</h2>
-      <div className="bg-white p-6 rounded-lg shadow-md max-w-md w-full">
+    <div className="flex flex-col justify-start">
+      <h2 className="text-lg font-bold">Communication Channels</h2>
+      <p className="text-sm text-gray-500 mb-4">
+        Select your preferred channel for stock updates:
+      </p>
+      <div className="bg-white max-w-md w-full">
         <ul className="space-y-4">
           {providers.map((provider: providerData) => (
             <li
