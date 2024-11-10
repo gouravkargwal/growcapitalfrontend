@@ -5,18 +5,18 @@ const Footer: React.FC = () => {
   const year = new Date().getFullYear();
   return (
     <footer className="bg-white py-10 border-t">
-      <div className="container mx-auto px-6 md:px-12 lg:px-16">
+      <div className="container mx-auto px-6 md:px-12 lg:px-2">
         <div className="flex flex-col md:flex-row justify-between space-y-8 md:space-y-0">
           {/* Left Section (Logo and Description) */}
           <div className="md:w-1/3">
             <img
               src="/path-to-logo.png" // Replace with your logo path
-              alt="GrowCapital logo"
+              alt="Grow Capital"
               className="mb-4"
             />
             <p className="text-gray-600">
-              The ultimate automation tool for traders, enabling seamless trade
-              copying solutions to MetaTrader and crypto platforms.
+              🌐 Stay ahead with real-time BSE updates! 100-word summaries 🗣️,
+              add/remove stocks, stay informed! 📲
             </p>
             <p className="mt-4 text-blue-600 font-semibold">
               info@GrowCapital.ai
@@ -64,7 +64,7 @@ const Footer: React.FC = () => {
           </div>
 
           {/* Links Section */}
-          <div className="md:w-1/2 flex justify-between space-x-8">
+          <div className="md:w-1/2 flex justify-end space-x-16">
             {/* About Section */}
             <div>
               <h3 className="font-bold text-gray-800 mb-3">About</h3>
@@ -109,28 +109,6 @@ const Footer: React.FC = () => {
                 <li>
                   <a href="#" className="text-gray-600 hover:text-blue-600">
                     Privacy
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-            {/* Other Section */}
-            <div>
-              <h3 className="font-bold text-gray-800 mb-3">Other</h3>
-              <ul className="space-y-2">
-                <li>
-                  <a href="#" className="text-gray-600 hover:text-blue-600">
-                    Sign Up
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="text-gray-600 hover:text-blue-600">
-                    Log In
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="text-gray-600 hover:text-blue-600">
-                    Blogs
                   </a>
                 </li>
               </ul>

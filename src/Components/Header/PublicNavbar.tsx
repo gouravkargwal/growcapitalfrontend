@@ -33,7 +33,7 @@ const Navbar = () => {
 
   return (
     <header className="bg-opacity-90 backdrop-blur-md fixed top-0 w-full z-50">
-      <nav className="flex justify-between items-baseline py-5 px-6">
+      <nav className="flex justify-between items-baseline pt-8 pb-5 px-10">
         <div className="text-2xl font-extrabold text-primary">Grow Capital</div>
 
         {/* Desktop Buttons */}

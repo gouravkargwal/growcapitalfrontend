@@ -12,7 +12,7 @@ import Trial from "@/Components/Home/Trial";
 
 const Home: React.FC = () => {
   return (
-    <div className="bg-gradient-to-br from-blue-100 via-blue-50 to-white ">
+    <div className="bg-gradient-to-br from-blue-50 via-blue-50 to-white">
       <PublicNavbar />
       <Hero />
       <Features />

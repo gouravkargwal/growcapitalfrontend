@@ -14,6 +14,7 @@ import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { openSnackbar } from "@/Feature/Snackbar/snackbarSlice";
+import bg from "../../../assets/home.png";
 
 // Validation schema
 const passwordStrength = yup
@@ -84,34 +85,30 @@ const SigninForm = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col md:flex-row bg-gray-50">
-      {/* Image Section (hidden on mobile, shown on md and larger) */}
-      <div className="hidden md:flex w-full md:w-1/2 bg-gradient-to-r from-primary to-blue-600 text-white items-center justify-center">
-        <div className="text-center p-8">
+    <div className="min-h-screen flex flex-col md:flex-row">
+      <div className="hidden md:flex w-full md:w-[50%] bg-primary text-white flex-col">
+        <div className="w-full  pt-14 pl-16">
           <Image
-            src="https://via.placeholder.com/600x300"
+            src={bg}
             alt="Dashboard Overview"
+            layout="responsive"
             width={600}
             height={300}
-            className="w-full h-auto mb-4 rounded-lg shadow-lg"
+            className="w-full h-1/2 mb-0 object-fill rounded-tl-2xl"
           />
-
-          <div className="bg-black bg-opacity-30 p-8 rounded-lg shadow-md backdrop-blur-md">
-            <h2 className="text-4xl font-semibold text-white mb-4">Finlab</h2>
-            <p className="text-lg text-gray-100 mb-6">
-              Empower your financial tasks today with Findash.
-            </p>
-            <p className="text-gray-200 mb-6">
-              The one-stop platform for all financial management of small and
-              medium-sized businesses.
-            </p>
-          </div>
+        </div>
+        <div className="w-full bg-black bg-opacity-30 p-8 backdrop-blur-md text-start h-full">
+          <h2 className="text-4xl  text-white mb-10">Grow Capital</h2>
+          <p className="text-4xl text-gray-100 font-semibold mb-10">
+            Stay Ahead with Real-Time Stock News
+          </p>
+          <p className="text-gray-200">
+            🌐 Stay ahead with real-time BSE updates! 100-word summaries 🗣️, add/remove stocks, stay informed! 📲
+          </p>
         </div>
       </div>
-
-      {/* Form Section */}
-      <div className="w-full h-screen md:w-1/2 flex justify-center items-center bg-white">
-        <div className="max-w-md w-full p-6 sm:p-8 rounded-none md:rounded-lg shadow-none md:shadow-lg md:border md:border-gray-200">
+      <div className="w-full h-screen md:w-1/2 flex justify-center items-center bg-gray-50">
+        <div className="max-w-xl w-full p-6 sm:p-8 rounded-none md:rounded-lg shadow-none md:shadow-lg md:border md:border-gray-200">
           <button
             className="mb-4 text-primary hover:text-primary-dark"
             onClick={() => router.push("/")}
@@ -136,7 +133,6 @@ const SigninForm = () => {
               placeholder="********"
               error={errors.password?.message}
             />
-            {/* Forgot Password Link */}
             <div className="text-right">
               <Link
                 href="forgotpassword"

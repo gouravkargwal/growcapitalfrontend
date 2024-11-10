@@ -19,7 +19,7 @@ const Trial: React.FC = () => {
   };
 
   return (
-    <section className="text-center py-20">
+    <section className="text-center py-40">
       <motion.div
         initial="offscreen"
         whileInView="onscreen"
@@ -27,19 +27,16 @@ const Trial: React.FC = () => {
         viewport={{ once: true, amount: 0.1 }}
         className="max-w-3xl mx-auto px-4"
       >
-        {/* Heading */}
         <motion.h2 className="text-hero-title font-extrabold text-primary mb-6 leading-tight">
           Start Your Journey Today. <br /> Enjoy 90 Days Free Access!
         </motion.h2>
 
-        {/* Subtitle */}
         <motion.p className="text-textSecondary text-body-lg leading-relaxed mb-10">
           🚀 Stay ahead of the market with real-time BSE updates! Get concise
           100-word stock news summaries 📰, easily add or remove stocks, and
           stay informed on-the-go. 📱
         </motion.p>
 
-        {/* CTA Button */}
         <motion.button
           className="bg-primary hover:bg-blue-600 text-white font-semibold py-4 px-8 rounded-btn-lg shadow-btn-shadow transition-all duration-300 ease-in-out transform hover:scale-105"
           onClick={() => {
