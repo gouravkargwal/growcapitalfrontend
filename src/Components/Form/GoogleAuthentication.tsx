@@ -22,14 +22,11 @@ const GoogleAuthentication = () => {
 
   return (
     <div>
-      {/* Divider with 'OR' */}
       <div className="flex items-center my-4">
         <hr className="flex-grow border-gray-300" />
         <span className="px-4 text-gray-500">OR</span>
         <hr className="flex-grow border-gray-300" />
       </div>
-
-      {/* Google Sign-In Button */}
       <div className="my-4 text-center">
         <button
           onClick={handleGoogleSignIn}

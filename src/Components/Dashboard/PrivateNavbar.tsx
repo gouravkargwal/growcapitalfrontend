@@ -1,6 +1,7 @@
 "use client";
 
 import { FaBell, FaSearch } from "react-icons/fa";
+import { AiOutlineMenu } from "react-icons/ai"; // Hamburger icon
 import React, { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 
@@ -21,7 +22,11 @@ const useOutsideClick = (
   }, [ref, handler]);
 };
 
-const PrivateNavbar: React.FC<{ toggleSidebar: () => void }> = () => {
+interface PrivateNavbarProps {
+  toggleSidebar: () => void;
+}
+
+const PrivateNavbar: React.FC<PrivateNavbarProps> = ({ toggleSidebar }) => {
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
   const notificationRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
@@ -50,7 +55,19 @@ const PrivateNavbar: React.FC<{ toggleSidebar: () => void }> = () => {
   return (
     <nav className="bg-gradient-to-b from-blue-50 via-blue-50 to-white p-4 flex flex-col relative w-screen sm:w-full">
       <div className="flex justify-between items-center">
-        <div className="text-gray-600 text-2xl mr-4">{getTitle(pathname)}</div>
+        <div className="text-gray-600 text-2xl mr-4">
+          <div className="flex flex-row">
+            <button
+              className="lg:hidden text-2xl focus:outline-none"
+              onClick={toggleSidebar}
+            >
+              <AiOutlineMenu />
+            </button>
+            <span className={`text-2xl text-gray-600 ${pathname === "/dashboard" ? "hidden lg:block" : "block"} ml-4 md:ml-0`}>
+              {getTitle(pathname) || "Home"}
+            </span>
+          </div>
+        </div>
         {pathname === "/dashboard" && (
           <div className="flex space-x-4 items-center">
             <div className="relative">
@@ -72,7 +89,7 @@ const PrivateNavbar: React.FC<{ toggleSidebar: () => void }> = () => {
               {isNotificationOpen && (
                 <div
                   ref={notificationRef}
-                  className="absolute right-0 mt-4   bg-white shadow-lg border border-gray-200 rounded-lg p-4 w-64 max-w-xs z-50"
+                  className="absolute right-0 mt-4 bg-white shadow-lg border border-gray-200 rounded-lg p-4 w-64 max-w-xs z-50"
                 >
                   <h3 className="font-semibold text-lg mb-2">Notifications</h3>
                   <ul className="text-gray-600">

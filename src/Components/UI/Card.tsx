@@ -24,8 +24,8 @@ const Card: React.FC<CardProps> = ({
       className="flex flex-col justify-between rounded-lg w-full sm:w-64 h-auto sm:h-36 border transition-shadow duration-300 ease-in-out hover:shadow-lg"
       style={{ backgroundColor: color, borderColor: borderColor }}
     >
-      <div className="flex flex-col sm:flex-row justify-start p-4">
-        <div className="bg-white p-3 rounded-lg flex justify-center items-center sm:mr-4 mb-2 sm:mb-0">
+      <div className="flex flex-row justify-start p-4">
+        <div className="bg-white p-3 rounded-lg flex justify-center items-center mr-4 mb-2 sm:mb-0 w-fit">
           <div className="text-2xl md:text-4xl text-center">{icon}</div>
         </div>
         <div className="flex flex-col justify-center">

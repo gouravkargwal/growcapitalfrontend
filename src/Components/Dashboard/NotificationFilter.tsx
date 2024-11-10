@@ -39,7 +39,7 @@ const NotificationFilter = () => {
     <div className="mb-4">
       <div className="flex flex-row justify-between items-center">
         <div className="flex flex-col">
-          <h2 className="text-xl font-bold">Notification Filters</h2>
+          <h2 className="text-lg font-bold">Notification Filters</h2>
           <p className="text-sm text-gray-400 mb-4">
             Control the type of updates you receive on WhatsApp. Disable updates
             based on categories like technical analysis, news updates, etc.

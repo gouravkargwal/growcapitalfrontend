@@ -143,10 +143,10 @@ const StocksList: React.FC = () => {
   };
 
   return (
-    <div className="mx-3 mt-5 text-black">
+    <div className="mt-5 text-black">
       <div className="flex flex-row justify-between items-center mb-4">
         <div className="flex flex-col">
-          <h2 className="text-xl font-bold sm:mb-2 text-gray-900">
+          <h2 className="text-lg font-bold text-gray-900">
             Stocks Tracked
           </h2>
           <p className="text-gray-500">

@@ -57,7 +57,7 @@ const AccountOverview: React.FC = () => {
   const cards =
     accountOverview?.map((card) => ({
       ...card,
-      ...cardStyles[card.title], // Match title to get corresponding styles
+      ...cardStyles[card.title],
     })) || [];
 
   return (
@@ -65,7 +65,7 @@ const AccountOverview: React.FC = () => {
       <h2 className="text-lg font-bold mb-2">Account Overview</h2>
       <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {accountOverviewLoading
-          ? Array(4) // Create placeholders for skeleton loading
+          ? Array(4)
               .fill(null)
               .map((_, index) => <CardSkeleton />)
           : cards.map((card, index) => (

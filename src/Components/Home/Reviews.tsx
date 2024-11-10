@@ -45,7 +45,7 @@ const Reviews: React.FC = () => {
       id: 4,
       name: "Priya Patel",
       role: "Stock Analyst, Market Experts",
-      image: "https://randomuser.me/api/portraits/women/8.jpg",
+      image: "https://randomuser.me/api/portraits/women/15.jpg",
       rating: 4.0,
       testimonial:
         "Grow Capital’s ability to send personalized stock news directly to my Telegram is incredibly useful. The sentiment score feature helps me stay on top of market trends and adjust my strategy accordingly.",
@@ -54,7 +54,7 @@ const Reviews: React.FC = () => {
       id: 5,
       name: "Ravi Singh",
       role: "Risk Analyst, Future Finance",
-      image: "https://randomuser.me/api/portraits/men/30.jpg",
+      image: "https://randomuser.me/api/portraits/men/56.jpg",
       rating: 4.9,
       testimonial:
         "With Grow Capital, I receive not only stock news but also insights into how the market is reacting to those events. The sentiment score feature is a real-time indicator that helps me gauge market movements effectively.",
@@ -63,7 +63,7 @@ const Reviews: React.FC = () => {
       id: 6,
       name: "Atul Mehta",
       role: "Investment Strategist, Visionary Traders",
-      image: "https://randomuser.me/api/portraits/men/89.jpg",
+      image: "https://randomuser.me/api/portraits/men/69.jpg",
       rating: 4.8,
       testimonial:
         "Grow Capital has streamlined my approach to keeping up with the market. The stock news summaries and sentiment scores keep me informed and ready to make data-driven decisions quickly.",
@@ -89,7 +89,7 @@ const Reviews: React.FC = () => {
   return (
     <section className="py-16 min-h-screen">
       <div className="max-w-7xl mx-auto px-4">
-        <h2 className="text-4xl font-bold text-center text-gray-800 mb-2">
+        <h2 className="text-3xl lg:text-4xl font-bold text-center text-gray-800 mb-2">
           What Our Customers Are Saying About Grow Capital
         </h2>
         <p className="text-center text-gray-500 mb-12">

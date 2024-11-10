@@ -11,7 +11,7 @@ const ReferAndEarn = () => {
   return (
     <div className="flex flex-row justify-between items-center">
       <div className="flex flex-col">
-        <h2 className="text-xl font-bold">Refer and Earn</h2>
+        <h2 className="text-lg font-bold">Refer and Earn</h2>
         <p className="text-sm text-gray-400 mb-4">
           Earn exciting rewards by sharing Grow Capital with your friends.
         </p>

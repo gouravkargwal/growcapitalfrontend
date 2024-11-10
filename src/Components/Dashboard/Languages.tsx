@@ -31,7 +31,7 @@ const Languages = () => {
 
   return (
     <div className="mb-4">
-      <h2 className="text-xl font-bold">Language Preferences</h2>
+      <h2 className="text-lg font-bold">Language Preferences</h2>
       <p className="text-sm text-gray-500 mb-4">
         Select your preferred language for stock updates:
       </p>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { FiMenu } from "react-icons/fi"; // Menu icon for mobile
-import { IoClose } from "react-icons/io5"; // Close icon for mobile
-import { motion, AnimatePresence } from "framer-motion"; // For animations
+import { FiMenu } from "react-icons/fi"; 
+import { IoClose } from "react-icons/io5"; 
+import { motion, AnimatePresence } from "framer-motion"; 
 import { useRouter } from "next/navigation";
 
 const Navbar = () => {
@@ -9,11 +9,11 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
-    setIsOpen(!isOpen); // Toggle the mobile menu
+    setIsOpen(!isOpen); 
   };
 
   const menuVariants = {
-    hidden: { opacity: 0, x: "100%" }, // Hidden state
+    hidden: { opacity: 0, x: "100%" }, 
     visible: {
       opacity: 1,
       x: 0,
@@ -27,16 +27,14 @@ const Navbar = () => {
   };
 
   const linkVariants = {
-    hidden: { opacity: 0, y: 20 }, // Links start below and invisible
-    visible: { opacity: 1, y: 0, transition: { delay: 0.1, duration: 0.3 } }, // Animate in with slight delay
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { delay: 0.1, duration: 0.3 } },
   };
 
   return (
-    <header className="bg-opacity-90 backdrop-blur-md fixed top-0 w-full z-50">
-      <nav className="flex justify-between items-baseline pt-8 pb-5 px-10">
+    <header className="bg-opacity-90 backdrop-blur-md fixed top-0 w-screen z-50">
+      <nav className="flex justify-between pt-6 md:pt-8 pb-5 px-5 md:px-10">
         <div className="text-2xl font-extrabold text-primary">Grow Capital</div>
-
-        {/* Desktop Buttons */}
         <div className="hidden lg:flex space-x-4">
           <button
             className="px-6 py-2 border border-primary text-primary rounded-btn-lg font-semibold hover:bg-primary hover:text-white transition-all duration-300 transform hover:scale-105 shadow-btn-shadow"
@@ -55,19 +53,16 @@ const Navbar = () => {
             Get Started
           </button>
         </div>
-
-        {/* Mobile Menu Icon */}
         <div className="lg:hidden">
           <button
             onClick={toggleMenu}
-            className="text-3xl text-textPrimary focus:outline-none"
+            className="text-2xl text-textPrimary focus:outline-none"
           >
             {isOpen ? <IoClose /> : <FiMenu />}
           </button>
         </div>
       </nav>
 
-      {/* Mobile Menu */}
       <AnimatePresence>
         {isOpen && (
           <motion.div

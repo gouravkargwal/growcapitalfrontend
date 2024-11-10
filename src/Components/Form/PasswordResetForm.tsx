@@ -14,6 +14,7 @@ import { useAppDispatch } from "@/hook/useAppDispatch";
 import { openSnackbar } from "@/Feature/Snackbar/snackbarSlice";
 import Image from "next/image";
 import { FiEye, FiEyeOff } from "react-icons/fi"; // Import eye icons
+import AuthLayout from "./Layout";
 
 // Password validation schema with strength checks
 const passwordStrength = yup
@@ -86,78 +87,55 @@ const PasswordResetForm = () => {
   };
 
   return (
-    <div className="min-h-screen flex justify-center items-center bg-gray-50">
-      <div className="hidden h-screen md:flex w-full md:w-1/2 bg-gradient-to-r from-primary to-blue-600 text-white items-center justify-center">
-        <div className="text-center p-8">
-          <Image
-            src="https://via.placeholder.com/600x300"
-            alt="Dashboard Overview"
-            width={600}
-            height={300}
-            className="w-full h-auto mb-4 rounded-lg shadow-lg"
-          />
-          <div className="bg-black bg-opacity-30 p-8 rounded-lg shadow-md backdrop-blur-md">
-            <h2 className="text-4xl font-semibold text-white mb-4">Finlab</h2>
-            <p className="text-lg text-gray-100 mb-6">
-              Let’s empower your financial task today with Findash.
-            </p>
-            <p className="text-gray-400 mb-6">
-              The one-stop platform for all financial management of small and
-              medium-sized businesses.
-            </p>
+    <AuthLayout>
+      <div className="max-w-xl w-full p-6 sm:p-8 rounded-lg shadow-lg bg-white border border-gray-200">
+        <h2 className="text-3xl font-extrabold text-primary mb-6 text-center">
+          Reset Your Password
+        </h2>
+
+        {error && <p className="text-red-500 text-center mb-4">{error}</p>}
+
+        <form onSubmit={handleSubmit(onSubmit)}>
+          {/* Password Field */}
+          <div className="relative mb-6">
+            <InputField
+              label="New Password"
+              type={showPassword ? "text" : "password"}
+              placeholder="Enter your new password"
+              register={register("password")}
+              error={errors.password?.message}
+            />
+            <button
+              type="button"
+              className="absolute right-4 top-10 text-gray-500 text-xl"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? <FiEyeOff /> : <FiEye />}
+            </button>
           </div>
-        </div>
+
+          {/* Confirm Password Field */}
+          <div className="relative mb-6">
+            <InputField
+              label="Confirm Password"
+              type={showPassword ? "text" : "password"}
+              placeholder="Confirm your new password"
+              register={register("confirmPassword")}
+              error={errors.confirmPassword?.message}
+            />
+            <button
+              type="button"
+              className="absolute right-4 top-10 text-gray-500 text-xl"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? <FiEyeOff /> : <FiEye />}
+            </button>
+          </div>
+
+          <FormButton label="Reset Password" loading={loading} />
+        </form>
       </div>
-      <div className="w-full h-screen md:w-1/2 flex justify-center items-center">
-        <div className="max-w-md w-full p-6 sm:p-8 rounded-lg shadow-lg bg-white border border-gray-200">
-          <h2 className="text-3xl font-extrabold text-primary mb-6 text-center">
-            Reset Your Password
-          </h2>
-
-          {error && <p className="text-red-500 text-center mb-4">{error}</p>}
-
-          <form onSubmit={handleSubmit(onSubmit)}>
-            {/* Password Field */}
-            <div className="relative mb-6">
-              <InputField
-                label="New Password"
-                type={showPassword ? "text" : "password"}
-                placeholder="Enter your new password"
-                register={register("password")}
-                error={errors.password?.message}
-              />
-              <button
-                type="button"
-                className="absolute right-4 top-10 text-gray-500 text-xl"
-                onClick={() => setShowPassword(!showPassword)}
-              >
-                {showPassword ? <FiEyeOff /> : <FiEye />}
-              </button>
-            </div>
-
-            {/* Confirm Password Field */}
-            <div className="relative mb-6">
-              <InputField
-                label="Confirm Password"
-                type={showPassword ? "text" : "password"}
-                placeholder="Confirm your new password"
-                register={register("confirmPassword")}
-                error={errors.confirmPassword?.message}
-              />
-              <button
-                type="button"
-                className="absolute right-4 top-10 text-gray-500 text-xl"
-                onClick={() => setShowPassword(!showPassword)}
-              >
-                {showPassword ? <FiEyeOff /> : <FiEye />}
-              </button>
-            </div>
-
-            <FormButton label="Reset Password" loading={loading} />
-          </form>
-        </div>
-      </div>
-    </div>
+    </AuthLayout>
   );
 };
 

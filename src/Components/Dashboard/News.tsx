@@ -27,7 +27,7 @@ const News = () => {
 
   return (
     <>
-      <h2 className="text-lg font-bold mb-2 md:text-2xl">Your Timeline</h2>
+      <h2 className="text-lg font-bold">Your Timeline</h2>
       <p className="text-gray-500 mb-4 md:text-base">
         Browse top news from your portfolio
       </p>

@@ -6,7 +6,7 @@ interface CardProps {
   title: string;
   description: string;
   icon: string;
-  direction: "left" | "right"; // determines animation direction
+  direction: "left" | "right";
 }
 
 const Features: React.FC = () => {
@@ -42,15 +42,14 @@ const Features: React.FC = () => {
   ];
 
   return (
-    <section className="py-16 min-h-screen">
-      <div className="max-w-7xl mx-auto px-4">
-        <h2 className="text-4xl font-bold text-center text-gray-800 mb-2">
-         Grow Capital Features
+    <section className="py-16 lg:min-h-screen overflow-x-hidden">
+      <div className="mx-auto px-4">
+        <h2 className="text-3xl lg:text-4xl font-bold text-center text-gray-800 mb-2">
+          Grow Capital Features
         </h2>
         <p className="text-center text-gray-500 mb-12">
           Discover how Grow Capital’s powerful features help you stay informed,
-          make smarter investment decisions, and manage your portfolio with
-          ease.
+          make smarter investment decisions, and manage your portfolio with ease.
         </p>
         <div className="container mx-auto px-4 grid md:grid-cols-2 gap-10 lg:gap-16">
           {cardData.map((card, index) => (
@@ -65,6 +64,7 @@ const Features: React.FC = () => {
         </div>
       </div>
     </section>
+
   );
 };
 
@@ -76,11 +76,11 @@ const FeatureCard: React.FC<CardProps> = ({
 }) => {
   const { ref, inView } = useInView({
     triggerOnce: true,
-    threshold: 0.5, // Animation triggers when 50% visible
+    threshold: 0.5,
   });
 
   const variants = {
-    hidden: { opacity: 0, x: direction === "left" ? -150 : 150 },
+    hidden: { opacity: 0, x: direction === "left" ? -100 : 100 },
     visible: {
       opacity: 1,
       x: 0,

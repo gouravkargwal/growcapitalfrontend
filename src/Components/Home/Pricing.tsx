@@ -82,7 +82,7 @@ const PricingPlan: React.FC<PlanProps> = ({
       } transition-all duration-300 rounded-xl p-8 hover:shadow-lg flex flex-col justify-between h-full`}
       variants={pricingVariant}
       initial="initial"
-      animate={isHighlighted ? "highlighted" : "initial"}
+      animate={isHighlighted ? "lg:highlighted" : "initial"}
       whileHover="hover"
       onMouseEnter={() => onHighlight(plan.planName)}
     >
@@ -155,7 +155,7 @@ const PricingSection: React.FC = () => {
   return (
     <div className="min-h-screen flex flex-col justify-center items-center py-12">
       <div className="w-full max-w-6xl px-4 text-center">
-        <h1 className="text-4xl font-bold mb-4">Choose Your Plan</h1>
+        <h1 className="text-3xl lg:text-4xl font-bold mb-2">Choose Your Plan</h1>
         <p className="text-gray-600 mb-8">
           Select the plan that best fits your needs. Flexible billing options
           available!
@@ -180,8 +180,6 @@ const PricingSection: React.FC = () => {
             Quarterly (Save 10%)
           </button>
         </div> */}
-
-        {/* Pricing Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {plans.map((plan) => (
             <PricingPlan

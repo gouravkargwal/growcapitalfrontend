@@ -19,7 +19,7 @@ const Trial: React.FC = () => {
   };
 
   return (
-    <section className="text-center py-40">
+    <section className="text-center py-20 lg:py-40">
       <motion.div
         initial="offscreen"
         whileInView="onscreen"
@@ -27,7 +27,7 @@ const Trial: React.FC = () => {
         viewport={{ once: true, amount: 0.1 }}
         className="max-w-3xl mx-auto px-4"
       >
-        <motion.h2 className="text-hero-title font-extrabold text-primary mb-6 leading-tight">
+        <motion.h2 className="text-4xl lg:text-5xl font-extrabold text-primary mb-6 leading-tight">
           Start Your Journey Today. <br /> Enjoy 90 Days Free Access!
         </motion.h2>
 
