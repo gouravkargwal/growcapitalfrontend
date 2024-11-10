@@ -12,7 +12,7 @@ const Faqs: React.FC = () => {
   const cardVariants = {
     offscreen: {
       opacity: 0,
-      y: 100,
+      y: 60,
     },
     onscreen: {
       opacity: 1,
