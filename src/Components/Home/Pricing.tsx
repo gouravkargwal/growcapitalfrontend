@@ -22,30 +22,33 @@ interface PlanProps {
 const planDetails: Record<string, { description: string; features: string[] }> =
   {
     "Basic Plan": {
-      description: "Ideal for individuals starting out.",
+      description:
+        "Ideal for individuals just starting out with stock market insights.",
       features: [
-        "Access to basic features",
-        "Email support",
-        "Limited storage",
+        "Access to daily stock news summaries",
+        "Receive updates via Telegram for instant alerts",
+        "Up to 10 stock news alerts per month",
       ],
     },
     "Pro Plan": {
-      description: "Perfect for professionals needing advanced tools.",
+      description:
+        "Designed for professionals looking for advanced tools and insights.",
       features: [
         "All features in Basic Plan",
-        "Priority email support",
-        "Increased storage",
-        "Access to premium resources",
+        "Receive updates via WhatsApp and Telegram for flexible communication",
+        "Up to 50 stock news alerts per month",
+        "Access to premium stock news summaries with in-depth analysis",
+        "Priority customer support with quicker response times",
       ],
     },
     "Premium Plan": {
-      description: "For large teams and businesses.",
+      description:
+        "Tailored for large teams and businesses with comprehensive needs.",
       features: [
         "All features in Pro Plan",
-        "Dedicated account manager",
-        "24/7 support",
-        "Unlimited storage",
-        "Custom integrations",
+        "Advanced sentiment analysis to understand market trends",
+        "24/7 customer support with priority handling",
+        "Upto 100 customizable stock news alerts and notifications",
       ],
     },
   };
@@ -114,7 +117,7 @@ const PricingPlan: React.FC<PlanProps> = ({
       {/* Features List */}
       <ul className="space-y-3 mb-8">
         {features?.map((feature, index) => (
-          <li key={index} className="flex items-center text-base">
+          <li key={index} className="flex items-center text-base text-left">
             <span className="mr-2 text-green-600">✓</span> {feature}
           </li>
         ))}

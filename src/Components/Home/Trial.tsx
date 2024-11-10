@@ -1,7 +1,9 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 
 const Trial: React.FC = () => {
+  const router = useRouter();
   const containerVarient = {
     offscreen: { opacity: 0, y: 20 },
     onscreen: {
@@ -17,7 +19,7 @@ const Trial: React.FC = () => {
   };
 
   return (
-    <section className="text-center py-20 bg-gradient-to-r from-blue-50 to-blue-100">
+    <section className="text-center py-20">
       <motion.div
         initial="offscreen"
         whileInView="onscreen"
@@ -27,22 +29,25 @@ const Trial: React.FC = () => {
       >
         {/* Heading */}
         <motion.h2 className="text-hero-title font-extrabold text-primary mb-6 leading-tight">
-          Get started in 30 seconds. <br /> Free for 90 days.
+          Start Your Journey Today. <br /> Enjoy 90 Days Free Access!
         </motion.h2>
 
         {/* Subtitle */}
         <motion.p className="text-textSecondary text-body-lg leading-relaxed mb-10">
-          Simplify your business operations and consolidate your projects,
-          clients, and team into one integrated, easy-to-use platform.
+          🚀 Stay ahead of the market with real-time BSE updates! Get concise
+          100-word stock news summaries 📰, easily add or remove stocks, and
+          stay informed on-the-go. 📱
         </motion.p>
 
         {/* CTA Button */}
-        <motion.a
-          href="#"
+        <motion.button
           className="bg-primary hover:bg-blue-600 text-white font-semibold py-4 px-8 rounded-btn-lg shadow-btn-shadow transition-all duration-300 ease-in-out transform hover:scale-105"
+          onClick={() => {
+            router.push("signup");
+          }}
         >
-          Get started
-        </motion.a>
+          Claim Your Free Trial
+        </motion.button>
       </motion.div>
     </section>
   );
