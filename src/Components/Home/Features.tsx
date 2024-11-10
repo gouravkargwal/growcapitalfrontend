@@ -12,47 +12,57 @@ interface CardProps {
 const Features: React.FC = () => {
   const cardData: CardProps[] = [
     {
-      title: "Project Management",
+      title: "Stock News Summaries",
       description:
-        "Manage your projects from start to finish. With all your projects in Ganttify, you’ll always know who’s doing what, by when.",
-      icon: "📋",
+        "Get the latest stock news delivered directly to your messaging app of choice, summarized so you can stay informed with minimal time investment.",
+      icon: "📰",
       direction: "left",
     },
     {
-      title: "Workflows and Automations",
+      title: "Sentiment Analysis",
       description:
-        "Create more efficient processes so you can seamlessly manage projects across departments and get more done in less time.",
-      icon: "🔗",
+        "Receive sentiment scores alongside news summaries, helping you gauge the market's mood and make informed decisions.",
+      icon: "📈",
       direction: "right",
     },
     {
-      title: "Goals and Reporting",
+      title: "Telegram & WhatsApp Support",
       description:
-        "See how each project and portfolio ladders up to company objectives and keep everyone focused on the work that matters.",
-      icon: "🎯",
+        "Choose your preferred messaging platform—Telegram or WhatsApp—to receive updates, giving you flexibility and convenience.",
+      icon: "💬",
       direction: "left",
     },
     {
-      title: "Resource Management",
+      title: "Customizable Alerts",
       description:
-        "Get the visibility you need to plan accurate timelines, adjust workloads, and stay on track to achieve your objectives.",
-      icon: "📦",
+        "Set up alerts based on your favorite stocks and news types, ensuring you only receive the information you want.",
+      icon: "🔔",
       direction: "right",
     },
   ];
 
   return (
-    <section className="py-20 bg-gray-50">
-      <div className="container mx-auto px-4 grid md:grid-cols-2 gap-10 lg:gap-16">
-        {cardData.map((card, index) => (
-          <FeatureCard
-            key={index}
-            title={card.title}
-            description={card.description}
-            icon={card.icon}
-            direction={card.direction}
-          />
-        ))}
+    <section className="bg-gray-50 py-16 min-h-screen">
+      <div className="max-w-7xl mx-auto px-4">
+        <h2 className="text-4xl font-bold text-center text-gray-800 mb-2">
+          Key Features of GrowCapital
+        </h2>
+        <p className="text-center text-gray-500 mb-12">
+          Discover how GrowCapital’s powerful features help you stay informed,
+          make smarter investment decisions, and manage your portfolio with
+          ease.
+        </p>
+        <div className="container mx-auto px-4 grid md:grid-cols-2 gap-10 lg:gap-16">
+          {cardData.map((card, index) => (
+            <FeatureCard
+              key={index}
+              title={card.title}
+              description={card.description}
+              icon={card.icon}
+              direction={card.direction}
+            />
+          ))}
+        </div>
       </div>
     </section>
   );

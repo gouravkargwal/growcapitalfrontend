@@ -1,189 +1,194 @@
-import React, { useState } from "react";
-
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { fetchAllPlans, PlanState } from "@/Feature/Plan/planSlice";
+import { useAppDispatch } from "@/hook/useAppDispatch";
+import { useSelector } from "react-redux";
+import { RootState } from "@/Store/store";
+import { useRouter } from "next/navigation";
 
-const PricingSection: React.FC = () => {
-  // State for switching between Monthly and Annually
-  const [isMonthly, setIsMonthly] = useState<boolean>(true);
-  // State for the highlighted plan (default: 'pro')
-  const [highlighted, setHighlighted] = useState<string>("pro");
+interface PlanProps {
+  plan: {
+    planId: number;
+    planName: string;
+    planPrice: number;
+    finalPrice: number;
+  };
+  isHighlighted: boolean;
+  onHighlight: (planName: string) => void;
+  isMonthly: boolean;
+}
 
-  // Toggle the billing type between Monthly and Annually
-  const toggleBilling = () => {
-    setIsMonthly(!isMonthly);
+// Hardcoded descriptions and features
+const planDetails: Record<string, { description: string; features: string[] }> =
+  {
+    "Basic Plan": {
+      description: "Ideal for individuals starting out.",
+      features: [
+        "Access to basic features",
+        "Email support",
+        "Limited storage",
+      ],
+    },
+    "Pro Plan": {
+      description: "Perfect for professionals needing advanced tools.",
+      features: [
+        "All features in Basic Plan",
+        "Priority email support",
+        "Increased storage",
+        "Access to premium resources",
+      ],
+    },
+    "Premium Plan": {
+      description: "For large teams and businesses.",
+      features: [
+        "All features in Pro Plan",
+        "Dedicated account manager",
+        "24/7 support",
+        "Unlimited storage",
+        "Custom integrations",
+      ],
+    },
   };
 
-  // Variants for motion animations
-  const pricingvarient = {
-    initial: { scale: 1, zIndex: 0 },
-    hover: { scale: 1.08, zIndex: 1, transition: { duration: 0.2 } },
-    highlighted: { scale: 1.1, zIndex: 2, transition: { duration: 0.3 } },
-  };
+const pricingVariant = {
+  initial: { scale: 1, zIndex: 0 },
+  hover: { scale: 1.08, zIndex: 1, transition: { duration: 0.2 } },
+  highlighted: { scale: 1.1, zIndex: 2, transition: { duration: 0.3 } },
+};
+
+const PricingPlan: React.FC<PlanProps> = ({
+  plan,
+  isHighlighted,
+  onHighlight,
+  isMonthly,
+}) => {
+  const router = useRouter();
+
+  const { description, features } = planDetails[plan.planName] || {};
+  const monthlyPrice = plan.planPrice.toFixed(0);
+  const finalMonthlyPrice = plan.finalPrice.toFixed(0);
+  // const annualPrice = (monthlyPrice * 12).toFixed(0);
+  // const finalAnnualPrice = (finalMonthlyPrice * 12).toFixed(0);
 
   return (
-    <div className="bg-neutral text-primary min-h-screen flex flex-col justify-center items-center">
-      <div className="w-full max-w-6xl px-4">
-        <h1 className="text-4xl font-bold text-center mb-6">
-          Simple and Flexible Pricing
-        </h1>
+    <motion.div
+      className={`${
+        isHighlighted
+          ? "border-2 border-primary bg-white text-primary shadow-xl transform scale-105"
+          : "border border-gray-200 bg-gray-50 text-gray-700 shadow-md"
+      } transition-all duration-300 rounded-xl p-8 hover:shadow-lg flex flex-col justify-between h-full`}
+      variants={pricingVariant}
+      initial="initial"
+      animate={isHighlighted ? "highlighted" : "initial"}
+      whileHover="hover"
+      onMouseEnter={() => onHighlight(plan.planName)}
+    >
+      <h2 className="text-2xl font-semibold mb-3">{plan.planName}</h2>
+      <p className="text-sm text-gray-500 mb-6">{description}</p>
 
-        {/* Billing toggle switch */}
-        <div className="flex justify-center items-center mb-8">
-          <span
-            className={`mr-2 ${isMonthly ? "text-gray-700" : "text-gray-400"}`}
+      {/* Pricing Section */}
+      <div className="text-4xl font-bold mb-6">
+        {isMonthly ? (
+          <>
+            {monthlyPrice !== finalMonthlyPrice && (
+              <span className="line-through mr-2 text-gray-400">
+                ₹{monthlyPrice}
+              </span>
+            )}
+            <span>₹{finalMonthlyPrice}</span>
+            <span className="text-lg"> /month</span>
+          </>
+        ) : (
+          <>
+            {/* {annualPrice !== finalAnnualPrice && (
+              <span className="line-through mr-2 text-gray-400">
+                ₹{annualPrice}
+              </span>
+            )}
+            <span>₹{finalAnnualPrice}</span>
+            <span className="text-lg"> /year</span> */}
+          </>
+        )}
+      </div>
+
+      {/* Features List */}
+      <ul className="space-y-3 mb-8">
+        {features?.map((feature, index) => (
+          <li key={index} className="flex items-center text-base">
+            <span className="mr-2 text-green-600">✓</span> {feature}
+          </li>
+        ))}
+      </ul>
+
+      {/* Call to Action Button */}
+      <button
+        className={`w-full py-3 rounded-lg font-semibold text-lg transition-colors mt-auto ${
+          isHighlighted
+            ? "bg-primary text-white hover:bg-primary-dark"
+            : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+        }`}
+        onClick={() => router.push("signup")}
+      >
+        {plan.planName === "Custom" ? "Book a Call" : "Get Started"}
+      </button>
+    </motion.div>
+  );
+};
+
+const PricingSection: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const { data: plans } = useSelector<RootState, PlanState>(
+    (state) => state.plan
+  );
+  const [highlighted, setHighlighted] = useState<string>("Pro Plan");
+  const isMonthly = true; // State to toggle Monthly/Quarterly
+  // const [isMonthly, setIsMonthly] = useState(true); // State to toggle Monthly/Quarterly
+  // const toggleBilling = () => setIsMonthly(!isMonthly);
+
+  useEffect(() => {
+    dispatch(fetchAllPlans());
+  }, [dispatch]);
+
+  return (
+    <div className="bg-gradient-to-br from-blue-100 via-blue-50 to-white min-h-screen flex flex-col justify-center items-center py-12">
+      <div className="w-full max-w-6xl px-4 text-center">
+        <h1 className="text-4xl font-bold mb-4">Choose Your Plan</h1>
+        <p className="text-gray-600 mb-8">
+          Select the plan that best fits your needs. Flexible billing options
+          available!
+        </p>
+
+        {/* Toggle Monthly/Quarterly */}
+        {/* <div className="flex justify-center items-center mb-10">
+          <button
+            className={`px-6 py-2 text-lg font-semibold rounded-l-lg ${
+              isMonthly ? "bg-primary text-white" : "bg-gray-200 text-gray-700"
+            }`}
+            onClick={() => setIsMonthly(true)}
           >
             Monthly
-          </span>
-          <div className="relative inline-block w-12 align-middle select-none transition duration-200 ease-in">
-            <input
-              type="checkbox"
-              id="toggle"
-              className="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer transition-transform duration-300 ease-in-out transform translate-x-0 checked:translate-x-6"
-              checked={!isMonthly}
-              onChange={toggleBilling}
-            />
-            <label
-              htmlFor="toggle"
-              className="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"
-            ></label>
-          </div>
-          <span
-            className={`ml-2 ${!isMonthly ? "text-gray-700" : "text-gray-400"}`}
+          </button>
+          <button
+            className={`px-6 py-2 text-lg font-semibold rounded-r-lg ${
+              !isMonthly ? "bg-primary text-white" : "bg-gray-200 text-gray-700"
+            }`}
+            onClick={() => setIsMonthly(false)}
           >
-            Annually
-          </span>
-        </div>
+            Quarterly (Save 10%)
+          </button>
+        </div> */}
 
         {/* Pricing Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Basic Plan ($99 or $999/year) */}
-          <motion.div
-            className={`bg-gray-100 text-gray-700 hover:bg-primary hover:text-white transition-all duration-300 rounded-lg p-6 shadow-lg ${
-              highlighted === "basic" ? "scale-105 bg-primary text-white" : ""
-            }`}
-            variants={pricingvarient}
-            initial="initial"
-            animate={highlighted === "basic" ? "highlighted" : "initial"}
-            whileHover="hover"
-            onMouseEnter={() => setHighlighted("basic")}
-            onMouseLeave={() => highlighted !== "pro" && setHighlighted("pro")}
-          >
-            <h2 className="text-xl font-bold">Basic</h2>
-            <p className="text-2xl font-bold mb-4">
-              {isMonthly ? "$99" : "$999"}{" "}
-              <span className="text-sm">
-                per {isMonthly ? "month" : "year"}
-              </span>
-            </p>
-            <p
-              className={`${
-                highlighted ? "text-gray-800" : "text-gray-500"
-              } mb-4 transition duration-300`}
-            >
-              Ideal for individuals tracking a limited number of stocks.
-            </p>
-            <ul className="space-y-2">
-              <li>Up to 10 stocks</li>
-              <li>Telegram updates only</li>
-              <li>Tweet News</li>
-              <li>BSE News</li>
-            </ul>
-            <button
-              className={`mt-6 ${
-                highlighted === "basic" ? "bg-white text-primary" : "bg-accent"
-              } hover:bg-white hover:text-primary py-2 px-4 rounded-lg w-full transition duration-300`}
-            >
-              Get Started
-            </button>
-          </motion.div>
-
-          {/* Pro Plan ($299 or $2999/year) */}
-          <motion.div
-            className={`${
-              highlighted === "pro"
-                ? "scale-105 bg-primary text-white"
-                : "bg-gray-100 text-gray-700"
-            } hover:bg-primary hover:text-white transition-all duration-300 rounded-lg p-6 shadow-lg`}
-            variants={pricingvarient}
-            initial="initial"
-            animate={highlighted === "pro" ? "highlighted" : "initial"}
-            whileHover="hover"
-            onMouseEnter={() => setHighlighted("pro")}
-            onMouseLeave={() => setHighlighted("pro")}
-          >
-            <h2 className="text-xl font-bold">Pro</h2>
-            <p className="text-2xl font-bold mb-4">
-              {isMonthly ? "$299" : "$2999"}{" "}
-              <span className="text-sm">
-                per {isMonthly ? "month" : "year"}
-              </span>
-            </p>
-            <p
-              className={`${
-                highlighted ? "text-gray-800" : "text-gray-500"
-              } mb-4 transition duration-300`}
-            >
-              Perfect for teams or individuals with a larger stock portfolio.
-            </p>
-            <ul className="space-y-2">
-              <li>Up to 50 stocks</li>
-              <li>Telegram updates only</li>
-              <li>Tweet News</li>
-              <li>BSE News</li>
-            </ul>
-            <button
-              className={`mt-6 ${
-                highlighted === "pro" ? "bg-white text-primary" : "bg-accent"
-              } hover:bg-white hover:text-primary py-2 px-4 rounded-lg w-full transition duration-300`}
-            >
-              Get Started
-            </button>
-          </motion.div>
-
-          {/* Premium Plan ($499 or $4999/year) */}
-          <motion.div
-            className={`bg-gray-100 text-gray-700 hover:bg-primary hover:text-white transition-all duration-300 rounded-lg p-6 shadow-lg ${
-              highlighted === "premium" ? "scale-105 bg-primary text-white" : ""
-            }`}
-            variants={pricingvarient}
-            initial="initial"
-            animate={highlighted === "premium" ? "highlighted" : "initial"}
-            whileHover="hover"
-            onMouseEnter={() => setHighlighted("premium")}
-            onMouseLeave={() => highlighted !== "pro" && setHighlighted("pro")}
-          >
-            <h2 className="text-xl font-bold">Premium</h2>
-            <p className="text-2xl font-bold mb-4">
-              {isMonthly ? "$499" : "$4999"}{" "}
-              <span className="text-sm">
-                per {isMonthly ? "month" : "year"}
-              </span>
-            </p>
-            <p
-              className={`${
-                highlighted ? "text-gray-800" : "text-gray-500"
-              } mb-4 transition duration-300`}
-            >
-              Comprehensive plan for professionals tracking extensive stocks
-              with advanced features.
-            </p>
-            <ul className="space-y-2">
-              <li>Up to 1000 stocks</li>
-              <li>Telegram & WhatsApp updates</li>
-              <li>Tweet News</li>
-              <li>BSE News</li>
-              <li>Prediction and News Score</li> {/* Only in the $499 plan */}
-            </ul>
-            <button
-              className={`mt-6 ${
-                highlighted === "premium"
-                  ? "bg-white text-primary"
-                  : "bg-accent"
-              } hover:bg-white hover:text-primary py-2 px-4 rounded-lg w-full transition duration-300`}
-            >
-              Get Started
-            </button>
-          </motion.div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {plans.map((plan) => (
+            <PricingPlan
+              key={plan.planId}
+              plan={plan}
+              isHighlighted={highlighted === plan.planName}
+              onHighlight={setHighlighted}
+              isMonthly={isMonthly}
+            />
+          ))}
         </div>
       </div>
     </div>

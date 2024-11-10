@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 interface Testimonial {
   id: number;
@@ -14,57 +15,57 @@ const Reviews: React.FC = () => {
   const testimonials: Testimonial[] = [
     {
       id: 1,
-      name: "Charolette Hanlin",
-      role: "Co-Founder, Heroes Digital",
-      image: "https://via.placeholder.com/40",
+      name: "Amit Sharma",
+      role: "Financial Analyst, Wealth Corp",
+      image: "https://randomuser.me/api/portraits/men/40.jpg", // Real person photo
       rating: 4.8,
       testimonial:
-        "Ganttify has revolutionized the way we manage our projects. Connecting tasks and workflows to our overall company goals has never been easier.",
+        "GrowCapital has completely transformed the way I receive stock news. The summaries are concise and the sentiment scores provide valuable insights that help me make quicker investment decisions.",
     },
     {
       id: 2,
-      name: "Eleanor Pena",
-      role: "Co-Founder, Heroes Digital",
-      image: "https://via.placeholder.com/40",
-      rating: 4.8,
+      name: "Neha Gupta",
+      role: "Investment Manager, Capital Dynamics",
+      image: "https://randomuser.me/api/portraits/women/50.jpg", // Real person photo
+      rating: 4.9,
       testimonial:
-        "Using Ganttify has streamlined our project management process. It’s incredibly effective in aligning our daily tasks with the company’s strategic goals.",
+        "The stock news updates from GrowCapital are incredibly helpful. I get the latest news with sentiment analysis straight to my phone, making it easier to monitor the market and act quickly.",
     },
     {
       id: 3,
-      name: "Guy Hawkins",
-      role: "Co-Founder, Heroes Digital",
-      image: "https://via.placeholder.com/40",
-      rating: 4.8,
+      name: "Rajesh Kumar",
+      role: "Portfolio Manager, Growth Investments",
+      image: "https://randomuser.me/api/portraits/men/60.jpg", // Real person photo
+      rating: 4.7,
       testimonial:
-        "Ganttify has provided us with a unified view of our projects. It connects our workflows directly to our business goals, making it easier to track progress.",
+        "As a portfolio manager, GrowCapital has been a game-changer. I get a quick summary of stock news along with sentiment scores that help me gauge market sentiment before making any moves.",
     },
     {
       id: 4,
-      name: "Kristin Watson",
-      role: "Co-Founder, Heroes Digital",
-      image: "https://via.placeholder.com/40",
-      rating: 4.8,
+      name: "Priya Patel",
+      role: "Stock Analyst, Market Experts",
+      image: "https://randomuser.me/api/portraits/women/60.jpg", // Real person photo
+      rating: 5.0,
       testimonial:
-        "Ganttify’s ability to connect tasks with our company’s goals has given us a new level of clarity and efficiency in our project management efforts.",
+        "GrowCapital’s ability to send personalized stock news directly to my Telegram is incredibly useful. The sentiment score feature helps me stay on top of market trends and adjust my strategy accordingly.",
     },
     {
       id: 5,
-      name: "Jane Cooper",
-      role: "Co-Founder, Heroes Digital",
-      image: "https://via.placeholder.com/40",
-      rating: 4.8,
+      name: "Ravi Singh",
+      role: "Risk Analyst, Future Finance",
+      image: "https://randomuser.me/api/portraits/men/30.jpg", // Real person photo
+      rating: 4.6,
       testimonial:
-        "Using Ganttify, we’ve been able to ensure that all our project activities are aligned with our overarching business objectives, leading to better coordination and success.",
+        "With GrowCapital, I receive not only stock news but also insights into how the market is reacting to those events. The sentiment score feature is a real-time indicator that helps me gauge market movements effectively.",
     },
     {
       id: 6,
-      name: "Leslie Alexander",
-      role: "Co-Founder, Heroes Digital",
-      image: "https://via.placeholder.com/40",
+      name: "Sanya Mehta",
+      role: "Investment Strategist, Visionary Traders",
+      image: "https://randomuser.me/api/portraits/women/70.jpg", // Real person photo
       rating: 4.8,
       testimonial:
-        "Ganttify has transformed our approach to project management. It ensures that every task, no matter how small, is aligned with our company’s mission and goals.",
+        "GrowCapital has streamlined my approach to keeping up with the market. The stock news summaries and sentiment scores keep me informed and ready to make data-driven decisions quickly.",
     },
   ];
 
@@ -85,16 +86,17 @@ const Reviews: React.FC = () => {
   };
 
   return (
-    <section className="bg-gray-50 py-16">
+    <section className="bg-gray-50 py-16 min-h-screen">
       <div className="max-w-7xl mx-auto px-4">
         <h2 className="text-4xl font-bold text-center text-gray-800 mb-2">
-          What Our Customers Are Saying
+          What Our Customers Are Saying About GrowCapital
         </h2>
         <p className="text-center text-gray-500 mb-12">
-          Here's what some of our customers think about our platform.
+          Here's how GrowCapital is helping investors make smarter decisions
+          with stock news and sentiment analysis.
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {testimonials.map((testimonial) => (
             <motion.div
               key={testimonial.id}
@@ -102,11 +104,11 @@ const Reviews: React.FC = () => {
               whileInView="onscreen"
               viewport={{ once: true, amount: 0.5 }} // Trigger animation when 50% is visible
               variants={cardVariants}
-              className="bg-white shadow-lg rounded-lg p-8 transition-all transform hover:scale-105 hover:shadow-xl"
+              className="bg-white shadow-lg rounded-lg p-8 transition-all transform hover:scale-105 hover:shadow-xl flex flex-col"
             >
-              <div className="flex items-center mb-4">
+              <div className="flex-grow">
                 {/* Star ratings */}
-                <div className="flex space-x-1">
+                <div className="flex space-x-1 mb-4">
                   {Array.from({ length: 5 }, (_, i) => (
                     <svg
                       key={i}
@@ -119,22 +121,21 @@ const Reviews: React.FC = () => {
                       viewBox="0 0 20 20"
                       xmlns="http://www.w3.org/2000/svg"
                     >
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.432 4.399a1 1 0 00.95.69h4.588c.969 0 1.371 1.24.588 1.81l-3.708 2.698a1 1 0 00-.364 1.118l1.432 4.399c.3.921-.755 1.688-1.54 1.118l-3.708-2.698a1 1 0 00-1.175 0l-3.708 2.698c-.784.57-1.838-.197-1.539-1.118l1.432-4.399a1 1 0 00-.364-1.118L2.049 9.826c-.784-.57-.38-1.81.588-1.81h4.588a1 1 0 00.95-.69l1.432-4.399z"></path>
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.432 4.399a1 1 0 00.95.69h4.588c.969 0 1.371 1.24.588 1.81l-3.708 2.698a1 1 0 00-.364 1.118l1.432 4.399c.3.921-.755 1.688-1.54 1.118l-3.708-2.698a1 1 0 00-1.175 0l-3.708 2.698c-.784.57-1.838-.197-1.539-1.118l1.432-4.399a1 1 000-.364-1.118L2.049 9.826c-.784-.57-.38-1.81.588-1.81h4.588a1 1 0 00.95-.69l1.432-4.399z"></path>
                     </svg>
                   ))}
                 </div>
-                <span className="ml-2 text-gray-700 font-semibold">
-                  {testimonial.rating}
-                </span>
+                <p className="text-gray-600 italic mb-4">
+                  "{testimonial.testimonial}"
+                </p>
               </div>
-              <p className="text-gray-600 italic mb-4">
-                "{testimonial.testimonial}"
-              </p>
-              <div className="flex items-center">
-                <img
+              <div className="flex items-center mt-auto">
+                <Image
                   src={testimonial.image}
                   alt={testimonial.name}
-                  className="w-12 h-12 rounded-full object-cover mr-4"
+                  width={48}
+                  height={48}
+                  className="rounded-full object-cover mr-4"
                 />
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900">

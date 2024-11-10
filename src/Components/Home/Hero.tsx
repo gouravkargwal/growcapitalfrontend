@@ -1,9 +1,11 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 
 const Hero = () => {
+  const router = useRouter();
   return (
-    <div className="bg-gradient-to-b from-white to-neutral h-[80vh] flex items-center justify-center relative overflow-hidden pt-hero-padding sm:pt-20 md:pt-hero-padding">
+    <div className="bg-gradient-to-b from-white to-neutral h-[100vh] flex items-center justify-center relative overflow-hidden pt-hero-padding sm:pt-20 md:pt-hero-padding">
       <div className="text-center max-w-4xl px-4 relative z-10">
         {/* Title */}
         <motion.h1
@@ -23,8 +25,8 @@ const Hero = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          Subscribe to stock news delivered directly to WhatsApp, Telegram, and
-          more. Get impact scores to stay informed.
+          🌐 Stay ahead with real-time BSE updates! 100-word summaries 🗣️,
+          add/remove stocks, stay informed! 📲
         </motion.p>
 
         {/* Buttons */}
@@ -34,18 +36,14 @@ const Hero = () => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, delay: 0.4 }}
         >
-          <a
-            href="#"
+          <button
             className="px-6 py-3 sm:px-8 sm:py-3 bg-primary text-white rounded-btn-lg font-semibold shadow-btn-shadow hover:bg-accent transition-all duration-300 transform hover:scale-105"
+            onClick={() => {
+              router.push("signup");
+            }}
           >
-            Subscribe Now
-          </a>
-          <a
-            href="#"
-            className="border border-primary text-primary px-6 py-3 sm:px-8 sm:py-3 rounded-btn-lg font-semibold hover:bg-primary hover:text-white transition-all duration-300 transform hover:scale-105"
-          >
-            Join Community
-          </a>
+            Get Started
+          </button>
         </motion.div>
 
         {/* Features */}
@@ -56,8 +54,7 @@ const Hero = () => {
           transition={{ duration: 0.8, delay: 0.6 }}
         >
           <p>⚡ Real-Time Updates</p>
-          <p>🌍 Global Traders</p>
-          <p>📊 Impact Scores</p>
+          <p>📊 Sentimental Scores</p>
         </motion.div>
       </div>
     </div>

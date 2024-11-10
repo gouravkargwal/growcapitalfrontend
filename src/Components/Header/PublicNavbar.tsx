@@ -34,36 +34,7 @@ const Navbar = () => {
   return (
     <header className="bg-neutral bg-opacity-90 backdrop-blur-lg shadow-md fixed top-0 w-full z-50">
       <nav className="container mx-auto flex justify-between items-center py-5 px-6">
-        {/* Logo */}
-        <div className="text-2xl font-extrabold text-primary">StockNewsPro</div>
-
-        {/* Desktop Links */}
-        <div className="hidden lg:flex space-x-8 text-lg font-medium">
-          <a
-            href="#"
-            className="text-textPrimary hover:text-primary transition duration-300"
-          >
-            Home
-          </a>
-          <a
-            href="#"
-            className="text-textPrimary hover:text-primary transition duration-300"
-          >
-            News
-          </a>
-          <a
-            href="#"
-            className="text-textPrimary hover:text-primary transition duration-300"
-          >
-            Predictions
-          </a>
-          <a
-            href="#"
-            className="text-textPrimary hover:text-primary transition duration-300"
-          >
-            Blog
-          </a>
-        </div>
+        <div className="text-2xl font-extrabold text-primary">Grow Capital</div>
 
         {/* Desktop Buttons */}
         <div className="hidden lg:flex space-x-4">
@@ -114,22 +85,6 @@ const Navbar = () => {
             </button>
 
             <ul className="space-y-6 text-lg font-medium text-textPrimary mt-12">
-              {["Home", "News", "Predictions", "Blog"].map((link, i) => (
-                <motion.li
-                  key={i}
-                  variants={linkVariants}
-                  initial="hidden"
-                  animate="visible"
-                >
-                  <a
-                    href="#"
-                    className="block hover:text-primary transition duration-300"
-                    onClick={toggleMenu} // Close the menu when clicking any link
-                  >
-                    {link}
-                  </a>
-                </motion.li>
-              ))}
               <motion.li
                 variants={linkVariants}
                 initial="hidden"

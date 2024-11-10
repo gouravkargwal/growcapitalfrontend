@@ -27,7 +27,7 @@ const Trial: React.FC = () => {
       >
         {/* Heading */}
         <motion.h2 className="text-hero-title font-extrabold text-primary mb-6 leading-tight">
-          Get started in 30 seconds. <br /> Free for 30 days.
+          Get started in 30 seconds. <br /> Free for 90 days.
         </motion.h2>
 
         {/* Subtitle */}
