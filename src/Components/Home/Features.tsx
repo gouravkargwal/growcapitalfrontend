@@ -42,13 +42,13 @@ const Features: React.FC = () => {
   ];
 
   return (
-    <section className="bg-gray-50 py-16 min-h-screen">
+    <section className="py-16 min-h-screen">
       <div className="max-w-7xl mx-auto px-4">
         <h2 className="text-4xl font-bold text-center text-gray-800 mb-2">
-          Key Features of GrowCapital
+         Grow Capital Features
         </h2>
         <p className="text-center text-gray-500 mb-12">
-          Discover how GrowCapital’s powerful features help you stay informed,
+          Discover how Grow Capital’s powerful features help you stay informed,
           make smarter investment decisions, and manage your portfolio with
           ease.
         </p>

@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 const Hero = () => {
   const router = useRouter();
   return (
-    <div className="bg-gradient-to-b from-white to-neutral h-[100vh] flex items-center justify-center relative overflow-hidden pt-hero-padding sm:pt-20 md:pt-hero-padding">
+    <div className="h-[100vh] flex items-center justify-center relative overflow-hidden pt-hero-padding sm:pt-20 md:pt-hero-padding">
       <div className="text-center max-w-4xl px-4 relative z-10">
         {/* Title */}
         <motion.h1

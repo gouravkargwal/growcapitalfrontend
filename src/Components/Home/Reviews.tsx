@@ -86,13 +86,13 @@ const Reviews: React.FC = () => {
   };
 
   return (
-    <section className="bg-gray-50 py-16 min-h-screen">
+    <section className="py-16 min-h-screen">
       <div className="max-w-7xl mx-auto px-4">
         <h2 className="text-4xl font-bold text-center text-gray-800 mb-2">
-          What Our Customers Are Saying About GrowCapital
+          What Our Customers Are Saying About Grow Capital
         </h2>
         <p className="text-center text-gray-500 mb-12">
-          Here's how GrowCapital is helping investors make smarter decisions
+          Here's how Grow Capital is helping investors make smarter decisions
           with stock news and sentiment analysis.
         </p>
 

@@ -153,7 +153,7 @@ const PricingSection: React.FC = () => {
   }, [dispatch]);
 
   return (
-    <div className="bg-gradient-to-br from-blue-100 via-blue-50 to-white min-h-screen flex flex-col justify-center items-center py-12">
+    <div className="min-h-screen flex flex-col justify-center items-center py-12">
       <div className="w-full max-w-6xl px-4 text-center">
         <h1 className="text-4xl font-bold mb-4">Choose Your Plan</h1>
         <p className="text-gray-600 mb-8">
