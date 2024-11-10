@@ -2,6 +2,7 @@ import React from "react";
 
 // You can replace the logo path and social media icons with your own assets.
 const Footer: React.FC = () => {
+  const year = new Date().getFullYear();
   return (
     <footer className="bg-white py-10 border-t">
       <div className="container mx-auto px-6 md:px-12 lg:px-16">
@@ -139,7 +140,7 @@ const Footer: React.FC = () => {
 
         {/* Footer Bottom */}
         <div className="mt-8 text-center text-gray-500">
-          &copy; 2024 GrowCapital
+          &copy; {year} GrowCapital
         </div>
       </div>
     </footer>
