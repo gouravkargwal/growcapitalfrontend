@@ -7,8 +7,6 @@ import { Suspense } from "react";
 const SignUpPage = () => {
   const searchParams = useSearchParams();
   const referralCode = searchParams.get("referralCode"); // Extract referralCode from search params
-  console.log(referralCode, "Eeferal code in signup");
-
   return <SignupForm referralCode={referralCode || undefined} />;
 };
 

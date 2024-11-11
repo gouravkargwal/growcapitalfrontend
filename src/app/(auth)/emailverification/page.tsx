@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 
 import FormButton from "@/Components/UI/FormButton";
-import Image from "next/image";
 import { auth } from "@/lib/firebase";
 import { openSnackbar } from "@/Feature/Snackbar/snackbarSlice";
 import { sendEmailVerification } from "firebase/auth";
