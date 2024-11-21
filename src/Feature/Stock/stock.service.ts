@@ -12,3 +12,7 @@ export const getStockSuggestion = async (data: { query: string }) => {
 export const updateStockSubscriptionApi = async (data: StockPayload) => {
   return await axiosInstance.patch("/subscriptions", data);
 };
+
+export const getImportPortfolioTxnIdApi = async () => {
+  return await axiosInstance.get("/");
+};

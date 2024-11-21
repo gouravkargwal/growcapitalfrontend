@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import {
+  getImportPortfolioTxnIdApi,
   getStockSuggestion,
   getUserTrackedStocks,
   updateStockSubscriptionApi,
@@ -26,6 +27,7 @@ interface StockState {
   loading: boolean;
   stockSuggestion: StockSuggestion[]; // Array of stock suggestions
   stockSuggestionLoading: boolean;
+  importPortfolioLoading: boolean;
 }
 
 const initialState: StockState = {
@@ -33,6 +35,7 @@ const initialState: StockState = {
   loading: false,
   stockSuggestion: [],
   stockSuggestionLoading: false,
+  importPortfolioLoading: false,
 };
 
 export type StockPayload = { addedStocks: string[]; deletedStocks: string[] };
@@ -79,6 +82,20 @@ export const updateStockSubscription = createAsyncThunk(
   }
 );
 
+export const getImportPortfolioTxnId = createAsyncThunk(
+  "stock/getImportPortfolioTxnId",
+  async (_, { rejectWithValue, dispatch }) => {
+    try {
+      const { data } = await getImportPortfolioTxnIdApi();
+      return data;
+    } catch (error) {
+      const axiosError = handleAxiosError(error, rejectWithValue, dispatch);
+      if (axiosError) return axiosError;
+      return rejectWithValue(error);
+    }
+  }
+);
+
 const stockSlice = createSlice({
   name: "stock",
   initialState,
@@ -92,7 +109,7 @@ const stockSlice = createSlice({
         state.loading = false;
         state.data = action.payload || [];
       })
-      .addCase(fetchUserStocks.rejected, (state, action) => {
+      .addCase(fetchUserStocks.rejected, (state) => {
         state.loading = false;
       })
       .addCase(fetchStockSuggestion.pending, (state) => {
@@ -102,8 +119,17 @@ const stockSlice = createSlice({
         state.stockSuggestionLoading = false;
         state.stockSuggestion = action.payload || [];
       })
-      .addCase(fetchStockSuggestion.rejected, (state, action) => {
+      .addCase(fetchStockSuggestion.rejected, (state) => {
         state.stockSuggestionLoading = false;
+      })
+      .addCase(getImportPortfolioTxnId.pending, (state) => {
+        state.importPortfolioLoading = true;
+      })
+      .addCase(getImportPortfolioTxnId.fulfilled, (state) => {
+        state.importPortfolioLoading = false;
+      })
+      .addCase(getImportPortfolioTxnId.rejected, (state) => {
+        state.importPortfolioLoading = false;
       });
   },
 });

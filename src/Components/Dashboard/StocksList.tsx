@@ -6,6 +6,7 @@ import {
   StockSuggestion,
   fetchStockSuggestion,
   fetchUserStocks,
+  getImportPortfolioTxnId,
   updateStockSubscription,
 } from "@/Feature/Stock/stockSlice";
 import { UserState, fetchUserPlan } from "@/Feature/User/userSlice";
@@ -15,6 +16,7 @@ import _ from "lodash";
 import { openSnackbar } from "@/Feature/Snackbar/snackbarSlice";
 import { useAppDispatch } from "@/hook/useAppDispatch";
 import { useSelector } from "react-redux";
+import Script from "next/script";
 
 // Skeleton loader for stocks
 const StockSkeleton: React.FC = () => (
@@ -62,6 +64,7 @@ const StocksList: React.FC = () => {
   const [stocks, setStocks] = useState<Stock[]>([]);
   const [editMode, setEditMode] = useState<boolean>(false);
   const [inputValue, setInputValue] = useState<string>("");
+  const [gatewayInstance, setGatewayInstance] = useState<any>(null);
 
   const planLimit = userPlan?.plan?.stocksLimit || 0;
 
@@ -142,87 +145,131 @@ const StocksList: React.FC = () => {
     setEditMode(!editMode);
   };
 
+  const handleImportPortfolio = async () => {
+    try {
+      const result = await dispatch(getImportPortfolioTxnId());
+      if (getImportPortfolioTxnId.fulfilled.match(result)) {
+        const txnId = result.payload;
+        if (gatewayInstance) {
+          const txnResponse = await gatewayInstance.triggerTransaction({
+            transactionId: txnId,
+          });
+          console.log("received response:", txnResponse);
+        } else {
+          console.error("Gateway instance is not initialized");
+        }
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
-    <div className="mt-5 text-black">
-      <div className="flex flex-row justify-between items-center mb-4">
-        <div className="flex flex-col">
-          <h2 className="text-lg font-bold text-gray-900">
-            Stocks Tracked
-          </h2>
-          <p className="text-gray-500">
-            You will receive updates on the below stocks
-          </p>
+    <>
+      <Script
+        id="smallcase-js"
+        src="https://gateway.smallcase.com/scdk/2.0.0/scdk.js"
+        onLoad={() => {
+          if (window.scDK) {
+            const instance = new window.scDK({
+              gateway: "gatewaydemo",
+              smallcaseAuthToken:
+                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzbWFsbGNhc2VBdXRoSWQiOiI1ZjAzMjFiNWYzNzQzYzMxZDk1YWJkMzUiLCJleHAiOjI1NTYxMjQxOTl9.EC6B435Xsw02dDy_LCmHqKmEmJOqhq3f2MuSOjUmxYs",
+            });
+            setGatewayInstance(instance);
+          } else {
+            console.error("scDK is not available on window");
+          }
+        }}
+      />
+      <div className="mt-5 text-black">
+        <div className="flex flex-row justify-between items-center mb-4">
+          <div className="flex flex-col">
+            <h2 className="text-lg font-bold text-gray-900">Stocks Tracked</h2>
+            <p className="text-gray-500">
+              You will receive updates on the below stocks
+            </p>
+          </div>
+          <div className="space-x-2">
+            <button
+              onClick={handleImportPortfolio}
+              className="text-blue-400 border border-blue-500 rounded-2xl px-3 lg:px-4 py-1 hover:text-white hover:bg-blue-500 whitespace-nowrap min-w-max duration-300 ease-in-out"
+            >
+              Import Portfolio
+            </button>
+            <button
+              onClick={handleEditToggle}
+              className="text-blue-400 border border-blue-500 rounded-2xl px-3 lg:px-4 py-1 hover:text-white hover:bg-blue-500 whitespace-nowrap min-w-max duration-300 ease-in-out"
+            >
+              {editMode ? "Done" : "Edit"}
+            </button>
+          </div>
         </div>
-        <button
-          onClick={handleEditToggle}
-          className="text-blue-400 border border-blue-500 rounded-2xl px-3 lg:px-4 py-1 hover:text-white hover:bg-blue-500 whitespace-nowrap min-w-max"
-        >
-          {editMode ? "Done" : "Edit"}
-        </button>
-      </div>
 
-      <div className="border border-gray-300 rounded-lg p-4 bg-white shadow-sm">
-        {/* Display a skeleton loader while stocks are loading */}
-        {stockLoading ? (
-          <StockSkeleton />
-        ) : stocks.length > 0 ? (
-          <div className="flex flex-wrap gap-2">
-            {stocks.map((stock, index) => (
-              <div
-                key={index}
-                className="bg-blue-100 text-blue-800 text-sm font-semibold py-2 px-4 rounded-md flex items-center justify-center shadow-md"
-              >
-                <p>{stock?.ticker_symbol}</p>
-                {editMode && (
-                  <button
-                    onClick={() => handleDelete(stock.ticker_symbol)}
-                    className="ml-2 text-red-500 hover:text-red-700"
-                  >
-                    &times;
-                  </button>
-                )}
-              </div>
-            ))}
-          </div>
-        ) : (
-          <p className="text-gray-500">You have not added any stocks yet.</p> // Feedback message for empty state
-        )}
-
-        {editMode && (
-          <div className="mt-4">
-            <input
-              type="text"
-              value={inputValue}
-              onChange={handleInputChange}
-              className="border p-2 rounded-lg w-full focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-              placeholder="Add new stock..."
-            />
-            {stockSuggestionLoading ? (
-              <SuggestionSkeleton />
-            ) : (
-              stockSuggestion.length > 0 && (
-                <div className="mt-2 border border-gray-300 rounded-lg max-h-40 overflow-y-auto shadow-sm">
-                  {stockSuggestion.map((suggestion, index) => (
-                    <div
-                      key={index}
-                      onClick={() => handleAddStock(suggestion)}
-                      className="cursor-pointer p-2 hover:bg-gray-100"
+        <div className="border border-gray-300 rounded-lg p-4 bg-white shadow-sm">
+          {/* Display a skeleton loader while stocks are loading */}
+          {stockLoading ? (
+            <StockSkeleton />
+          ) : stocks.length > 0 ? (
+            <div className="flex flex-wrap gap-2">
+              {stocks.map((stock, index) => (
+                <div
+                  key={index}
+                  className="bg-blue-100 text-blue-800 text-sm font-semibold py-2 px-4 rounded-md flex items-center justify-center shadow-md"
+                >
+                  <p>{stock?.ticker_symbol}</p>
+                  {editMode && (
+                    <button
+                      onClick={() => handleDelete(stock.ticker_symbol)}
+                      className="ml-2 text-red-500 hover:text-red-700"
                     >
-                      <p className="text-sm text-gray-900">
-                        {suggestion?.company_name} ({suggestion?.ticker_symbol})
-                      </p>
-                      <span className="text-xs text-gray-500">
-                        {suggestion?.scrip_code}
-                      </span>
-                    </div>
-                  ))}
+                      &times;
+                    </button>
+                  )}
                 </div>
-              )
-            )}
-          </div>
-        )}
+              ))}
+            </div>
+          ) : (
+            <p className="text-gray-500">You have not added any stocks yet.</p> // Feedback message for empty state
+          )}
+
+          {editMode && (
+            <div className="mt-4">
+              <input
+                type="text"
+                value={inputValue}
+                onChange={handleInputChange}
+                className="border p-2 rounded-lg w-full focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                placeholder="Add new stock..."
+              />
+              {stockSuggestionLoading ? (
+                <SuggestionSkeleton />
+              ) : (
+                stockSuggestion.length > 0 && (
+                  <div className="mt-2 border border-gray-300 rounded-lg max-h-40 overflow-y-auto shadow-sm">
+                    {stockSuggestion.map((suggestion, index) => (
+                      <div
+                        key={index}
+                        onClick={() => handleAddStock(suggestion)}
+                        className="cursor-pointer p-2 hover:bg-gray-100"
+                      >
+                        <p className="text-sm text-gray-900">
+                          {suggestion?.company_name} (
+                          {suggestion?.ticker_symbol})
+                        </p>
+                        <span className="text-xs text-gray-500">
+                          {suggestion?.scrip_code}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                )
+              )}
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
