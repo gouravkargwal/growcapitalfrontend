@@ -3,6 +3,7 @@ import React from "react";
 
 const Footer: React.FC = () => {
   const year = new Date().getFullYear();
+
   return (
     <footer className="bg-white py-10 border-t">
       <div className="container mx-auto px-6 md:px-12 lg:px-2">
@@ -70,7 +71,10 @@ const Footer: React.FC = () => {
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-600 hover:text-blue-600">
+                  <a
+                    href="#features"
+                    className="text-gray-600 hover:text-blue-600"
+                  >
                     Features
                   </a>
                 </li>
