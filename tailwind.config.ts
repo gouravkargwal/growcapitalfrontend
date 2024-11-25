@@ -16,6 +16,7 @@ const config: Config = {
       },
       colors: {
         primary: {
+          DEFAULT: "hsl(215, 60%, 45%)", // Set default to primary-500
           50: "hsl(215, 60%, 95%)", // Light Blue
           100: "hsl(215, 60%, 85%)",
           200: "hsl(215, 60%, 75%)",
