@@ -27,7 +27,7 @@ const Home: React.FC = () => {
   }, [user, loading, router, pathname]);
 
   return (
-    <div className="bg-gradient-to-br from-blue-50 via-blue-50 to-white">
+    <div className="bg-gradient-to-br from-primary via-neutral to-background text-textPrimary">
       <PublicNavbar />
       <Hero />
       <Features />

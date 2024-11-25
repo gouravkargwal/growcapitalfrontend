@@ -6,6 +6,7 @@ const config: Config = {
     "./src/Components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  darkMode: "class",
   theme: {
     extend: {
       backgroundImage: {
@@ -14,12 +15,22 @@ const config: Config = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
       colors: {
-        primary: "#007BFF", // Vibrant Blue (Lively for buttons and links)
-        accent: "#38D9A9", // Vibrant Green (For success and positive actions)
-        coral: "#FF6B6B", // Vibrant Coral (For call-to-action buttons)
-        neutral: "#F3F4F6", // Light gray for backgrounds and content
-        textPrimary: "#111827", // Darker text for contrast (improves readability)
-        textSecondary: "#6B7280", // Medium gray for secondary text
+        primary: "#1E3A8A", // Dark Blue
+        accent: "#14B8A6", // Teal
+        coral: "#F43F5E", // Coral
+        neutral: "#F9FAFB", // Soft Neutral Gray
+        textPrimary: "#111827", // Dark Text
+        textSecondary: "#6B7280", // Gray Text
+        background: "#FFFFFF", // White
+
+        // Dark Mode Colors
+        darkPrimary: "#1D4ED8", // Lighter Blue for dark mode
+        darkAccent: "#22D3EE", // Vibrant Accent in dark mode
+        darkCoral: "#FB7185", // Coral for dark mode
+        darkNeutral: "#1F2937", // Dark Neutral Gray
+        darkTextPrimary: "#F9FAFB", // Light text for dark mode
+        darkTextSecondary: "#9CA3AF", // Soft gray text for dark mode
+        darkBackground: "#111827", // Dark background
       },
       fontSize: {
         "hero-title": ["3.5rem", "1.2"], // Bolder, larger font for hero sections
