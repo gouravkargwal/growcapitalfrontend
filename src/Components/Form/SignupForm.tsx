@@ -7,6 +7,7 @@ import {
 
 import FormButton from "../UI/FormButton";
 import GoogleAuthentication from "./GoogleAuthentication";
+import Image from "next/image";
 import InputField from "../UI/InputField";
 import Link from "next/link";
 import { RootState } from "@/Store/store";
@@ -89,7 +90,7 @@ const SignupForm = ({ referralCode }: { referralCode: string | undefined }) => {
     );
     if (signupUser.fulfilled.match(resultAction)) {
       await signInWithEmailAndPassword(auth, data?.email, data?.password);
-      router.push("/dashboard");
+      router.push("/emailverification");
     }
   };
 
@@ -149,11 +150,10 @@ const SignupForm = ({ referralCode }: { referralCode: string | undefined }) => {
               <div className="relative">
                 <select
                   {...register("languageId")}
-                  className={`shadow-sm appearance-none border rounded-btn-lg w-full py-3 px-4 text-textPrimary leading-tight focus:outline-none focus:ring-2 ${
-                    errors.languageId
-                      ? "border-red-500 focus:ring-red-500"
-                      : "border-gray-300 focus:ring-primary"
-                  }`}
+                  className={`shadow-sm appearance-none border rounded-btn-lg w-full py-3 px-4 text-textPrimary leading-tight focus:outline-none focus:ring-2 ${errors.languageId
+                    ? "border-red-500 focus:ring-red-500"
+                    : "border-gray-300 focus:ring-primary"
+                    }`}
                   disabled={languageLoading}
                 >
                   <option value="">Select Language</option>

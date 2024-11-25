@@ -68,8 +68,10 @@ const SigninForm = () => {
         const result = await dispatch(signInUser(data));
         if (signInUser.fulfilled.match(result)) {
           const user = result.payload.user;
-          if (user) {
+          if (user?.emailVerified) {
             router.push("/dashboard");
+          } else {
+            router.push("/emailverification");
           }
         } else {
           await auth.signOut();
