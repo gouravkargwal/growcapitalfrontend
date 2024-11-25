@@ -37,7 +37,7 @@ const Navbar = () => {
         <div className="text-2xl font-extrabold text-primary">Grow Capital</div>
         <div className="hidden lg:flex space-x-4">
           <button
-            className="px-6 py-2 border border-primary text-primary rounded-btn-lg font-semibold hover:bg-primary hover:text-textPrimary transition-all duration-300 transform hover:scale-105 shadow-btn-shadow"
+            className="px-6 py-2 border border-primary text-primary rounded-btn-lg font-semibold hover:bg-primary hover:text-white transition-all duration-300 transform hover:scale-105 shadow-btn-shadow"
             onClick={() => {
               router.push("/signin");
             }}
@@ -45,7 +45,7 @@ const Navbar = () => {
             Sign In
           </button>
           <button
-            className="px-6 py-2 bg-primary text-textPrimary rounded-btn-lg font-semibold hover:bg-accent transition-all duration-300 transform hover:scale-105 shadow-btn-shadow"
+            className="px-6 py-2 bg-primary text-white rounded-btn-lg font-semibold hover:bg-accent transition-all duration-300 transform hover:scale-105 shadow-btn-shadow"
             onClick={() => {
               router.push("/signup");
             }}
@@ -86,7 +86,7 @@ const Navbar = () => {
                 animate="visible"
               >
                 <button
-                  className="block px-6 py-2 border border-primary text-primary rounded-btn-lg font-semibold hover:bg-primary hover:text-textPrimary transition-all duration-300 transform hover:scale-105 shadow-btn-shadow"
+                  className="block px-6 py-2 border border-primary text-primary rounded-btn-lg font-semibold hover:bg-primary hover:text-white transition-all duration-300 transform hover:scale-105 shadow-btn-shadow"
                   onClick={() => {
                     router.push("/signin");
                     toggleMenu();
@@ -101,7 +101,7 @@ const Navbar = () => {
                 animate="visible"
               >
                 <button
-                  className="block px-6 py-2 bg-primary text-textPrimary rounded-btn-lg font-semibold hover:bg-accent transition-all duration-300 transform hover:scale-105 shadow-btn-shadow"
+                  className="block px-6 py-2 bg-primary text-white rounded-btn-lg font-semibold hover:bg-accent transition-all duration-300 transform hover:scale-105 shadow-btn-shadow"
                   onClick={() => {
                     router.push("/signin");
                     toggleMenu();
