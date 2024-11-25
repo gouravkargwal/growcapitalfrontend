@@ -2,6 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { FaStar } from "react-icons/fa";
+import { globalEnums } from "@/enum";
 
 interface Testimonial {
   id: number;
@@ -20,8 +21,7 @@ const Reviews: React.FC = () => {
       role: "Financial Analyst, Wealth Corp",
       image: "https://randomuser.me/api/portraits/men/48.jpg",
       rating: 4,
-      testimonial:
-        "Grow Capital has completely transformed the way I receive stock news. The summaries are concise and the sentiment scores provide valuable insights that help me make quicker investment decisions.",
+      testimonial: `${globalEnums.brandName} has completely transformed the way I receive stock news. The summaries are concise and the sentiment scores provide valuable insights that help me make quicker investment decisions.`,
     },
     {
       id: 2,
@@ -29,8 +29,7 @@ const Reviews: React.FC = () => {
       role: "Investment Manager, Capital Dynamics",
       image: "https://randomuser.me/api/portraits/women/84.jpg",
       rating: 4.9,
-      testimonial:
-        "The stock news updates from Grow Capital are incredibly helpful. I get the latest news with sentiment analysis straight to my phone, making it easier to monitor the market and act quickly.",
+      testimonial: `The stock news updates from ${globalEnums.brandName} are incredibly helpful. I get the latest news with sentiment analysis straight to my phone, making it easier to monitor the market and act quickly.`,
     },
     {
       id: 3,
@@ -38,8 +37,7 @@ const Reviews: React.FC = () => {
       role: "Portfolio Manager, Growth Investments",
       image: "https://randomuser.me/api/portraits/men/39.jpg",
       rating: 4,
-      testimonial:
-        "As a portfolio manager, Grow Capital has been a game-changer. I get a quick summary of stock news along with sentiment scores that help me gauge market sentiment before making any moves.",
+      testimonial: `As a portfolio manager, ${globalEnums.brandName} has been a game-changer. I get a quick summary of stock news along with sentiment scores that help me gauge market sentiment before making any moves.`,
     },
     {
       id: 4,
@@ -47,8 +45,7 @@ const Reviews: React.FC = () => {
       role: "Stock Analyst, Market Experts",
       image: "https://randomuser.me/api/portraits/women/15.jpg",
       rating: 4.0,
-      testimonial:
-        "Grow Capital’s ability to send personalized stock news directly to my Telegram is incredibly useful. The sentiment score feature helps me stay on top of market trends and adjust my strategy accordingly.",
+      testimonial: `${globalEnums.brandName}’s ability to send personalized stock news directly to my Telegram is incredibly useful. The sentiment score feature helps me stay on top of market trends and adjust my strategy accordingly.`,
     },
     {
       id: 5,
@@ -56,8 +53,7 @@ const Reviews: React.FC = () => {
       role: "Risk Analyst, Future Finance",
       image: "https://randomuser.me/api/portraits/men/56.jpg",
       rating: 4.9,
-      testimonial:
-        "With Grow Capital, I receive not only stock news but also insights into how the market is reacting to those events. The sentiment score feature is a real-time indicator that helps me gauge market movements effectively.",
+      testimonial: `With ${globalEnums.brandName}, I receive not only stock news but also insights into how the market is reacting to those events. The sentiment score feature is a real-time indicator that helps me gauge market movements effectively.`,
     },
     {
       id: 6,
@@ -65,8 +61,7 @@ const Reviews: React.FC = () => {
       role: "Investment Strategist, Visionary Traders",
       image: "https://randomuser.me/api/portraits/men/69.jpg",
       rating: 4.8,
-      testimonial:
-        "Grow Capital has streamlined my approach to keeping up with the market. The stock news summaries and sentiment scores keep me informed and ready to make data-driven decisions quickly.",
+      testimonial: `${globalEnums.brandName} has streamlined my approach to keeping up with the market. The stock news summaries and sentiment scores keep me informed and ready to make data-driven decisions quickly.`,
     },
   ];
 
@@ -90,11 +85,11 @@ const Reviews: React.FC = () => {
     <section className="py-16 min-h-screen">
       <div className="max-w-7xl mx-auto px-4">
         <h2 className="text-3xl lg:text-4xl font-bold text-center text-gray-800 mb-2">
-          What Our Customers Are Saying About Grow Capital
+          What Our Customers Are Saying About {globalEnums.brandName}
         </h2>
         <p className="text-center text-gray-500 mb-12">
-          Here's how Grow Capital is helping investors make smarter decisions
-          with stock news and sentiment analysis.
+          Here's how {globalEnums.brandName} is helping investors make smarter
+          decisions with stock news and sentiment analysis.
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -112,8 +107,11 @@ const Reviews: React.FC = () => {
                   {[...Array(5)].map((_, i) => (
                     <FaStar
                       key={i}
-                      className={`w-5 h-5 ${i < Math.round(testimonial.rating) ? "text-yellow-400" : "text-gray-300"
-                        }`}
+                      className={`w-5 h-5 ${
+                        i < Math.round(testimonial.rating)
+                          ? "text-yellow-400"
+                          : "text-gray-300"
+                      }`}
                     />
                   ))}
                 </div>

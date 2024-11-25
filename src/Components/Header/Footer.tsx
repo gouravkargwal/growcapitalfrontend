@@ -1,3 +1,4 @@
+import { globalEnums } from "@/enum";
 import React from "react";
 
 const Footer: React.FC = () => {
@@ -9,7 +10,7 @@ const Footer: React.FC = () => {
           <div className="md:w-1/3">
             <img
               src="/path-to-logo.png"
-              alt="Grow Capital"
+              alt={globalEnums.brandName}
               className="mb-4"
             />
             <p className="text-gray-600 hidden md:flex">
@@ -17,7 +18,7 @@ const Footer: React.FC = () => {
               add/remove stocks, stay informed! 📲
             </p>
             <p className="mt-4 text-blue-600 font-semibold hidden md:flex">
-              info@growcapital.club
+              info@informe.in
             </p>
 
             <div className="mt-4 space-x-4 flex">
@@ -110,14 +111,15 @@ const Footer: React.FC = () => {
         </div>
         <div className="flex flex-col md:flex-row items-center justify-center md:justify-between text-center md:text-left">
           <div className="mt-4 lg:mt-8 text-center text-gray-500">
-            &copy; {year} GrowCapital
+            &copy; {year} {globalEnums.brandName}
           </div>
           <div className="space-x-2 mt-4 lg:mt-8 text-gray-500 text-center">
-            <span role="img" aria-label="flag">🇮🇳</span>
+            <span role="img" aria-label="flag">
+              🇮🇳
+            </span>
             <span>Made with love & passion in India</span>
           </div>
         </div>
-
       </div>
     </footer>
   );
