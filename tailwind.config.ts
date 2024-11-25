@@ -29,6 +29,7 @@ const config: Config = {
           900: "hsl(215, 60%, 10%)", // Darkest
         },
         secondary: {
+          DEFAULT: "hsl(170, 60%, 45%)",
           50: "hsl(170, 60%, 95%)", // Light Teal
           100: "hsl(170, 60%, 85%)",
           200: "hsl(170, 60%, 75%)",
@@ -41,6 +42,7 @@ const config: Config = {
           900: "hsl(170, 60%, 10%)", // Darkest
         },
         tertiary: {
+          DEFAULT: "hsl(345, 75%, 45%)",
           50: "hsl(345, 75%, 95%)", // Light Coral
           100: "hsl(345, 75%, 85%)",
           200: "hsl(345, 75%, 75%)",
@@ -53,6 +55,7 @@ const config: Config = {
           900: "hsl(345, 75%, 10%)", // Darkest
         },
         neutral: {
+          DEFAULT: "hsl(0, 0%, 50%)",
           50: "hsl(0, 0%, 98%)", // Light Gray
           100: "hsl(0, 0%, 90%)",
           200: "hsl(0, 0%, 80%)",
@@ -65,6 +68,7 @@ const config: Config = {
           900: "hsl(0, 0%, 10%)", // Darkest
         },
         textPrimary: {
+          DEFAULT: "hsl(220, 15%, 50%)",
           50: "hsl(220, 15%, 98%)", // Almost White
           100: "hsl(220, 15%, 90%)",
           200: "hsl(220, 15%, 80%)",
@@ -77,6 +81,7 @@ const config: Config = {
           900: "hsl(220, 15%, 10%)", // Darkest
         },
         textSecondary: {
+          DEFAULT: "hsl(210, 10%, 40%)",
           50: "hsl(210, 10%, 96%)", // Off White
           100: "hsl(210, 10%, 88%)",
           200: "hsl(210, 10%, 76%)",
@@ -89,6 +94,7 @@ const config: Config = {
           900: "hsl(210, 10%, 10%)", // Darker
         },
         background: {
+          DEFAULT: "hsl(0, 0%, 75%)",
           50: "hsl(0, 0%, 99%)", // Almost White
           100: "hsl(0, 0%, 95%)",
           200: "hsl(0, 0%, 90%)",
@@ -101,6 +107,7 @@ const config: Config = {
           900: "hsl(0, 0%, 35%)", // Darker Background
         },
         coral: {
+          DEFAULT: "hsl(5, 75%, 45%)",
           50: "hsl(5, 75%, 95%)", // Light Coral
           100: "hsl(5, 75%, 85%)",
           200: "hsl(5, 75%, 75%)",
@@ -113,6 +120,7 @@ const config: Config = {
           900: "hsl(5, 75%, 10%)", // Darkest Coral
         },
         accent: {
+          DEFAULT: "hsl(160, 65%, 45%)",
           50: "hsl(160, 65%, 95%)", // Light Accent
           100: "hsl(160, 65%, 85%)",
           200: "hsl(160, 65%, 75%)",
