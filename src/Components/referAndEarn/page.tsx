@@ -49,7 +49,7 @@ const ReferAndEarn: React.FC = () => {
         Spread the word and earn rewards
       </h1>
       <p className="text-gray-500 mb-6 sm:mb-8 text-sm sm:text-lg">
-        Get 40 credits for each person you refer to growcapital.ai
+        Get 40 credits for each person you refer to informe.in
       </p>
 
       <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 max-w-full">
@@ -122,8 +122,8 @@ const ReferAndEarn: React.FC = () => {
               Share your referral link
             </h3>
             <p className="text-gray-500 text-sm">
-              Invite your friends to join growcapital.ai using your unique
-              referral link.
+              Invite your friends to join informe.in using your unique referral
+              link.
             </p>
           </div>
 

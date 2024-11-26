@@ -1,4 +1,5 @@
 "use client";
+import { globalEnums } from "@/enum";
 import { useRouter } from "next/navigation";
 import React from "react";
 
@@ -13,7 +14,8 @@ const ReferAndEarn = () => {
       <div className="flex flex-col">
         <h2 className="text-lg font-bold">Refer and Earn</h2>
         <p className="text-sm text-gray-400 mb-4">
-          Earn exciting rewards by sharing Grow Capital with your friends.
+          Earn exciting rewards by sharing {globalEnums.brandName} with your
+          friends.
         </p>
       </div>
       <button
@@ -23,7 +25,6 @@ const ReferAndEarn = () => {
         Refer now
       </button>
     </div>
-
   );
 };
 

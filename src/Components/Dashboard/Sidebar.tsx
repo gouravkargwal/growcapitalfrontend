@@ -8,6 +8,7 @@ import { auth } from "@/lib/firebase";
 import avatar from "../../../assets/avatar.jpg";
 import { signOut } from "firebase/auth";
 import { useRouter, usePathname } from "next/navigation";
+import { globalEnums } from "@/enum";
 
 const Sidebar = ({ closeSidebar }: { closeSidebar: () => void }) => {
   const router = useRouter();
@@ -24,7 +25,9 @@ const Sidebar = ({ closeSidebar }: { closeSidebar: () => void }) => {
   return (
     <div className="w-full h-screen p-4 bg-white flex flex-col justify-between">
       <div>
-        <h1 className="text-2xl font-bold mb-6 text-blue-700">Grow Capital</h1>
+        <h1 className="text-2xl font-bold mb-6 text-blue-700">
+          {globalEnums.brandName}
+        </h1>
         <div className="flex items-center mb-6">
           <Image
             src={auth?.currentUser?.photoURL || avatar}
@@ -45,10 +48,11 @@ const Sidebar = ({ closeSidebar }: { closeSidebar: () => void }) => {
         <ul className="space-y-2">
           <li>
             <button
-              className={`w-full text-left p-2 flex items-center transition-all duration-300 ease-in-out rounded-lg ${isActive("/dashboard")
-                ? "bg-blue-500 text-white"
-                : "hover:bg-gray-200"
-                }`}
+              className={`w-full text-left p-2 flex items-center transition-all duration-300 ease-in-out rounded-lg ${
+                isActive("/dashboard")
+                  ? "bg-blue-500 text-white"
+                  : "hover:bg-gray-200"
+              }`}
               onClick={() => goToPage("/dashboard")}
             >
               Home
@@ -56,10 +60,11 @@ const Sidebar = ({ closeSidebar }: { closeSidebar: () => void }) => {
           </li>
           <li>
             <button
-              className={`w-full text-left p-2 flex items-center transition-all duration-300 ease-in-out rounded-lg ${isActive("/yourtimeline")
-                ? "bg-blue-500 text-white"
-                : "hover:bg-gray-200"
-                }`}
+              className={`w-full text-left p-2 flex items-center transition-all duration-300 ease-in-out rounded-lg ${
+                isActive("/yourtimeline")
+                  ? "bg-blue-500 text-white"
+                  : "hover:bg-gray-200"
+              }`}
               onClick={() => goToPage("/yourtimeline")}
             >
               Your Timeline
@@ -67,10 +72,11 @@ const Sidebar = ({ closeSidebar }: { closeSidebar: () => void }) => {
           </li>
           <li>
             <button
-              className={`w-full text-left p-2 flex items-center transition-all duration-300 ease-in-out rounded-lg ${isActive("/referAndEarn")
-                ? "bg-blue-500 text-white"
-                : "hover:bg-gray-200"
-                }`}
+              className={`w-full text-left p-2 flex items-center transition-all duration-300 ease-in-out rounded-lg ${
+                isActive("/referAndEarn")
+                  ? "bg-blue-500 text-white"
+                  : "hover:bg-gray-200"
+              }`}
               onClick={() => goToPage("/referAndEarn")}
             >
               Refer And Earn
@@ -78,10 +84,11 @@ const Sidebar = ({ closeSidebar }: { closeSidebar: () => void }) => {
           </li>
           <li>
             <button
-              className={`w-full text-left p-2 flex items-center transition-all duration-300 ease-in-out rounded-lg ${isActive("/subscriptions")
-                ? "bg-blue-500 text-white"
-                : "hover:bg-gray-200"
-                }`}
+              className={`w-full text-left p-2 flex items-center transition-all duration-300 ease-in-out rounded-lg ${
+                isActive("/subscriptions")
+                  ? "bg-blue-500 text-white"
+                  : "hover:bg-gray-200"
+              }`}
               onClick={() => goToPage("/subscriptions")}
             >
               Subscriptions
@@ -89,10 +96,11 @@ const Sidebar = ({ closeSidebar }: { closeSidebar: () => void }) => {
           </li>
           <li>
             <button
-              className={`w-full text-left p-2 flex items-center transition-all duration-300 ease-in-out rounded-lg ${isActive("/profileSettings")
-                ? "bg-blue-500 text-white"
-                : "hover:bg-gray-200"
-                }`}
+              className={`w-full text-left p-2 flex items-center transition-all duration-300 ease-in-out rounded-lg ${
+                isActive("/profileSettings")
+                  ? "bg-blue-500 text-white"
+                  : "hover:bg-gray-200"
+              }`}
               onClick={() => goToPage("/profileSettings")}
             >
               Profile Settings
@@ -105,7 +113,9 @@ const Sidebar = ({ closeSidebar }: { closeSidebar: () => void }) => {
           <li>
             <button
               className="w-full text-left p-2 hover:bg-gray-200 rounded-lg transition-all duration-300 ease-in-out flex gap-2 items-center"
-              onClick={() => window.open("https://growcapital.freshdesk.com", "_blank")}
+              onClick={() =>
+                window.open(`https://informe.freshdesk.com`, "_blank")
+              }
             >
               <IoMdHelpCircleOutline />
               Help Center

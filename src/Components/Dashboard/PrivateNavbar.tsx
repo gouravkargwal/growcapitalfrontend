@@ -4,6 +4,7 @@ import { FaBell, FaSearch } from "react-icons/fa";
 import { AiOutlineMenu } from "react-icons/ai"; // Hamburger icon
 import React, { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
+import { globalEnums } from "@/enum";
 
 const useOutsideClick = (
   ref: React.RefObject<HTMLDivElement>,
@@ -48,7 +49,7 @@ const PrivateNavbar: React.FC<PrivateNavbarProps> = ({ toggleSidebar }) => {
       case "/providers":
         return "Notification Provider Config";
       default:
-        return "Grow Capital";
+        return globalEnums.brandName;
     }
   };
 
@@ -63,7 +64,11 @@ const PrivateNavbar: React.FC<PrivateNavbarProps> = ({ toggleSidebar }) => {
             >
               <AiOutlineMenu />
             </button>
-            <span className={`text-2xl text-gray-600 ${pathname === "/dashboard" ? "hidden lg:block" : "block"} ml-4 md:ml-0`}>
+            <span
+              className={`text-2xl text-gray-600 ${
+                pathname === "/dashboard" ? "hidden lg:block" : "block"
+              } ml-4 md:ml-0`}
+            >
               {getTitle(pathname) || "Home"}
             </span>
           </div>

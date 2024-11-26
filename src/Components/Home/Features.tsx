@@ -1,11 +1,13 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+import { FaNewspaper, FaChartLine, FaCommentAlt, FaBell } from "react-icons/fa"; // Importing necessary icons
+import { globalEnums } from "@/enum";
 
 interface CardProps {
   title: string;
   description: string;
-  icon: string;
+  icon: React.ReactNode; // Change the type to ReactNode to accept React Icons
   direction: "left" | "right";
 }
 
@@ -15,41 +17,42 @@ const Features: React.FC = () => {
       title: "Stock News Summaries",
       description:
         "Get the latest stock news delivered directly to your messaging app of choice, summarized so you can stay informed with minimal time investment.",
-      icon: "📰",
+      icon: <FaNewspaper size={40} className="text-primary" />, // Use React Icon here
       direction: "left",
     },
     {
       title: "Sentiment Analysis",
       description:
         "Receive sentiment scores alongside news summaries, helping you gauge the market's mood and make informed decisions.",
-      icon: "📈",
+      icon: <FaChartLine size={40} className="text-primary" />, // Use React Icon here
       direction: "right",
     },
     {
       title: "Telegram & WhatsApp Support",
       description:
         "Choose your preferred messaging platform—Telegram or WhatsApp—to receive updates, giving you flexibility and convenience.",
-      icon: "💬",
+      icon: <FaCommentAlt size={40} className="text-primary" />, // Use React Icon here
       direction: "left",
     },
     {
       title: "Customizable Alerts",
       description:
         "Set up alerts based on your favorite stocks and news types, ensuring you only receive the information you want.",
-      icon: "🔔",
+      icon: <FaBell size={40} className="text-primary" />, // Use React Icon here
       direction: "right",
     },
   ];
 
   return (
-    <section className="py-16 lg:min-h-screen overflow-x-hidden">
+    <section className="py-16 lg:min-h-screen overflow-x-hidden" id="features">
       <div className="mx-auto px-4">
         <h2 className="text-3xl lg:text-4xl font-bold text-center text-gray-800 mb-2">
-          Grow Capital Features
+          {globalEnums.brandName} Features
         </h2>
         <p className="text-center text-gray-500 mb-12">
-          Discover how Grow Capital’s powerful features help you stay informed,
-          make smarter investment decisions, and manage your portfolio with ease.
+          Discover how {globalEnums.brandName}’s powerful features help you stay
+          informed, make smarter investment decisions, and manage your portfolio
+          with ease.
         </p>
         <div className="container mx-auto px-4 grid md:grid-cols-2 gap-10 lg:gap-16">
           {cardData.map((card, index) => (
@@ -64,7 +67,6 @@ const Features: React.FC = () => {
         </div>
       </div>
     </section>
-
   );
 };
 
