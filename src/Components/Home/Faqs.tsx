@@ -24,7 +24,10 @@ const Faqs: React.FC = () => {
   };
 
   return (
-    <section className="flex flex-col md:flex-row lg:flex-row justify-center items-center px-6 lg:px-16 pb-40">
+    <section
+      className="flex flex-col md:flex-row lg:flex-row justify-center items-center px-6 lg:px-16 pb-40"
+      id="faqs"
+    >
       <motion.div
         variants={cardVariants}
         initial="offscreen"
