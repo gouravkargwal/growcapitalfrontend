@@ -1,4 +1,5 @@
 import { globalEnums } from "@/enum";
+import Link from "next/link";
 import React from "react";
 
 const Footer: React.FC = () => {
@@ -66,25 +67,34 @@ const Footer: React.FC = () => {
               <h3 className="font-bold text-gray-800 mb-3">About</h3>
               <ul className="space-y-2">
                 <li>
-                  <a href="#" className="text-gray-600 hover:text-blue-600">
+                  <a
+                    href="/#hero"
+                    className="text-gray-600 hover:text-blue-600"
+                  >
                     Home
                   </a>
                 </li>
                 <li>
                   <a
-                    href="#features"
+                    href="/#features"
                     className="text-gray-600 hover:text-blue-600"
                   >
                     Features
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-600 hover:text-blue-600">
+                  <a
+                    href="/#pricing"
+                    className="text-gray-600 hover:text-blue-600"
+                  >
                     Pricing
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-600 hover:text-blue-600">
+                  <a
+                    href="/#faqs"
+                    className="text-gray-600 hover:text-blue-600"
+                  >
                     FAQ
                   </a>
                 </li>
@@ -100,14 +110,20 @@ const Footer: React.FC = () => {
                   </a>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-600 hover:text-blue-600">
+                  <Link
+                    href="terms-and-conditions"
+                    className="text-gray-600 hover:text-blue-600 cursor-pointer"
+                  >
                     Terms & Conditions
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="text-gray-600 hover:text-blue-600">
+                  <Link
+                    href="privacy-policy"
+                    className="text-gray-600 hover:text-blue-600 cursor-pointer"
+                  >
                     Privacy
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>

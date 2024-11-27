@@ -6,7 +6,10 @@ import { FaTelegramPlane } from "react-icons/fa";
 const Hero = () => {
   const router = useRouter();
   return (
-    <div className="h-screen flex items-center justify-center relative overflow-hidden pt-hero-padding sm:pt-20 md:pt-hero-padding">
+    <section
+      className="h-screen flex items-center justify-center relative overflow-hidden pt-hero-padding sm:pt-20 md:pt-hero-padding"
+      id="hero"
+    >
       <div className="text-center max-w-4xl px-4 relative z-10">
         <motion.h1
           className="text-5xl sm:text-6xl md:text-7xl font-extrabold text-blue-800 mb-4 leading-tight"
@@ -63,7 +66,7 @@ const Hero = () => {
           <p>📊 Sentimental Scores</p>
         </motion.div>
       </div>
-    </div>
+    </section>
   );
 };
 
