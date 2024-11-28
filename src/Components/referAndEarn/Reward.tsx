@@ -28,9 +28,7 @@ const Reward = () => {
       </h3>
       <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {rewardsLoading ? (
-          <div className="animate-pulse space-y-4">
-            <div className="h-40 bg-gray-200 rounded-lg"></div>
-            <div className="h-40 bg-gray-200 rounded-lg"></div>
+          <div className="animate-pulse space-y-4 flex">
             <div className="h-40 bg-gray-200 rounded-lg"></div>
           </div>
         ) : rewards?.length > 0 ? (
