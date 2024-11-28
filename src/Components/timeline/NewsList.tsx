@@ -64,29 +64,14 @@ const NewsList: React.FC = () => {
               return (
                 <div ref={lastNewsElementRef} key={index}>
                   <NewsCard
-                    imageSrc={newsItem.imageSrc}
-                    source={newsItem.source}
-                    timeAgo={getTimeAgoOrDate(newsItem.timeAgo)}
-                    title={newsItem.title}
-                    description={newsItem.description}
-                    category={newsItem.category}
-                    readTime={newsItem.readTime}
-                    id={newsItem.id}
+                  {...newsItem}
                   />
                 </div>
               );
             } else {
               return (
                 <NewsCard
-                  key={index}
-                  imageSrc={newsItem.imageSrc}
-                  source={newsItem.source}
-                  timeAgo={newsItem.timeAgo}
-                  title={newsItem.title}
-                  description={newsItem.description}
-                  category={newsItem.category}
-                  readTime={newsItem.readTime}
-                  id={newsItem.id}
+                 {...newsItem}
                 />
               );
             }

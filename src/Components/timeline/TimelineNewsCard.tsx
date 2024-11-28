@@ -1,78 +1,75 @@
-import Image from "next/image";
+import { News } from "@/Feature/News/newsSlice";
+import getTimeAgoOrDate from "@/utils/getTimeAgoOrDate";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
-import { FaClock } from "react-icons/fa";
+import { FaClock, FaShareAlt } from "react-icons/fa";
 
-interface NewsCardProps {
-  imageSrc: string;
-  source: string;
-  timeAgo: string;
-  title: string;
-  description: string;
-  category: string;
-  readTime: string;
-  id: string; // Add an ID for dynamic routing
-}
-
-const NewsCard: React.FC<NewsCardProps> = ({
-  imageSrc,
-  source,
-  timeAgo,
-  title,
-  description,
-  category,
-  readTime,
-  id,
+const NewsCard: React.FC<News> = ({
+  companyName,
+  heading,
+  industry,
+  newsId,
+  newsTime,
+  shortSummary,
+  longSummary
 }) => {
   const router = useRouter();
   const handleShowMore = () => {
-    router.push(`/news/${id}`); // Navigate to the dynamic route using the ID
+    router.push(`/news/${newsId}`);
+  };
+
+  const calculateReadTime = (text: string): string => {
+    const wordsPerMinute = 200; 
+    const wordCount = text.split(/\s+/).length;
+    const readTimeMinutes = Math.ceil(wordCount / wordsPerMinute); 
+    return `${readTimeMinutes} min read`;
   };
 
   return (
-    <div className="flex flex-col bg-white rounded-lg shadow-md p-4 mb-6 max-w-sm h-full">
-      {/* Header: News Image */}
-      {/* <div className="mb-4">
-        <Image
-          width={128}
-          height={192}
-          src={imageSrc}
-          alt={title}
-          className="w-full h-40 object-cover rounded-lg"
-        />
-      </div> */}
+    <>
+      <div className="max-w-sm mx-auto bg-white shadow-lg rounded-lg p-4 flex flex-col h-full">
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center space-x-2">
+            <span className="text-lg font-semibold text-primary">BSE News</span>
+            <div className="text-xs text-gray-500 flex items-center space-x-1">
+              <FaClock className="text-gray-400" />
+              <span>{getTimeAgoOrDate(newsTime)}</span>
+            </div>
+          </div>
 
-      {/* Body: Title and Description */}
-      <div className="flex flex-col flex-grow">
-        {/* Source and Time */}
-        <div className="flex items-center text-sm text-gray-500 mb-2">
-          <span className="font-semibold text-black mr-2">{source}</span>
-          <span className="mx-2">•</span>
-          <FaClock className="mr-1" />
-          {timeAgo}
+          <button className="flex items-center text-primary border border-secondary rounded-2xl px-3 lg:px-4 py-1 hover:text-white hover:bg-secondary whitespace-nowrap">
+            <FaShareAlt className="mr-2"/>
+            <span>Share</span>
+          </button>
         </div>
 
-        {/* Title */}
-        <h2 className="text-xl font-semibold mb-2">{title}</h2>
+        <h2 className="text-xl font-bold text-gray-900 mb-2 truncate">{heading}</h2>
 
-        {/* Description */}
-        <p className="text-gray-500 line-clamp-3">{description}</p>
-      </div>
-
-      {/* Footer: Metadata and Button */}
-      <div className="mt-4">
-        <div className="flex justify-between items-center text-sm text-gray-500 mb-4">
-          <span className="text-red-500 font-semibold">{category}</span>
-          <span>{readTime}</span>
+        <div className="text-xs text-gray-500 mb-4">
+          {calculateReadTime(longSummary)}
         </div>
-        <button
-          onClick={handleShowMore}
-          className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 w-full"
-        >
-          Read More
-        </button>
+
+        <p className="text-gray-600 text-sm line-clamp-3 mb-4">{shortSummary}</p>
+
+        <div className="mt-auto mb-4">
+          <Link
+            href={`/news/${newsId}`}
+            className="inline-flex items-center text-primary hover:text-accent text-xs font-semibold"
+          >
+            <span>Read the full report</span>
+            <FaShareAlt className="ml-1" />
+          </Link>
+        </div>
+
+        <div className="flex items-center justify-between border-t pt-4 text-xs text-gray-500 mt-auto">
+          <span className="font-medium">{companyName}</span>
+          <div className="flex items-center space-x-2">
+            <span className="text-gray-400">Industry: {industry}</span>
+          </div>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

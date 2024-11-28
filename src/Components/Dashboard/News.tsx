@@ -14,7 +14,6 @@ const News = () => {
   const { timelineData, timelineDataLoading, currentPage } = useSelector(
     (state: RootState) => state.news
   );
-  console.log(timelineData);
   
 
   useEffect(() => {
