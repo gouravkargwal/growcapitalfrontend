@@ -10,17 +10,15 @@ import Image from "next/image";
 
 const Navbar = () => {
   return (
-    <nav className="bg-white shadow-md sticky top-0 z-50">
-      <div className="max-w-screen-xl mx-auto px-4 py-5 flex items-center justify-between">
-        <Link href="/" className="flex items-center space-x-3">
+    <nav className="bg-[#FDF8F1] shadow-md sticky top-0 z-50">
+      <div className="flex items-center justify-between px-5 py-5">
+        <Link href="/" className="flex items-center">
           <Image
             src={logo}
             alt="Informe"
-            height={40}
-            className="mb-4"
+            height={30}
           />
         </Link>
-        {/* Navigation Links */}
         <div className="hidden md:flex items-center space-x-6">
           <Link href="/" className="text-sm text-gray-600 hover:text-primary">Home
           </Link>
@@ -51,10 +49,9 @@ const NewsDetail = async ({ params }: NewsDetailProps) => {
   }
 
   if (!newsDetail) {
-    notFound(); // Renders a 404 page if news is not found
+    notFound();
   }
 
-  // Function to format the publish date
   const formatDate = (dateString: string) => {
     const options: Intl.DateTimeFormatOptions = { year: "numeric", month: "long", day: "numeric" };
     return new Date(dateString).toLocaleDateString("en-US", options);
@@ -101,14 +98,10 @@ const NewsDetail = async ({ params }: NewsDetailProps) => {
             </div>
           </div>
 
-          <h1 className="text-5xl font-bold text-gray-900 mb-6">{newsDetail.heading}</h1>
-
-          <p className="text-lg text-gray-700 leading-relaxed mb-8">{newsDetail.shortSummary}</p>
+          <h1 className="text-5xl font-bold text-gray-900">{newsDetail.heading}</h1>
         </div>
-
-        <div className="prose prose-lg mx-auto text-gray-800 mb-8 px-6">
+        <div className="prose prose-lg mx-auto text-gray-800 mb-8 px-6 mt-4">
           <p>{newsDetail.paragraph}</p>
-
           {newsDetail.pdfLink && (
             <div className="mt-6">
               <a
@@ -137,11 +130,10 @@ const NewsDetail = async ({ params }: NewsDetailProps) => {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {newsDetail.relatedNews?.map((related: any) => (
                 <div
-                  key={related.id}
+                  key={related.stockNewsId}
                   className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out transform hover:scale-105"
                 >
                   <h4 className="text-xl font-semibold text-gray-800 mb-4">{related.heading}</h4>
-                  {/* Apply line-clamp to the summary to limit text lines */}
                   <p className="text-sm text-gray-600 mb-4 line-clamp-3">
                     {related.shortSummary}
                   </p>

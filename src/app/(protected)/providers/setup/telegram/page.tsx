@@ -51,7 +51,7 @@ const TelegramSetupContent = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center p-8">
+    <div className="flex flex-col items-center justify-center p-8 h-full">
       <div className="bg-white p-8 rounded-lg shadow-md max-w-md w-full text-center">
         <h1 className="text-2xl font-bold text-gray-800 mb-4">
           Set Up Your Telegram Channel
@@ -78,11 +78,10 @@ const TelegramSetupContent = () => {
             <button
               onClick={handleButtonClick}
               disabled={!link || !!error} // Disable button if there is no link or if there's an error
-              className={`px-6 py-2 rounded-lg transition duration-300 ${
-                !link || !!error
-                  ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-                  : "bg-blue-600 text-white hover:bg-blue-700"
-              }`}
+              className={`px-6 py-2 rounded-lg transition duration-300 ${!link || !!error
+                ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                : "bg-primary text-white hover:bg-accent"
+                }`}
             >
               Open Telegram Bot
             </button>

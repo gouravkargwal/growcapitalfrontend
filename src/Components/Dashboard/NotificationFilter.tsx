@@ -36,20 +36,19 @@ const NotificationFilter = () => {
   };
 
   return (
-    <div className="mb-4">
+    <div>
       <div className="flex flex-row justify-between items-center">
         <div className="flex flex-col">
-          <h2 className="text-lg font-bold text-gray-900">Notification Filters</h2>
+          <h2 className="text-lg font-bold text-gray-900">Notification Sources</h2>
           <p className="text-sm text-gray-500 mb-4">
-            Control the type of updates you receive on WhatsApp. Disable updates
-            based on categories like technical analysis, news updates, etc.
+            Control the sources of updates you receive on your provider. Disable updates
+            based on categories like nse, tweet, etc.
           </p>
         </div>
         <button
           onClick={toggleAccordion}
-          className={`text-primary border border-secondary rounded-2xl px-4 py-1 hover:text-white hover:bg-secondary transition-colors ${
-            loading || updateLoading ? "cursor-not-allowed opacity-50" : ""
-          }`}
+          className={`text-primary border border-secondary rounded-2xl px-4 py-1 hover:text-white hover:bg-secondary transition-colors ${loading || updateLoading ? "cursor-not-allowed opacity-50" : ""
+            }`}
           disabled={loading || updateLoading}
         >
           {isAccordionOpen ? "Close" : "Open"}
@@ -79,7 +78,7 @@ const NotificationFilter = () => {
             style={{ maxHeight: isAccordionOpen ? "1000px" : "0px" }}
           >
             <h3 className="text-lg font-semibold mb-4">
-              Select Notification Provider
+              Select Notification Source
             </h3>
 
             {/* Show feedback if no data is available */}
@@ -90,18 +89,20 @@ const NotificationFilter = () => {
                 {data.map((newsType) => (
                   <label
                     key={newsType.newsTypeId}
-                    className={`flex items-center justify-between p-3 rounded-lg transition-colors ${
-                      !newsType.isEligible
-                        ? "bg-gray-200 text-gray-400 cursor-not-allowed"
-                        : updateLoading
-                        ? "bg-yellow-100"
-                        : "bg-white hover:bg-blue-50"
-                    }`}
+                    className={`flex items-center justify-between p-3 rounded-lg transition-colors ${!newsType.isEligible
+                      ? "bg-gray-200 text-gray-400 cursor-not-allowed"
+                      : updateLoading
+                        ? "bg-[#FDF8F1]"
+                        : "bg-white hover:bg-[#FDF8F1]"
+                      }`}
                   >
                     <span>{newsType.newsTypeName}</span>
                     <input
                       type="checkbox"
-                      className="toggle-checkbox h-5 w-5 cursor-pointer"
+                      className={`h-5 w-5 cursor-pointer ${newsType.isSubscribed
+                        ? "bg-primary border-primary"
+                        : "bg-gray-300 border-gray-300"
+                        }`}
                       checked={newsType.isSubscribed}
                       disabled={!newsType.isEligible || updateLoading}
                       onChange={() =>
@@ -116,12 +117,12 @@ const NotificationFilter = () => {
               </div>
             )}
 
-            {/* Loading state during update */}
+            {/* Loading state during update
             {updateLoading && (
-              <p className="text-yellow-500 text-sm mt-2">
+              <p className="text-primary text-sm mt-2">
                 Updating your preferences...
               </p>
-            )}
+            )} */}
           </div>
         )
       )}

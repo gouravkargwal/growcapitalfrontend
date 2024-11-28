@@ -23,11 +23,10 @@ const Providers = () => {
     const getPlanProvider = async () => {
       try {
         const response = await axiosInstance.get("/user-provider/eligible");
-        setProviders(response.data); // Assuming this returns an array of provider objects
-        // Find the active provider from the response data or user data
+        setProviders(response.data);
         const active = response.data.find(
           (provider: providerData) => provider.isActive
-        ); // Example logic to find active provider
+        );
         setActiveProvider(active);
       } catch (error) {
         console.error("Error fetching plan providers", error);
@@ -62,35 +61,32 @@ const Providers = () => {
           {providers.map((provider: providerData) => (
             <li
               key={provider.providerName}
-              className={`flex justify-between items-center p-4 rounded-lg ${
-                activeProvider?.providerName === provider.providerName
-                  ? "bg-[#FDF8F1] border border-primary"
-                  : "bg-gray-100"
-              }`}
+              className={`flex justify-between items-center p-4 rounded-lg ${activeProvider?.providerName === provider.providerName
+                ? "bg-[#FDF8F1] border border-primary"
+                : "bg-gray-100"
+                }`}
             >
               <span className="font-semibold">
                 {_.capitalize(provider.providerName)}
               </span>
               <span
-                className={`text-sm ${
-                  provider.isConfigured ? "text-green-500" : "text-red-500"
-                }`}
+                className={`text-sm ${activeProvider?.providerName === provider.providerName ? "text-green-500" : "text-red-500"
+                  }`}
               >
-                {provider.isConfigured ? "Configured" : "Not Configured"}
+                {activeProvider?.providerName === provider.providerName ? "Configured (Active)" : "Not Configured"}
               </span>
               <div className="flex space-x-2">
-                {provider.isConfigured ? (
+                {activeProvider?.providerName === provider.providerName ? (
                   ""
                 ) : (
                   <button
                     onClick={() => handleSetupClick(provider)}
-                    className={`px-3 py-1 rounded-md ${
-                      provider.isConfigured
-                        ? "bg-green-600 hover:bg-green-700"
-                        : "bg-primary hover:bg-accent"
-                    } text-white`}
+                    className={`px-3 py-1 rounded-md ${activeProvider?.providerName === provider.providerName
+                      ? "bg-green-600 hover:bg-green-700"
+                      : "bg-primary hover:bg-accent"
+                      } text-white`}
                   >
-                    {provider.isConfigured ? "Edit" : "Setup"}
+                    {activeProvider?.providerName === provider.providerName ? "Edit" : "Setup"}
                   </button>
                 )}
 
@@ -106,14 +102,14 @@ const Providers = () => {
             </li>
           ))}
         </ul>
-        {activeProvider && (
+        {/* {activeProvider && (
           <div className="mt-6">
             <h3 className="font-bold text-lg text-gray-900">Active Channel:</h3>
             <p className="text-primary">
               {_.capitalize(activeProvider.providerName)}
             </p>
           </div>
-        )}
+        )} */}
       </div>
     </div>
   );

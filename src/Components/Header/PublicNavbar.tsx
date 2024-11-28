@@ -39,7 +39,7 @@ const Navbar = () => {
         <Image
           src={logo}
           alt="Informe"
-          height={40}
+          height={30}
           className="mb-4"
         />
         <div className="hidden lg:flex space-x-4">

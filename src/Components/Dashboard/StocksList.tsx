@@ -171,7 +171,7 @@ const StocksList: React.FC = () => {
 
   return (
     <>
-      <Script
+      {/* <Script
         id="smallcase-js"
         src="https://gateway.smallcase.com/scdk/2.0.0/scdk.js"
         onLoad={() => {
@@ -186,7 +186,7 @@ const StocksList: React.FC = () => {
             console.error("scDK is not available on window");
           }
         }}
-      />
+      /> */}
       <div className="mt-5 text-black">
         <div className="flex flex-row justify-between items-center mb-4">
           <div className="flex flex-col">
@@ -196,15 +196,15 @@ const StocksList: React.FC = () => {
             </p>
           </div>
           <div className="space-x-2">
-            <button
+            {/* <button
               onClick={handleImportPortfolio}
               className="text-primary border border-secondary rounded-2xl px-3 lg:px-4 py-1 hover:text-white hover:bg-secondary whitespace-nowrap min-w-max transition-all duration-500 ease-in-out"
             >
               Import Portfolio
-            </button>
+            </button> */}
             <button
               onClick={handleEditToggle}
-              className="text-primary border border-secondary rounded-2xl px-3 lg:px-4 py-1 hover:text-white hover:bg-secondary transition-all whitespace-nowrap min-w-max duration-500 ease-in-out"
+              className="text-primary border border-secondary rounded-2xl px-3 lg:px-4 py-1 hover:text-white hover:bg-secondary transition-all whitespace-nowrap min-w-max duration-500 ease-in-out mt-2 md:mt-0"
             >
               {editMode ? "Done" : "Edit"}
             </button>
