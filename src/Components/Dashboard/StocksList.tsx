@@ -7,6 +7,7 @@ import {
   fetchStockSuggestion,
   fetchUserStocks,
   getImportPortfolioTxnId,
+  resetStockSuggestion,
   updateStockSubscription,
 } from "@/Feature/Stock/stockSlice";
 import { UserState, fetchUserPlan } from "@/Feature/User/userSlice";
@@ -79,7 +80,7 @@ const StocksList: React.FC = () => {
     if (!stocks.length && trackedStocks.length) {
       setStocks(trackedStocks);
     }
-  }, [trackedStocks, stocks.length]);
+  }, [trackedStocks]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -108,7 +109,10 @@ const StocksList: React.FC = () => {
   };
 
   const handleDelete = (ticker_symbol: string) => {
-    setStocks(stocks.filter((stock) => stock.ticker_symbol !== ticker_symbol));
+    const updatedStocks = stocks.filter(
+      (stock) => stock.ticker_symbol !== ticker_symbol
+    );
+    setStocks(updatedStocks);
   };
 
   const handleEditToggle = () => {
@@ -141,6 +145,8 @@ const StocksList: React.FC = () => {
       }
 
       dispatch(updateStockSubscription({ addedStocks, deletedStocks }));
+    } else {
+      dispatch(resetStockSuggestion());
     }
     setEditMode(!editMode);
   };
@@ -193,13 +199,13 @@ const StocksList: React.FC = () => {
           <div className="space-x-2">
             <button
               onClick={handleImportPortfolio}
-              className="text-primary border border-secondary rounded-2xl px-3 lg:px-4 py-1 hover:text-white hover:bg-secondary whitespace-nowrap min-w-max duration-300 ease-in-out"
+              className="text-primary border border-secondary rounded-2xl px-3 lg:px-4 py-1 hover:text-white hover:bg-secondary whitespace-nowrap min-w-max transition-all duration-500 ease-in-out"
             >
               Import Portfolio
             </button>
             <button
               onClick={handleEditToggle}
-              className="text-primary border border-secondary rounded-2xl px-3 lg:px-4 py-1 hover:text-white hover:bg-secondary whitespace-nowrap min-w-max duration-300 ease-in-out"
+              className="text-primary border border-secondary rounded-2xl px-3 lg:px-4 py-1 hover:text-white hover:bg-secondary transition-all whitespace-nowrap min-w-max duration-500 ease-in-out"
             >
               {editMode ? "Done" : "Edit"}
             </button>
@@ -239,7 +245,7 @@ const StocksList: React.FC = () => {
                 type="text"
                 value={inputValue}
                 onChange={handleInputChange}
-                className="border p-2 rounded-lg w-full focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                className="border p-2 rounded-lg w-full focus:outline-none focus:border-primary"
                 placeholder="Add new stock..."
               />
               {stockSuggestionLoading ? (
