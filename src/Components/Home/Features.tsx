@@ -44,7 +44,10 @@ const Features: React.FC = () => {
   ];
 
   return (
-    <section className="py-16 lg:min-h-screen overflow-x-hidden" id="features">
+    <section
+      className="py-16 lg:min-h-screen overflow-x-hidden bg-white"
+      id="features"
+    >
       <div className="mx-auto px-4">
         <h2 className="text-3xl lg:text-4xl font-bold text-center text-gray-800 mb-2">
           {globalEnums.brandName} Features

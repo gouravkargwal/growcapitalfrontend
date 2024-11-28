@@ -7,7 +7,6 @@ export const handleAxiosError = (
   dispatch: any
 ) => {
   let errorMessage = "Internal Server Error";
-  console.log(error);
   if (axios.isAxiosError(error)) {
     if (error.response) {
       console.error(`Error ${error.response.status}: ${error.response.data}`);

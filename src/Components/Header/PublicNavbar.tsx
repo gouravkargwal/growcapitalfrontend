@@ -3,7 +3,8 @@ import { FiMenu } from "react-icons/fi";
 import { IoClose } from "react-icons/io5";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
-import { globalEnums } from "@/enum";
+import logo from "../../../assets/logo-1.png";
+import Image from "next/image";
 
 const Navbar = () => {
   const router = useRouter();
@@ -35,9 +36,12 @@ const Navbar = () => {
   return (
     <header className="bg-opacity-90 backdrop-blur-md fixed top-0 w-screen z-50">
       <nav className="flex justify-between pt-6 md:pt-8 pb-5 px-5 md:px-10">
-        <div className="text-2xl font-extrabold text-primary">
-          {globalEnums.brandName}
-        </div>
+        <Image
+          src={logo}
+          alt="Informe"
+          height={40}
+          className="mb-4"
+        />
         <div className="hidden lg:flex space-x-4">
           <button
             className="px-6 py-2 border border-primary text-primary rounded-btn-lg font-semibold hover:bg-primary hover:text-white transition-all duration-300 transform hover:scale-105 shadow-btn-shadow"

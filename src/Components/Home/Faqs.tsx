@@ -24,7 +24,10 @@ const Faqs: React.FC = () => {
   };
 
   return (
-    <section className="flex flex-col md:flex-row lg:flex-row justify-center items-center px-6 lg:px-16 pb-40">
+    <section
+      className="flex flex-col md:flex-row lg:flex-row justify-center items-center px-6 lg:px-16 pb-20 bg-white pt-20"
+      id="faqs"
+    >
       <motion.div
         variants={cardVariants}
         initial="offscreen"
@@ -44,7 +47,7 @@ const Faqs: React.FC = () => {
           initial="offscreen"
           whileInView="onscreen"
           viewport={{ once: true, amount: 0.1 }}
-          className="hidden md:flex mt-5 px-8 py-4 bg-primary text-white font-semibold rounded-btn-lg shadow-btn-shadow hover:bg-blue-600 transition-all duration-300 ease-in-out transform hover:scale-105"
+          className="hidden md:flex mt-5 px-8 py-4 bg-primary text-white font-semibold rounded-btn-lg shadow-btn-shadow hover:bg-accent transition-all duration-300 ease-in-out transform hover:scale-105"
           onClick={() => window.open("https://informe.freshdesk.com", "_blank")}
         >
           Contact Us
@@ -68,7 +71,7 @@ const Faqs: React.FC = () => {
         initial="offscreen"
         whileInView="onscreen"
         viewport={{ once: true, amount: 0.1 }}
-        className="flex md:hidden mt-5 px-8 py-4 bg-primary text-white font-semibold rounded-btn-lg shadow-btn-shadow hover:bg-blue-600 transition-all duration-300 ease-in-out transform hover:scale-105"
+        className="flex md:hidden mt-5 px-8 py-4 bg-primary text-white font-semibold rounded-btn-lg shadow-btn-shadow hover:bg-accent transition-all duration-300 ease-in-out transform hover:scale-105"
         onClick={() => window.open("https://informe.freshdesk.com", "_blank")}
       >
         Contact Us

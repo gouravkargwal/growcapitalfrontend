@@ -89,7 +89,7 @@ const PasswordResetForm = () => {
   return (
     <AuthLayout>
       <div className="max-w-xl w-full p-6 sm:p-8 rounded-lg shadow-lg bg-white border border-gray-200">
-        <h2 className="text-3xl font-extrabold text-primary mb-6 text-center">
+        <h2 className="text-3xl font-extrabold mb-6 text-center">
           Reset Your Password
         </h2>
 

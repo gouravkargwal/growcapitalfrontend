@@ -99,7 +99,11 @@ export const getImportPortfolioTxnId = createAsyncThunk(
 const stockSlice = createSlice({
   name: "stock",
   initialState,
-  reducers: {},
+  reducers: {
+    resetStockSuggestion: (state) => {
+      state.stockSuggestion = [];
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchUserStocks.pending, (state) => {
@@ -133,5 +137,7 @@ const stockSlice = createSlice({
       });
   },
 });
+
+export const { resetStockSuggestion } = stockSlice.actions;
 
 export default stockSlice.reducer;

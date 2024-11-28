@@ -53,7 +53,7 @@ const Providers = () => {
 
   return (
     <div className="flex flex-col justify-start">
-      <h2 className="text-lg font-bold">Communication Channels</h2>
+      <h2 className="text-lg font-bold text-gray-900">Communication Channels</h2>
       <p className="text-sm text-gray-500 mb-4">
         Select your preferred channel for stock updates:
       </p>
@@ -64,7 +64,7 @@ const Providers = () => {
               key={provider.providerName}
               className={`flex justify-between items-center p-4 rounded-lg ${
                 activeProvider?.providerName === provider.providerName
-                  ? "bg-blue-100 border border-blue-500"
+                  ? "bg-[#FDF8F1] border border-primary"
                   : "bg-gray-100"
               }`}
             >
@@ -87,7 +87,7 @@ const Providers = () => {
                     className={`px-3 py-1 rounded-md ${
                       provider.isConfigured
                         ? "bg-green-600 hover:bg-green-700"
-                        : "bg-blue-600 hover:bg-blue-700"
+                        : "bg-primary hover:bg-accent"
                     } text-white`}
                   >
                     {provider.isConfigured ? "Edit" : "Setup"}
@@ -108,8 +108,8 @@ const Providers = () => {
         </ul>
         {activeProvider && (
           <div className="mt-6">
-            <h3 className="font-bold text-lg">Active Channel:</h3>
-            <p className="text-blue-600">
+            <h3 className="font-bold text-lg text-gray-900">Active Channel:</h3>
+            <p className="text-primary">
               {_.capitalize(activeProvider.providerName)}
             </p>
           </div>

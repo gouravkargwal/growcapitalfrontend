@@ -3,11 +3,52 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { handleAxiosError } from "@/lib/apiError";
 import {
   getAllNewsType,
+  getNewsById,
   getSentUserNews,
   updateUserNewsTypesApi,
 } from "./news.service";
 import { openSnackbar } from "../Snackbar/snackbarSlice";
 import { NewsTypeDto, UpdateNewsTypeDto } from "./news.dto";
+
+export type News = {
+  companyName: string;
+  heading: string;
+  industry: string;
+  isinNumber: string;
+  newsId: string;
+  newsTime: string;
+  scripCode: string;
+  shortSummary: string;
+  longSummary: string;
+  stockIndex: number;
+  tickerSymbol: string;
+};
+
+export type NewsState = {
+  data: NewsTypeDto[];
+  loading: boolean;
+  updateLoading: boolean;
+  timelineData: News[];
+  timelineDataLoading: boolean;
+  hasMore: boolean;
+  currentPage: number;
+  newsDetailLoading: boolean;
+  newsDetail: object | null | undefined;
+};
+
+export const fetchNewsById = createAsyncThunk(
+  "news/fetchNewsById",
+  async (id: string, { rejectWithValue, dispatch }) => {
+    try {
+      const { data } = await getNewsById(id);
+      return data;
+    } catch (error) {
+      const axiosError = handleAxiosError(error, rejectWithValue, dispatch);
+      if (axiosError) return axiosError;
+      return rejectWithValue(error);
+    }
+  }
+);
 
 export const fetchNews = createAsyncThunk(
   "news/fetchNews",
@@ -19,15 +60,6 @@ export const fetchNews = createAsyncThunk(
     };
   }
 );
-type News = {
-  imageSrc: string; // URL or path to the image
-  source: string; // News source name
-  timeAgo: string; // How long ago the news was posted
-  title: string; // Title of the news article
-  description: string; // Brief description or summary of the article
-  category: string; // News category (e.g., Sports, Tech, etc.)
-  readTime: string; // Estimated reading time for the article
-};
 
 export const fetchUserNewsTypes = createAsyncThunk(
   "news/fetchUserNewsTypes",
@@ -50,9 +82,8 @@ export const updateUserNewsTypes = createAsyncThunk(
       const { data } = await updateUserNewsTypesApi(body);
       dispatch(
         openSnackbar({
-          message: `Notification for news type is ${
-            body?.isSubscribed ? "enabled" : "disabled"
-          }.`,
+          message: `Notification for news type is ${body?.isSubscribed ? "enabled" : "disabled"
+            }.`,
           severity: "success",
         })
       );
@@ -66,16 +97,6 @@ export const updateUserNewsTypes = createAsyncThunk(
   }
 );
 
-export type NewsState = {
-  data: NewsTypeDto[];
-  loading: boolean;
-  updateLoading: boolean;
-  timelineData: News[];
-  timelineDataLoading: boolean;
-  hasMore: boolean;
-  currentPage: number;
-};
-
 const initialState: NewsState = {
   data: [],
   loading: false,
@@ -84,6 +105,8 @@ const initialState: NewsState = {
   timelineDataLoading: false,
   hasMore: true,
   currentPage: 1,
+  newsDetailLoading: false,
+  newsDetail: null,
 };
 
 const newsSlice = createSlice({
@@ -125,6 +148,17 @@ const newsSlice = createSlice({
       })
       .addCase(fetchNews.rejected, (state) => {
         state.timelineDataLoading = false;
+      })
+
+      .addCase(fetchNewsById.pending, (state) => {
+        state.newsDetailLoading = true;
+      })
+      .addCase(fetchNewsById.fulfilled, (state, action) => {
+        state.newsDetailLoading = false;
+        state.newsDetail = action.payload.data;
+      })
+      .addCase(fetchNewsById.rejected, (state) => {
+        state.newsDetailLoading = false;
       });
   },
 });
