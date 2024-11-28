@@ -3,10 +3,25 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getReferData } from "./refer.service";
 import { handleAxiosError } from "@/lib/apiError";
 
+export interface ReferredUser {
+  userId: string;
+  email: string;
+  firstName: string;
+  lastName?: string;
+  isEmailVerified: boolean;
+  isBlocked: boolean;
+  forcePasswordChange: boolean;
+  isDeleted: boolean;
+  referralCode: string;
+  referredByCode: string;
+  updatedAt: string;
+  deletedAt?: string | null;
+}
+
 export interface ReferralRecord {
-  name: string;
-  date: string;
-  status: string;
+  isSuccessful: boolean;
+  referredUser: ReferredUser;
+  createdAt: string;
 }
 
 export interface ReferData {
@@ -49,9 +64,9 @@ const referSlice = createSlice({
       })
       .addCase(fetchReferrals.fulfilled, (state, action) => {
         state.loading = false;
-        state.data = action.payload || []; // Save the user data
+        state.data = action.payload || [];
       })
-      .addCase(fetchReferrals.rejected, (state, action) => {
+      .addCase(fetchReferrals.rejected, (state) => {
         state.loading = false;
       });
   },
