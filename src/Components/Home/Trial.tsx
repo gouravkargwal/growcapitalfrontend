@@ -38,7 +38,7 @@ const Trial: React.FC = () => {
         </motion.p>
 
         <motion.button
-          className="bg-primary hover:bg-blue-600 text-white font-semibold py-4 px-8 rounded-btn-lg shadow-btn-shadow transition-all duration-300 ease-in-out transform hover:scale-105"
+          className="bg-primary hover:bg-accent text-white font-semibold py-4 px-8 rounded-btn-lg shadow-btn-shadow transition-all duration-300 ease-in-out transform hover:scale-105"
           onClick={() => {
             router.push("signup");
           }}

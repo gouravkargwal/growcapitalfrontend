@@ -5,6 +5,7 @@ import { useAppDispatch } from "@/hook/useAppDispatch";
 import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
 import { RootState } from "@/Store/store";
+import { FcGoogle } from "react-icons/fc";
 
 const GoogleAuthentication = () => {
   const dispatch = useAppDispatch();
@@ -30,7 +31,7 @@ const GoogleAuthentication = () => {
       <div className="my-4 text-center">
         <button
           onClick={handleGoogleSignIn}
-          className={`bg-red-500 text-white w-full py-3 rounded-btn-lg shadow-lg hover:bg-red-600 transition-all duration-300 ease-in-out ${
+          className={`p-3 rounded-full border-2 hover:border-gray-400 transition-all duration-500 ease-in-out ${
             googleAuthLoading && "cursor-not-allowed"
           }`}
           disabled={googleAuthLoading}
@@ -38,7 +39,7 @@ const GoogleAuthentication = () => {
           {googleAuthLoading ? (
             <div className="flex items-center justify-center space-x-2">
               <svg
-                className="animate-spin h-5 w-5 text-white"
+                className="animate-spin h-5 w-5"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
@@ -57,10 +58,11 @@ const GoogleAuthentication = () => {
                   d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
                 ></path>
               </svg>
-              <span>Signing in with Google...</span>
             </div>
           ) : (
-            "Sign in with Google"
+            <div className="flex items-center justify-center space-x-2">
+              <FcGoogle size={24} />
+            </div>
           )}
         </button>
       </div>

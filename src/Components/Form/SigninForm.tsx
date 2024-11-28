@@ -68,10 +68,8 @@ const SigninForm = () => {
         const result = await dispatch(signInUser(data));
         if (signInUser.fulfilled.match(result)) {
           const user = result.payload.user;
-          if (user?.emailVerified) {
+          if (user) {
             router.push("/dashboard");
-          } else {
-            router.push("/emailverification");
           }
         } else {
           await auth.signOut();
@@ -88,12 +86,12 @@ const SigninForm = () => {
     <AuthLayout>
       <div className="max-w-xl w-full p-6 sm:p-8 rounded-none md:rounded-lg shadow-none md:shadow-lg md:border md:border-gray-200">
         <button
-          className="mb-4 text-primary hover:text-primary-dark"
+          className="mb-4 hover:text-primary-dark"
           onClick={() => router.push("/")}
         >
           ← Back
         </button>
-        <h2 className="text-4xl font-extrabold text-primary mb-6 md:text-center text-left">
+        <h2 className="text-4xl font-extrabold mb-6 md:text-center text-left">
           Sign in
         </h2>
         <form onSubmit={handleSubmit(onSubmit)}>

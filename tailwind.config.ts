@@ -14,8 +14,10 @@ const config: Config = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
       colors: {
-        primary: "#007BFF", // Vibrant Blue (Lively for buttons and links)
-        accent: "#38D9A9", // Vibrant Green (For success and positive actions)
+        primary: "#DF732D", // Vibrant Blue (Lively for buttons and links)
+        accent: "#c25913", // Vibrant Green (For success and positive actions)
+        secondary: "#e17b37", // Vibrant Green (For success and positive actions)
+        tertiary: "#FBF6ED",
         coral: "#FF6B6B", // Vibrant Coral (For call-to-action buttons)
         neutral: "#F3F4F6", // Light gray for backgrounds and content
         textPrimary: "#111827", // Darker text for contrast (improves readability)

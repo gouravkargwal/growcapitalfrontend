@@ -154,7 +154,7 @@ const PricingSection: React.FC = () => {
 
   return (
     <section
-      className="min-h-screen flex flex-col justify-center items-center py-12"
+      className="min-h-screen flex flex-col justify-center items-center py-12 bg-white"
       id="pricing"
     >
       <div className="w-full max-w-6xl px-4 text-center">

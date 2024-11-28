@@ -10,7 +10,7 @@ interface AuthLayoutProps {
 const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
   return (
     <div className="min-h-screen flex flex-col md:flex-row">
-      <div className="hidden md:flex w-full md:w-[50%] bg-primary text-white flex-col">
+      <div className="hidden md:flex w-full md:w-[50%] bg-secondary text-white flex-col">
         <div className="w-full pt-14 pl-16 bg-black bg-opacity-10">
           <Image
             src={bg}

@@ -193,13 +193,13 @@ const StocksList: React.FC = () => {
           <div className="space-x-2">
             <button
               onClick={handleImportPortfolio}
-              className="text-blue-400 border border-blue-500 rounded-2xl px-3 lg:px-4 py-1 hover:text-white hover:bg-blue-500 whitespace-nowrap min-w-max duration-300 ease-in-out"
+              className="text-primary border border-secondary rounded-2xl px-3 lg:px-4 py-1 hover:text-white hover:bg-secondary whitespace-nowrap min-w-max duration-300 ease-in-out"
             >
               Import Portfolio
             </button>
             <button
               onClick={handleEditToggle}
-              className="text-blue-400 border border-blue-500 rounded-2xl px-3 lg:px-4 py-1 hover:text-white hover:bg-blue-500 whitespace-nowrap min-w-max duration-300 ease-in-out"
+              className="text-primary border border-secondary rounded-2xl px-3 lg:px-4 py-1 hover:text-white hover:bg-secondary whitespace-nowrap min-w-max duration-300 ease-in-out"
             >
               {editMode ? "Done" : "Edit"}
             </button>
@@ -215,7 +215,7 @@ const StocksList: React.FC = () => {
               {stocks.map((stock, index) => (
                 <div
                   key={index}
-                  className="bg-blue-100 text-blue-800 text-sm font-semibold py-2 px-4 rounded-md flex items-center justify-center shadow-md"
+                  className="bg-tertiary text-primary text-sm font-semibold py-2 px-4 rounded-md flex items-center justify-center shadow-md"
                 >
                   <p>{stock?.ticker_symbol}</p>
                   {editMode && (
