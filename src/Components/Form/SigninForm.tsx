@@ -108,7 +108,7 @@ const SigninForm = () => {
             placeholder="********"
             error={errors.password?.message}
           />
-          <div className="text-right">
+          <div className="text-right mb-2">
             <Link
               href="forgotpassword"
               className="text-sm text-primary hover:underline"
