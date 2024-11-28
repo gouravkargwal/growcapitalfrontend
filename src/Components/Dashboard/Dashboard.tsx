@@ -6,7 +6,6 @@ import AccountOverview from "./AccountOverview";
 import NotificationFilter from "./NotificationFilter";
 import Languages from "./Languages";
 import ReferAndEarn from "./ReferAndEarn";
-import News from "./News";
 import Providers from "./setup";
 
 const Dashboard = () => {
@@ -25,9 +24,6 @@ const Dashboard = () => {
   return (
     <div className="w-full">
       <AccountOverview />
-      <div className="mx-2 p-2 hidden lg:visible">
-        <News />
-      </div>
       <div className="mx-2 p-2">
         <StocksList />
       </div>
@@ -50,7 +46,7 @@ const Dashboard = () => {
           Coming Soon
         </div>
       </div>
-      <Footer intenalFooter/>
+      <Footer intenalFooter />
     </div>
   );
 };
