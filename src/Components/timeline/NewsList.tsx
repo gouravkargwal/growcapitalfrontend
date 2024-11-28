@@ -21,9 +21,6 @@ const NewsList: React.FC = () => {
   const { timelineData, timelineDataLoading, currentPage, hasMore } =
     useSelector((state: RootState) => state.news);
   const observer = useRef<IntersectionObserver | null>(null);
-  console.log(timelineData);
-
-
   // Infinite Scroll Observer
   const lastNewsElementRef = useCallback(
     (node: HTMLElement | null) => {
@@ -64,14 +61,14 @@ const NewsList: React.FC = () => {
               return (
                 <div ref={lastNewsElementRef} key={index}>
                   <NewsCard
-                  {...newsItem}
+                    {...newsItem}
                   />
                 </div>
               );
             } else {
               return (
                 <NewsCard
-                 {...newsItem}
+                  {...newsItem}
                 />
               );
             }
