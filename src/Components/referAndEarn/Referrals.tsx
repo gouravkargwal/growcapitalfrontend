@@ -24,8 +24,6 @@ const Referrals = () => {
         {referralsLoading ? (
           <div className="animate-pulse space-y-4">
             <div className="h-40 bg-gray-200 rounded-lg"></div>
-            <div className="h-40 bg-gray-200 rounded-lg"></div>
-            <div className="h-40 bg-gray-200 rounded-lg"></div>
           </div>
         ) : data && data?.records?.length > 0 ? (
           data?.records.map((person, index) => (
