@@ -130,7 +130,7 @@ const UpgradePlan = () => {
               )}
 
               <p className="text-textSecondary text-sm mb-4">
-                {plan?.planDescription || "No description available."}
+                No description available
               </p>
 
               <button
