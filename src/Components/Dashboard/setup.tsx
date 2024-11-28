@@ -15,7 +15,7 @@ type providerData = {
 
 const Providers = () => {
   const router = useRouter();
-  const { user, loading } = useAuthGuard();
+  const { loading } = useAuthGuard();
   const [providers, setProviders] = useState([]);
   const [activeProvider, setActiveProvider] = useState<providerData>();
 
@@ -39,12 +39,6 @@ const Providers = () => {
   const handleSetupClick = (provider: providerData) => {
     router.push(
       `providers/setup/${provider.providerName}?providerId=${provider.providerId}`
-    );
-  };
-
-  const handleEditClick = (provider: providerData) => {
-    router.push(
-      `providers/config/${provider.providerName}?providerId=${provider.providerName}`
     );
   };
 
@@ -99,26 +93,10 @@ const Providers = () => {
                     Setup
                   </button>
                 )}
-                {provider.isConfigured && (
-                  <button
-                    onClick={() => handleEditClick(provider)}
-                    className="px-3 py-1 bg-yellow-600 hover:bg-yellow-700 rounded-md text-white"
-                  >
-                    Change Configuration
-                  </button>
-                )}
               </div>
             </li>
           ))}
         </ul>
-        {/* {activeProvider && (
-          <div className="mt-6">
-            <h3 className="font-bold text-lg text-gray-900">Active Channel:</h3>
-            <p className="text-primary">
-              {_.capitalize(activeProvider.providerName)}
-            </p>
-          </div>
-        )} */}
       </div>
     </div>
   );
