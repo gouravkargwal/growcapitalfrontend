@@ -44,13 +44,13 @@ const Dashboard = () => {
         <Providers />
       </div>
       <div className="relative mx-2 p-4 mt-5 mb-10">
-        <h1 className="text-lg font-bold mb-2">Predictions 14 days*</h1>
+        <h1 className="text-lg font-bold mb-2 text-gray-900">Predictions 14 days*</h1>
         <Banner strategies={strategies} speed={12000} />
         <div className="absolute inset-0 bg-black bg-opacity-10 flex items-center justify-center text-black text-3xl font-bold rounded-md">
           Coming Soon
         </div>
       </div>
-      <Footer />
+      <Footer intenalFooter/>
     </div>
   );
 };

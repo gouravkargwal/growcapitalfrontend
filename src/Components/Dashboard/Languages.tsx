@@ -31,7 +31,7 @@ const Languages = () => {
 
   return (
     <div className="mb-4">
-      <h2 className="text-lg font-bold">Language Preferences</h2>
+      <h2 className="text-lg font-bold text-gray-900">Language Preferences</h2>
       <p className="text-sm text-gray-500 mb-4">
         Select your preferred language for stock updates:
       </p>
@@ -56,9 +56,9 @@ const Languages = () => {
               onClick={() => handleLanguageSelection(language.languageId)}
               className={`cursor-pointer px-4 py-2 rounded-lg border transition-all duration-300 ${
                 language.isSelected
-                  ? "border-blue-500 bg-blue-100 text-blue-700"
+                  ? "border-primary bg-[#FDF8F1] text-primary"
                   : "border-gray-300 bg-white"
-              } hover:border-blue-500 ${
+              } hover:border-primary ${
                 updateUserLanguageLoading
                   ? "opacity-50 pointer-events-none"
                   : "" // Disable interaction during update loading
@@ -77,7 +77,7 @@ const Languages = () => {
 
       {/* Show loading message during update */}
       {updateUserLanguageLoading && (
-        <p className="mt-2 text-blue-500">Updating language preference...</p>
+        <p className="mt-2 text-primary">Updating language preference...</p>
       )}
     </div>
   );

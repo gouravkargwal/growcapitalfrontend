@@ -39,15 +39,15 @@ const NotificationFilter = () => {
     <div className="mb-4">
       <div className="flex flex-row justify-between items-center">
         <div className="flex flex-col">
-          <h2 className="text-lg font-bold">Notification Filters</h2>
-          <p className="text-sm text-gray-400 mb-4">
+          <h2 className="text-lg font-bold text-gray-900">Notification Filters</h2>
+          <p className="text-sm text-gray-500 mb-4">
             Control the type of updates you receive on WhatsApp. Disable updates
             based on categories like technical analysis, news updates, etc.
           </p>
         </div>
         <button
           onClick={toggleAccordion}
-          className={`text-blue-500 border border-blue-500 rounded-2xl px-4 py-1 hover:text-white hover:bg-blue-500 transition-colors ${
+          className={`text-primary border border-secondary rounded-2xl px-4 py-1 hover:text-white hover:bg-secondary transition-colors ${
             loading || updateLoading ? "cursor-not-allowed opacity-50" : ""
           }`}
           disabled={loading || updateLoading}
