@@ -54,7 +54,6 @@ const SigninForm = () => {
   const onSubmit = async (data: UserFormValue) => {
     const forcePassword = await dispatch(checkPasswordChange(data?.email));
     if (checkPasswordChange.fulfilled.match(forcePassword)) {
-      console.log(forcePassword);
       const x = forcePassword?.payload?.data;
       if (x) {
         router.push("/forgotpassword");

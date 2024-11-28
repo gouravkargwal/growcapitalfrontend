@@ -160,7 +160,6 @@ const StocksList: React.FC = () => {
           const txnResponse = await gatewayInstance.triggerTransaction({
             transactionId: txnId,
           });
-          console.log("received response:", txnResponse);
         } else {
           console.error("Gateway instance is not initialized");
         }
