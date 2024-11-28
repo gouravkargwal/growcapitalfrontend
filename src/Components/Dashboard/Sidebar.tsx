@@ -5,7 +5,6 @@ import Image from "next/image";
 import { IoMdHelpCircleOutline } from "react-icons/io";
 import React from "react";
 import { auth } from "@/lib/firebase";
-import avatar from "../../../assets/avatar.jpg";
 import { signOut } from "firebase/auth";
 import { useRouter, usePathname } from "next/navigation";
 import logo from "../../../assets/logo-1.png";
@@ -23,38 +22,17 @@ const Sidebar = ({ closeSidebar }: { closeSidebar: () => void }) => {
   };
 
   return (
-    <div className="w-full h-screen p-4 bg-[#FDF8F1] flex flex-col justify-between">
+    <div className="w-full h-screen p-6 bg-[#F8F4F1] flex flex-col justify-between rounded-xl shadow-lg">
       <div>
-        <Image
-          src={logo}
-          alt="Informe"
-          height={30}
-          className="mb-4"
-        />
-        <div className="flex items-center mb-6">
-          <Image
-            src={auth?.currentUser?.photoURL || avatar}
-            alt="profile"
-            className="w-10 h-10 rounded-full mr-2"
-            width={40}
-            height={40}
-          />
-          <div className="flex-1">
-            <h2 className="text-lg font-semibold truncate">
-              {auth?.currentUser?.displayName}
-            </h2>
-            <p className="text-sm text-gray-400 truncate max-w-[150px] md:max-w-[200px]">
-              {auth?.currentUser?.email}
-            </p>
-          </div>
-        </div>
-        <ul className="space-y-2">
+        <Image src={logo} alt="Informe" height={50} className="mb-8" />
+        <ul className="space-y-4 mt-6">
           <li>
             <button
-              className={`w-full text-left p-2 flex items-center transition-all duration-300 ease-in-out rounded-lg ${isActive("/dashboard")
-                ? "bg-primary text-white"
-                : "hover:bg-gray-200"
-                }`}
+              className={`w-full text-left p-3 flex items-center transition-all duration-300 ease-in-out rounded-lg ${
+                isActive("/dashboard")
+                  ? "bg-primary text-white shadow-md"
+                  : "hover:bg-gray-200"
+              } `}
               onClick={() => goToPage("/dashboard")}
             >
               Home
@@ -62,10 +40,11 @@ const Sidebar = ({ closeSidebar }: { closeSidebar: () => void }) => {
           </li>
           <li>
             <button
-              className={`w-full text-left p-2 flex items-center transition-all duration-300 ease-in-out rounded-lg ${isActive("/yourtimeline")
-                ? "bg-primary text-white"
-                : "hover:bg-gray-200"
-                }`}
+              className={`w-full text-left p-3 flex items-center transition-all duration-300 ease-in-out rounded-lg ${
+                isActive("/yourtimeline")
+                  ? "bg-primary text-white shadow-md"
+                  : "hover:bg-gray-200"
+              } `}
               onClick={() => goToPage("/yourtimeline")}
             >
               Your Timeline
@@ -73,10 +52,11 @@ const Sidebar = ({ closeSidebar }: { closeSidebar: () => void }) => {
           </li>
           <li>
             <button
-              className={`w-full text-left p-2 flex items-center transition-all duration-300 ease-in-out rounded-lg ${isActive("/referAndEarn")
-                ? "bg-primary text-white"
-                : "hover:bg-gray-200"
-                }`}
+              className={`w-full text-left p-3 flex items-center transition-all duration-300 ease-in-out rounded-lg ${
+                isActive("/referAndEarn")
+                  ? "bg-primary text-white shadow-md"
+                  : "hover:bg-gray-200"
+              } `}
               onClick={() => goToPage("/referAndEarn")}
             >
               Refer And Earn
@@ -84,10 +64,11 @@ const Sidebar = ({ closeSidebar }: { closeSidebar: () => void }) => {
           </li>
           <li>
             <button
-              className={`w-full text-left p-2 flex items-center transition-all duration-300 ease-in-out rounded-lg ${isActive("/subscriptions")
-                ? "bg-primary text-white"
-                : "hover:bg-gray-200"
-                }`}
+              className={`w-full text-left p-3 flex items-center transition-all duration-300 ease-in-out rounded-lg ${
+                isActive("/subscriptions")
+                  ? "bg-primary text-white shadow-md"
+                  : "hover:bg-gray-200"
+              } `}
               onClick={() => goToPage("/subscriptions")}
             >
               Subscriptions
@@ -95,10 +76,11 @@ const Sidebar = ({ closeSidebar }: { closeSidebar: () => void }) => {
           </li>
           <li>
             <button
-              className={`w-full text-left p-2 flex items-center transition-all duration-300 ease-in-out rounded-lg ${isActive("/profileSettings")
-                ? "bg-primary text-white"
-                : "hover:bg-gray-200"
-                }`}
+              className={`w-full text-left p-3 flex items-center transition-all duration-300 ease-in-out rounded-lg ${
+                isActive("/profileSettings")
+                  ? "bg-primary text-white shadow-md"
+                  : "hover:bg-gray-200"
+              } `}
               onClick={() => goToPage("/profileSettings")}
             >
               Profile Settings
@@ -106,28 +88,28 @@ const Sidebar = ({ closeSidebar }: { closeSidebar: () => void }) => {
           </li>
         </ul>
       </div>
-      <div className="">
-        <ul className="space-y-2">
+      <div className="mt-8">
+        <ul className="space-y-4">
           <li>
             <button
-              className="w-full text-left p-2 hover:bg-gray-200 rounded-lg transition-all duration-300 ease-in-out flex gap-2 items-center"
+              className="w-full text-left p-3 hover:bg-gray-200 rounded-lg transition-all duration-300 ease-in-out flex gap-3 items-center"
               onClick={() =>
                 window.open(`https://informe.freshdesk.com`, "_blank")
               }
             >
-              <IoMdHelpCircleOutline />
+              <IoMdHelpCircleOutline className="text-xl" />
               Help Center
             </button>
           </li>
           <li>
             <button
-              className="w-full text-left p-2 hover:bg-gray-200 rounded-lg transition-all duration-300 ease-in-out flex gap-2 items-center"
+              className="w-full text-left p-3 hover:bg-gray-200 rounded-lg transition-all duration-300 ease-in-out flex gap-3 items-center"
               onClick={() => {
                 signOut(auth);
                 closeSidebar();
               }}
             >
-              <CiLogout />
+              <CiLogout className="text-xl" />
               Logout
             </button>
           </li>

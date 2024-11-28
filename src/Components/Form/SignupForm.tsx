@@ -90,7 +90,7 @@ const SignupForm = ({ referralCode }: { referralCode: string | undefined }) => {
     );
     if (signupUser.fulfilled.match(resultAction)) {
       await signInWithEmailAndPassword(auth, data?.email, data?.password);
-      router.push("/emailverification");
+      router.push("/dashboard");
     }
   };
 
