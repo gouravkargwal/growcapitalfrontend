@@ -52,7 +52,9 @@ const Providers = () => {
 
   return (
     <div className="flex flex-col justify-start">
-      <h2 className="text-lg font-bold text-gray-900">Communication Channels</h2>
+      <h2 className="text-lg font-bold text-gray-900">
+        Communication Channels
+      </h2>
       <p className="text-sm text-gray-500 mb-4">
         Select your preferred channel for stock updates:
       </p>
@@ -61,43 +63,50 @@ const Providers = () => {
           {providers.map((provider: providerData) => (
             <li
               key={provider.providerName}
-              className={`flex justify-between items-center p-4 rounded-lg ${activeProvider?.providerName === provider.providerName
-                ? "bg-[#FDF8F1] border border-primary"
-                : "bg-gray-100"
-                }`}
+              className={`flex justify-between items-center p-4 rounded-lg ${
+                activeProvider?.providerName === provider.providerName
+                  ? "bg-[#FDF8F1] border border-primary"
+                  : "bg-gray-100"
+              }`}
             >
               <span className="font-semibold">
                 {_.capitalize(provider.providerName)}
               </span>
               <span
-                className={`text-sm ${activeProvider?.providerName === provider.providerName ? "text-green-500" : "text-red-500"
-                  }`}
+                className={`text-sm ${
+                  activeProvider?.providerName === provider.providerName &&
+                  activeProvider.isConfigured &&
+                  activeProvider.isActive
+                    ? "text-green-500"
+                    : "text-red-500"
+                }`}
               >
-                {activeProvider?.providerName === provider.providerName ? "Configured (Active)" : "Not Configured"}
+                {activeProvider?.providerName === provider.providerName &&
+                activeProvider.isConfigured &&
+                activeProvider.isActive
+                  ? "Configured (Active)"
+                  : "Not Configured"}
               </span>
               <div className="flex space-x-2">
-                {activeProvider?.providerName === provider.providerName ? (
+                {activeProvider?.providerName === provider.providerName &&
+                activeProvider.isConfigured === true ? (
                   ""
                 ) : (
                   <button
                     onClick={() => handleSetupClick(provider)}
-                    className={`px-3 py-1 rounded-md ${activeProvider?.providerName === provider.providerName
-                      ? "bg-green-600 hover:bg-green-700"
-                      : "bg-primary hover:bg-accent"
-                      } text-white`}
+                    className={`px-3 py-1 rounded-md bg-primary hover:bg-accent text-white`}
                   >
-                    {activeProvider?.providerName === provider.providerName ? "Edit" : "Setup"}
+                    Setup
                   </button>
                 )}
-
-                {/* {provider.isConfigured && (
+                {provider.isConfigured && (
                   <button
                     onClick={() => handleEditClick(provider)}
                     className="px-3 py-1 bg-yellow-600 hover:bg-yellow-700 rounded-md text-white"
                   >
                     Change Configuration
                   </button>
-                )} */}
+                )}
               </div>
             </li>
           ))}
