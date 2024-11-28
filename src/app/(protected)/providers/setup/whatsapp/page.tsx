@@ -69,7 +69,7 @@ const WhatsAppSetupPage = () => {
       setLoading(false);
     }
   };
-  const [resendTimer, setResendTimer] = useState<number>(60); // Example initial value for resendTimer
+  const [resendTimer, setResendTimer] = useState<number>(60);
   useEffect(() => {
     let timer: ReturnType<typeof setInterval> | undefined;
 
@@ -86,10 +86,10 @@ const WhatsAppSetupPage = () => {
     };
   }, [resendTimer]);
 
-  if (authLoading) return <p>Loading...</p>; // Optional: handle loading state for auth
+  if (authLoading) return <p>Loading...</p>;
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 p-8">
+    <div className="flex flex-col items-center justify-center p-8 h-full">
       <div className="bg-white p-8 rounded-lg shadow-md max-w-md w-full text-center">
         <h1 className="text-2xl font-bold text-gray-800 mb-4">
           Set Up Your WhatsApp Number
@@ -126,7 +126,7 @@ const WhatsAppSetupPage = () => {
             />
             <button
               onClick={handleVerifyCode}
-              className="w-full px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-300"
+              className="w-full px-6 py-2 bg-primary text-white rounded-lg hover:bg-accent transition duration-300"
               disabled={loading}
             >
               {loading ? "Verifying..." : "Verify Code"}
@@ -135,10 +135,10 @@ const WhatsAppSetupPage = () => {
         ) : (
           <button
             onClick={handleSendVerificationCode}
-            className="w-full px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-300"
+            className="w-full px-6 py-2 bg-primary text-white rounded-lg hover:bg-accent transition duration-300"
             disabled={loading || resendTimer > 0}
           >
-            {loading ? "Sending..." : "Send OTP"}
+            {loading ? "Sending..." : "Coming soon..."}
           </button>
         )}
 

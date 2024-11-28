@@ -17,7 +17,7 @@ const Footer: React.FC<FooterProps> = ({ intenalFooter = false }) => {
             <Image
               src={logo}
               alt="Informe"
-              height={40}
+              height={30}
               className="mb-4"
             />
             <p className="text-gray-600 hidden md:flex">
