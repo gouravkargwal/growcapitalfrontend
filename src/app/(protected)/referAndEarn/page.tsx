@@ -104,16 +104,15 @@ const ReferAndEarn: React.FC = () => {
         </div>
 
         {/* Right Section */}
-        <div className="lg:w-1/2 bg-gray-100 p-6 rounded-lg shadow-lg">
-          <h3 className="text-2xl font-semibold text-gray-800 mb-4">
+        <div className="lg:w-1/2 p-8 rounded-lg shadow-xl">
+          <h3 className="text-3xl font-extrabold text-gray-800 mb-2 tracking-wide">
             How It Works
           </h3>
-          <div className="mt-4">
-            <p className="text-gray-700 text-lg">
-              Share your referral link with friends. When they join, both of you
-              earn rewards.
-            </p>
-          </div>
+          <p className="text-gray-700 text-lg">
+            Share your unique referral link with your friends and loved ones.
+            When they sign up and join our community, both you and your friends
+            will receive exclusive rewards as a token of appreciation.
+          </p>
         </div>
       </div>
 
