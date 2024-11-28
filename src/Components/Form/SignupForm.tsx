@@ -98,13 +98,13 @@ const SignupForm = ({ referralCode }: { referralCode: string | undefined }) => {
     <AuthLayout>
       <div className="max-w-xl w-full p-6 sm:p-6 rounded-none md:rounded-lg shadow-none md:shadow-lg md:border md:border-gray-200">
         <button
-          className="mb-4 text-primary hover:text-primary-dark"
+          className="mb-4 hover:text-primary-dark"
           onClick={() => router.push("/")}
         >
           ← Back
         </button>
 
-        <h2 className="text-3xl font-bold text-primary mb-4 text-left md:text-center">
+        <h2 className="text-3xl font-bold mb-4 text-left md:text-center">
           Sign Up
         </h2>
 
@@ -150,10 +150,11 @@ const SignupForm = ({ referralCode }: { referralCode: string | undefined }) => {
               <div className="relative">
                 <select
                   {...register("languageId")}
-                  className={`shadow-sm appearance-none border rounded-btn-lg w-full py-3 px-4 text-textPrimary leading-tight focus:outline-none focus:ring-2 ${errors.languageId
-                    ? "border-red-500 focus:ring-red-500"
-                    : "border-gray-300 focus:ring-primary"
-                    }`}
+                  className={`shadow-sm appearance-none border rounded-btn-lg w-full py-3 px-4 text-textPrimary leading-tight focus:outline-none focus:ring-2 ${
+                    errors.languageId
+                      ? "border-red-500 focus:ring-red-500"
+                      : "border-gray-300 focus:ring-primary"
+                  }`}
                   disabled={languageLoading}
                 >
                   <option value="">Select Language</option>

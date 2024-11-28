@@ -23,7 +23,7 @@ const FormButton: React.FC<ButtonProps> = ({
     className={`w-full py-3 rounded-btn-lg font-semibold transition duration-300 flex items-center justify-center focus:outline-none focus:ring-4 focus:ring-primary focus:ring-opacity-50 ${
       loading || disabled
         ? "bg-gray-400 cursor-not-allowed text-gray-800"
-        : "bg-primary hover:bg-blue-600 text-white"
+        : "bg-primary hover:bg-accent text-white"
     }`}
   >
     {loading ? (

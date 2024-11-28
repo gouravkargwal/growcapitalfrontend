@@ -4,6 +4,7 @@ import { useAppDispatch } from "@/hook/useAppDispatch";
 import { useSelector } from "react-redux";
 import { RootState } from "@/Store/store";
 import { fetchNews } from "@/Feature/News/newsSlice";
+import getTimeAgoOrDate from "@/utils/getTimeAgoOrDate";
 
 // Skeleton Loader
 const NewsSkeleton: React.FC = () => (
@@ -44,12 +45,7 @@ const NewsList: React.FC = () => {
   }, [dispatch, currentPage, timelineData.length]);
 
   return (
-    <section className="container mx-auto px-4 py-8">
-      {/* Heading */}
-      <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4 md:mb-6">
-        Latest News
-      </h2>
-
+    <section className="container mx-auto px-4 py-8 flex flex-col">
       {/* Check if no data is available and not loading */}
       {!timelineDataLoading && timelineData.length === 0 && (
         <div className="text-center text-gray-500">
@@ -68,11 +64,12 @@ const NewsList: React.FC = () => {
                   <NewsCard
                     imageSrc={newsItem.imageSrc}
                     source={newsItem.source}
-                    timeAgo={newsItem.timeAgo}
+                    timeAgo={getTimeAgoOrDate(newsItem.timeAgo)}
                     title={newsItem.title}
                     description={newsItem.description}
                     category={newsItem.category}
                     readTime={newsItem.readTime}
+                    id={newsItem.id}
                   />
                 </div>
               );
@@ -87,6 +84,7 @@ const NewsList: React.FC = () => {
                   description={newsItem.description}
                   category={newsItem.category}
                   readTime={newsItem.readTime}
+                  id={newsItem.id}
                 />
               );
             }

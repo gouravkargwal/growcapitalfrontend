@@ -12,13 +12,13 @@ const Hero = () => {
     >
       <div className="text-center max-w-4xl px-4 relative z-10">
         <motion.h1
-          className="text-5xl sm:text-6xl md:text-7xl font-extrabold text-blue-800 mb-4 leading-tight"
+          className="text-5xl sm:text-6xl md:text-7xl font-extrabold text-black mb-4 leading-tight"
           initial={{ opacity: 0, y: -50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
           Stay Ahead with{" "}
-          <span className="text-blue-800">Real-Time Stock News</span>
+          <span className="text-black">Real-Time Stock News</span>
         </motion.h1>
         <motion.p
           className="text-lg sm:text-lg md:text-xl text-textSecondary mb-8"
@@ -46,7 +46,7 @@ const Hero = () => {
           </button>
 
           <button
-            className="w-64 flex items-center justify-center px-8 py-4 sm:px-10 sm:py-4 border-2 border-primary text-primary rounded-btn-lg font-semibold shadow-btn-shadow hover:bg-accent hover:text-white transition-all duration-300 transform hover:scale-105"
+            className="w-64 flex items-center justify-center px-8 py-4 sm:px-10 sm:py-4 border-2 border-primary text-primary rounded-btn-lg font-semibold shadow-btn-shadow hover:bg-primary hover:text-white transition-all duration-300 transform hover:scale-105"
             onClick={() => {
               router.push("signup");
             }}
