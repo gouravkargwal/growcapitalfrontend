@@ -75,18 +75,18 @@ const PrivateNavbar: React.FC<PrivateNavbarProps> = ({ toggleSidebar }) => {
         </div>
         {pathname === "/dashboard" && (
           <div className="flex space-x-4 items-center">
-            <div className="relative">
+            {/* <div className="relative">
               <input
                 type="text"
                 placeholder="Search for stocks..."
                 className="bg-gray-100 pl-10 pr-10 py-2 rounded-full focus:outline-none border border-gray-300"
               />
               <FaSearch className="absolute top-3 left-3 text-gray-500" />
-            </div>
+            </div> */}
             <div className="relative">
               <button
                 className="relative"
-                onClick={() => setIsNotificationOpen(!isNotificationOpen)}
+                onMouseEnter={() => setIsNotificationOpen(true)}
               >
                 <FaBell className="text-gray-600 text-2xl" />
                 <span className="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full h-3 w-3"></span>

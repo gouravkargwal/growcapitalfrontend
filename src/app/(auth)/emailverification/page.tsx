@@ -17,7 +17,7 @@ const VerifyEmailPage = () => {
 
   useEffect(() => {
     const user = auth.currentUser;
-    if (user && user.emailVerified) {
+    if (user) {
       router.push("/signin");
     }
   }, [router]);

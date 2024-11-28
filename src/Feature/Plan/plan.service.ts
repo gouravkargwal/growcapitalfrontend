@@ -5,6 +5,10 @@ export const getAllPlans = async () => {
   return await axiosInstance.get("/plans");
 };
 
+export const getPlansHistory = async () => {
+  return await axiosInstance.get("/user-plan/plan-history");
+};
+
 export const createPaymentOrderIdApi = async (data: PlanPayload) => {
   return await axiosInstance.post("/payments/create-order", data);
 };

@@ -17,7 +17,7 @@ export default function RootLayout({
     if (loading) return; // Wait until loading is complete
 
     // Redirect to dashboard only if user is authenticated, verified, and on the public landing page
-    if (user && user.emailVerified && pathname === "/") {
+    if (user && pathname === "/") {
       router.push("/dashboard");
     }
   }, [user, loading, router, pathname]);
