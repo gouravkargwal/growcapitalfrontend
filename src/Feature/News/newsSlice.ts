@@ -10,14 +10,18 @@ import {
 import { openSnackbar } from "../Snackbar/snackbarSlice";
 import { NewsTypeDto, UpdateNewsTypeDto } from "./news.dto";
 
-type News = {
-  imageSrc: string; // URL or path to the image
-  source: string; // News source name
-  timeAgo: string; // How long ago the news was posted
-  title: string; // Title of the news article
-  description: string; // Brief description or summary of the article
-  category: string; // News category (e.g., Sports, Tech, etc.)
-  readTime: string; // Estimated reading time for the article
+export type News = {
+  companyName: string;
+  heading: string;
+  industry: string;
+  isinNumber: string;
+  newsId: string;
+  newsTime: string;
+  scripCode: string;
+  shortSummary: string;
+  longSummary: string;
+  stockIndex: number;
+  tickerSymbol: string;
 };
 
 export type NewsState = {
@@ -78,9 +82,8 @@ export const updateUserNewsTypes = createAsyncThunk(
       const { data } = await updateUserNewsTypesApi(body);
       dispatch(
         openSnackbar({
-          message: `Notification for news type is ${
-            body?.isSubscribed ? "enabled" : "disabled"
-          }.`,
+          message: `Notification for news type is ${body?.isSubscribed ? "enabled" : "disabled"
+            }.`,
           severity: "success",
         })
       );
@@ -93,64 +96,6 @@ export const updateUserNewsTypes = createAsyncThunk(
     }
   }
 );
-
-export const mockNewsData = [
-  {
-    imageSrc: "https://via.placeholder.com/400x250.png?text=News+Image+1",
-    source: "The Daily Times",
-    timeAgo: "2 hours ago",
-    title: "Breaking News: Major Event Unfolds",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vehicula, urna eu condimentum sollicitudin, velit turpis vehicula elit.",
-    category: "Breaking News",
-    readTime: "5 min read",
-    id: "1",
-  },
-  {
-    imageSrc: "https://via.placeholder.com/400x250.png?text=News+Image+2",
-    source: "Global Reports",
-    timeAgo: "4 hours ago",
-    title: "New Technology Revolutionizes Industry",
-    description:
-      "Praesent nec nibh id turpis convallis gravida in a nunc. Nam volutpat malesuada felis in venenatis.",
-    category: "Technology",
-    readTime: "4 min read",
-    id: "2",
-  },
-  {
-    imageSrc: "https://via.placeholder.com/400x250.png?text=News+Image+3",
-    source: "Finance Today",
-    timeAgo: "1 day ago",
-    title: "Stock Markets Hit Record Highs",
-    description:
-      "Vivamus sit amet nunc vehicula, accumsan libero in, cursus orci. Integer eu elit magna.",
-    category: "Finance",
-    readTime: "3 min read",
-    id: "3",
-  },
-  {
-    imageSrc: "https://via.placeholder.com/400x250.png?text=News+Image+4",
-    source: "Health Matters",
-    timeAgo: "2 days ago",
-    title: "Tips for a Healthier Lifestyle",
-    description:
-      "Phasellus vel turpis eget nunc pharetra tincidunt vitae a nunc. Ut tincidunt arcu non turpis tempus euismod.",
-    category: "Health",
-    readTime: "6 min read",
-    id: "4",
-  },
-  {
-    imageSrc: "https://via.placeholder.com/400x250.png?text=News+Image+5",
-    source: "Sports Weekly",
-    timeAgo: "3 days ago",
-    title: "Local Team Wins Championship",
-    description:
-      "Ut rhoncus urna non justo malesuada, sit amet scelerisque mi aliquet. Etiam volutpat, metus at varius faucibus.",
-    category: "Sports",
-    readTime: "2 min read",
-    id: "5",
-  },
-];
 
 const initialState: NewsState = {
   data: [],
