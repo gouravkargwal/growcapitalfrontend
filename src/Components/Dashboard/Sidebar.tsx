@@ -22,10 +22,10 @@ const Sidebar = ({ closeSidebar }: { closeSidebar: () => void }) => {
   };
 
   return (
-    <div className="w-full h-screen p-6 bg-[#F8F4F1] flex flex-col justify-between rounded-xl shadow-lg">
+    <div className="w-full h-screen p-4 bg-[#F8F4F1] flex flex-col justify-between rounded-tr-2xl rounded-br-2xl shadow-lg">
       <div>
-        <Image src={logo} alt="Informe" height={50} className="mb-8" />
-        <ul className="space-y-4 mt-6">
+        <Image src={logo} alt="Informe" height={45} className="mb-8" />
+        <ul className="space-y-4 mt-10">
           <li>
             <button
               className={`w-full text-left p-3 flex items-center transition-all duration-300 ease-in-out rounded-lg ${
