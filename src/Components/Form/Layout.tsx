@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
 import Image from "next/image";
 import bg from "../../../assets/home.png";
-import { globalEnums } from "@/enum";
+import logo from "../../../assets/logo-1.png";
 
 interface AuthLayoutProps {
   children: ReactNode;
@@ -20,7 +20,12 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
           />
         </div>
         <div className="w-full bg-black bg-opacity-30 p-8 backdrop-blur-md text-start h-full">
-          <h2 className="text-4xl text-white mb-16">{globalEnums.brandName}</h2>
+          <Image
+            src={logo}
+            alt="Informe"
+            height={80}
+            className="mb-4"
+          />
           <p className="text-5xl text-gray-100 font-bold mb-5">
             Stay Ahead with Real-Time Stock News
           </p>

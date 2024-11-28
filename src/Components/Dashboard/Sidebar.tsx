@@ -8,7 +8,7 @@ import { auth } from "@/lib/firebase";
 import avatar from "../../../assets/avatar.jpg";
 import { signOut } from "firebase/auth";
 import { useRouter, usePathname } from "next/navigation";
-import { globalEnums } from "@/enum";
+import logo from "../../../assets/logo-1.png";
 
 const Sidebar = ({ closeSidebar }: { closeSidebar: () => void }) => {
   const router = useRouter();
@@ -23,11 +23,14 @@ const Sidebar = ({ closeSidebar }: { closeSidebar: () => void }) => {
   };
 
   return (
-    <div className="w-full h-screen p-4 bg-white flex flex-col justify-between">
+    <div className="w-full h-screen p-4 bg-[#FDF8F1] flex flex-col justify-between">
       <div>
-        <h1 className="text-2xl font-bold mb-6 text-primary">
-          {globalEnums.brandName}
-        </h1>
+        <Image
+          src={logo}
+          alt="Informe"
+          height={40}
+          className="mb-4"
+        />
         <div className="flex items-center mb-6">
           <Image
             src={auth?.currentUser?.photoURL || avatar}
@@ -48,11 +51,10 @@ const Sidebar = ({ closeSidebar }: { closeSidebar: () => void }) => {
         <ul className="space-y-2">
           <li>
             <button
-              className={`w-full text-left p-2 flex items-center transition-all duration-300 ease-in-out rounded-lg ${
-                isActive("/dashboard")
+              className={`w-full text-left p-2 flex items-center transition-all duration-300 ease-in-out rounded-lg ${isActive("/dashboard")
                   ? "bg-primary text-white"
                   : "hover:bg-gray-200"
-              }`}
+                }`}
               onClick={() => goToPage("/dashboard")}
             >
               Home
@@ -60,11 +62,10 @@ const Sidebar = ({ closeSidebar }: { closeSidebar: () => void }) => {
           </li>
           <li>
             <button
-              className={`w-full text-left p-2 flex items-center transition-all duration-300 ease-in-out rounded-lg ${
-                isActive("/yourtimeline")
+              className={`w-full text-left p-2 flex items-center transition-all duration-300 ease-in-out rounded-lg ${isActive("/yourtimeline")
                   ? "bg-primary text-white"
                   : "hover:bg-gray-200"
-              }`}
+                }`}
               onClick={() => goToPage("/yourtimeline")}
             >
               Your Timeline
@@ -72,11 +73,10 @@ const Sidebar = ({ closeSidebar }: { closeSidebar: () => void }) => {
           </li>
           <li>
             <button
-              className={`w-full text-left p-2 flex items-center transition-all duration-300 ease-in-out rounded-lg ${
-                isActive("/referAndEarn")
+              className={`w-full text-left p-2 flex items-center transition-all duration-300 ease-in-out rounded-lg ${isActive("/referAndEarn")
                   ? "bg-primary text-white"
                   : "hover:bg-gray-200"
-              }`}
+                }`}
               onClick={() => goToPage("/referAndEarn")}
             >
               Refer And Earn
@@ -84,11 +84,10 @@ const Sidebar = ({ closeSidebar }: { closeSidebar: () => void }) => {
           </li>
           <li>
             <button
-              className={`w-full text-left p-2 flex items-center transition-all duration-300 ease-in-out rounded-lg ${
-                isActive("/subscriptions")
+              className={`w-full text-left p-2 flex items-center transition-all duration-300 ease-in-out rounded-lg ${isActive("/subscriptions")
                   ? "bg-primary text-white"
                   : "hover:bg-gray-200"
-              }`}
+                }`}
               onClick={() => goToPage("/subscriptions")}
             >
               Subscriptions
@@ -96,11 +95,10 @@ const Sidebar = ({ closeSidebar }: { closeSidebar: () => void }) => {
           </li>
           <li>
             <button
-              className={`w-full text-left p-2 flex items-center transition-all duration-300 ease-in-out rounded-lg ${
-                isActive("/profileSettings")
+              className={`w-full text-left p-2 flex items-center transition-all duration-300 ease-in-out rounded-lg ${isActive("/profileSettings")
                   ? "bg-primary text-white"
                   : "hover:bg-gray-200"
-              }`}
+                }`}
               onClick={() => goToPage("/profileSettings")}
             >
               Profile Settings

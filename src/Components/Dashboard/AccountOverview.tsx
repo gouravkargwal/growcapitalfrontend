@@ -61,7 +61,7 @@ const AccountOverview: React.FC = () => {
 
   return (
     <div className="mx-2 p-2">
-      <h2 className="text-lg font-bold mb-2">Account Overview</h2>
+      <h2 className="text-lg font-bold mb-2 text-gray-900">Account Overview</h2>
       <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {accountOverviewLoading
           ? Array(4)

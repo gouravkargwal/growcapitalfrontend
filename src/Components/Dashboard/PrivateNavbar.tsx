@@ -54,7 +54,7 @@ const PrivateNavbar: React.FC<PrivateNavbarProps> = ({ toggleSidebar }) => {
   };
 
   return (
-    <nav className="bg-gradient-to-b from-blue-50 via-blue-50 to-white p-4 flex flex-col relative w-screen sm:w-full">
+    <nav className="bg-gradient-to-b from-[#FDF8F1] via-[#FDF8F1] to-white p-4 flex flex-col relative w-screen sm:w-full">
       <div className="flex justify-between items-center">
         <div className="text-gray-600 text-2xl mr-4">
           <div className="flex flex-row">

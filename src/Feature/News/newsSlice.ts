@@ -156,7 +156,7 @@ const initialState: NewsState = {
   data: [],
   loading: false,
   updateLoading: false,
-  timelineData: mockNewsData,
+  timelineData: [],
   timelineDataLoading: false,
   hasMore: true,
   currentPage: 1,
