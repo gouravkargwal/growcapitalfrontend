@@ -61,13 +61,13 @@ const NewsDetail = async ({ params }: NewsDetailProps) => {
     <div>
       <Navbar />
       <div className="bg-white overflow-hidden pb-12">
-        <div className="relative w-full h-80 bg-gray-200">
+        {/* <div className="relative w-full h-80 bg-gray-200">
           <img
             src={newsDetail.imageUrl || "/default-image.jpg"}
             alt="Featured Image"
             className="w-full h-full object-cover"
           />
-        </div>
+        </div> */}
 
         <div className="p-6 border-b border-gray-200">
           <div className="flex items-start justify-between mb-6 flex-col md:flex-row ">
