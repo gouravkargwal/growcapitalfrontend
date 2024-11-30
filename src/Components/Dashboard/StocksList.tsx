@@ -17,7 +17,6 @@ import _ from "lodash";
 import { openSnackbar } from "@/Feature/Snackbar/snackbarSlice";
 import { useAppDispatch } from "@/hook/useAppDispatch";
 import { useSelector } from "react-redux";
-import Script from "next/script";
 
 // Skeleton loader for stocks
 const StockSkeleton: React.FC = () => (

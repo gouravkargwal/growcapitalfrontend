@@ -29,7 +29,7 @@ const Card: React.FC<CardProps> = ({
           <div className="text-2xl md:text-4xl text-center">{icon}</div>
         </div>
         <div className="flex flex-col justify-center">
-          <div className="text-2xl font-bold text-black mb-1">{count}</div>
+          <div className="text-xl font-bold text-black mb-1">{count}</div>
           <div className="text-gray-600 text-sm md:text-base">{label}</div>
         </div>
       </div>

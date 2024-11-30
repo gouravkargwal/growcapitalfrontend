@@ -68,7 +68,7 @@ const SigninForm = () => {
         if (signInUser.fulfilled.match(result)) {
           const user = result.payload.user;
           if (user) {
-            router.push("/dashboard");
+            router.replace("/dashboard");
           }
         } else {
           await auth.signOut();

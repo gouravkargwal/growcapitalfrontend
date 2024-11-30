@@ -15,7 +15,7 @@ const GoogleAuthentication = () => {
   const handleGoogleSignIn = async () => {
     const result = await dispatch(googleAuth());
     if (googleAuth.fulfilled.match(result)) {
-      router.push("/dashboard");
+      router.replace("/dashboard");
     } else {
       await auth.signOut();
     }
@@ -31,9 +31,8 @@ const GoogleAuthentication = () => {
       <div className="my-4 text-center">
         <button
           onClick={handleGoogleSignIn}
-          className={`p-3 rounded-full border-2 hover:border-gray-400 transition-all duration-500 ease-in-out ${
-            googleAuthLoading && "cursor-not-allowed"
-          }`}
+          className={`p-3 rounded-full border-2 hover:border-gray-400 transition-all duration-500 ease-in-out ${googleAuthLoading && "cursor-not-allowed"
+            }`}
           disabled={googleAuthLoading}
         >
           {googleAuthLoading ? (
