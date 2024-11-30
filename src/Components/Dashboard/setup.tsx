@@ -54,36 +54,37 @@ const Providers = () => {
       </p>
       <div className="bg-white max-w-md w-full">
         <ul className="space-y-4">
+          {providers.length == 0 && <p className="text-sm text-red-400 mb-4">
+            Please purchase a plan to unlock channel configuration and start receiving updates.
+          </p>}
           {providers.map((provider: providerData) => (
             <li
               key={provider.providerName}
-              className={`flex justify-between items-center p-4 rounded-lg ${
-                activeProvider?.providerName === provider.providerName
-                  ? "bg-[#FDF8F1] border border-primary"
-                  : "bg-gray-100"
-              }`}
+              className={`flex justify-between items-center p-4 rounded-lg ${activeProvider?.providerName === provider.providerName
+                ? "bg-[#FDF8F1] border border-primary"
+                : "bg-gray-100"
+                }`}
             >
               <span className="font-semibold">
                 {_.capitalize(provider.providerName)}
               </span>
               <span
-                className={`text-sm ${
-                  activeProvider?.providerName === provider.providerName &&
+                className={`text-sm ${activeProvider?.providerName === provider.providerName &&
                   activeProvider.isConfigured &&
                   activeProvider.isActive
-                    ? "text-green-500"
-                    : "text-red-500"
-                }`}
+                  ? "text-green-500"
+                  : "text-red-500"
+                  }`}
               >
                 {activeProvider?.providerName === provider.providerName &&
-                activeProvider.isConfigured &&
-                activeProvider.isActive
+                  activeProvider.isConfigured &&
+                  activeProvider.isActive
                   ? "Configured (Active)"
                   : "Not Configured"}
               </span>
               <div className="flex space-x-2">
                 {activeProvider?.providerName === provider.providerName &&
-                activeProvider.isConfigured === true ? (
+                  activeProvider.isConfigured === true ? (
                   ""
                 ) : (
                   <button

@@ -60,7 +60,6 @@ const UpgradePlan = () => {
 
           // Start polling for payment status after Razorpay dialog closes
           dispatch(pollPaymentStatus(paymentOptions.id));
-
           setSelectedPlan(null); // Reset the selected plan
           setDurationInMonths(1); // Reset duration
         },
@@ -102,11 +101,10 @@ const UpgradePlan = () => {
           {plans?.map((plan, index) => (
             <div
               key={index}
-              className={`border rounded-lg p-6 transition-transform transform hover:scale-105 ${
-                selectedPlan?.planId === plan.planId
-                  ? "border-primary shadow-xl"
-                  : "border-gray-300"
-              }`}
+              className={`border rounded-lg p-6 transition-transform transform hover:scale-105 ${selectedPlan?.planId === plan.planId
+                ? "border-primary shadow-xl"
+                : "border-gray-300"
+                }`}
             >
               <h3 className="text-lg font-semibold text-textPrimary mb-4">
                 {plan?.planName}
@@ -134,17 +132,44 @@ const UpgradePlan = () => {
               </p>
 
               <button
-                className={`w-full px-4 py-2 rounded-btn-lg transition text-white ${
-                  selectedPlan?.planId === plan.planId
-                    ? "bg-primary"
-                    : "bg-gray-400 hover:bg-primary"
-                }`}
+                className={`w-full px-4 py-2 rounded-btn-lg transition text-white ${selectedPlan?.planId === plan.planId
+                  ? "bg-primary"
+                  : "bg-gray-400 hover:bg-primary"
+                  }`}
                 onClick={() => setSelectedPlan(plan)}
               >
                 {selectedPlan?.planId === plan.planId
                   ? "Selected"
                   : "Select Plan"}
               </button>
+              {/* Plan Options */}
+              {selectedPlan && selectedPlan?.planId === plan.planId && (
+                <div className="mt-8 visible lg:hidden">
+                  <h3 className="text-lg font-semibold mb-4 text-textPrimary">
+                    Choose Duration
+                  </h3>
+                  <label className="block mb-2 text-textSecondary">
+                    Duration (in months):
+                  </label>
+                  <input
+                    type="number"
+                    className="border p-2 rounded-md mb-2 w-full"
+                    value={durationInMonths}
+                    onChange={(e) => setDurationInMonths(Number(e.target.value))}
+                    min={1}
+                  />
+
+                  <button
+                    className="w-full px-4 py-2 rounded-btn-lg bg-primary text-white"
+                    onClick={handleUpgrade}
+                    disabled={updateUserPlanLoading || overlayStatus}
+                  >
+                    {updateUserPlanLoading || overlayStatus
+                      ? "Processing..."
+                      : "Upgrade Now"}
+                  </button>
+                </div>
+              )}
             </div>
           ))}
         </div>
@@ -152,8 +177,8 @@ const UpgradePlan = () => {
 
       {/* Plan Options */}
       {selectedPlan && (
-        <div className="mt-8">
-          <h3 className="text-lg font-semibold mb-4 text-textPrimary">
+        <div className="mt-8 hidden lg:block">
+          <h3 className="text-lg font-semibold mb-4 text-textPrimary mt-2">
             Choose Duration
           </h3>
           <label className="block mb-2 text-textSecondary">

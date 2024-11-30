@@ -13,12 +13,12 @@ const useAuthGuard = () => {
       if (!user) {
         // User is not logged in, redirect to sign-in with redirect parameter
         if (requestedPath !== "/signin") {
-          router.push(`/signin?redirect=${encodeURIComponent(requestedPath)}`);
+          router.replace(`/signin`);
         }
       } else {
         // User is logged in and trying to access sign-in or signup page, redirect them
         if (requestedPath === "/signin" || requestedPath === "/signup") {
-          router.push("/dashboard"); // Redirect authenticated user to dashboard
+          router.replace("/dashboard"); // Redirect authenticated user to dashboard
         }
       }
     }
