@@ -64,29 +64,33 @@ const Footer: React.FC<FooterProps> = ({ intenalFooter = false }) => {
             <div>
               <h3 className="font-bold text-gray-800 mb-3">About</h3>
               <ul className="space-y-2">
-                <li>
-                  <a href="/#hero" className="text-gray-600 hover:text-primary">
-                    Home
-                  </a>
-                </li>
+                {!intenalFooter &&
+                  <li>
+                    <a href="/#hero" className="text-gray-600 hover:text-primary">
+                      Home
+                    </a>
+                  </li>
+                }
+                {!intenalFooter &&
+                  <li>
+                    <a
+                      href="/#features"
+                      className="text-gray-600 hover:text-primary"
+                    >
+                      Features
+                    </a>
+                  </li>
+                }
                 <li>
                   <a
-                    href="/#features"
-                    className="text-gray-600 hover:text-primary"
-                  >
-                    Features
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="/#pricing"
+                    href={intenalFooter ? "/subscriptions" : "/#pricing"}
                     className="text-gray-600 hover:text-primary"
                   >
                     Pricing
                   </a>
                 </li>
                 <li>
-                  <a href="/#faqs" className="text-gray-600 hover:text-primary">
+                  <a href={intenalFooter ? "/faqs" : "/#faqs"} className="text-gray-600 hover:text-primary">
                     FAQ
                   </a>
                 </li>
@@ -97,9 +101,12 @@ const Footer: React.FC<FooterProps> = ({ intenalFooter = false }) => {
               <h3 className="font-bold text-gray-800 mb-3">Company</h3>
               <ul className="space-y-2">
                 <li>
-                  <a href="#" className="text-gray-600 hover:text-primary">
-                    Contact Us
-                  </a>
+                  <Link
+                    href="about"
+                    className="text-gray-600 hover:text-primary cursor-pointer"
+                  >
+                    About Us
+                  </Link>
                 </li>
                 <li>
                   <Link
@@ -114,7 +121,15 @@ const Footer: React.FC<FooterProps> = ({ intenalFooter = false }) => {
                     href="privacy-policy"
                     className="text-gray-600 hover:text-primary cursor-pointer"
                   >
-                    Privacy
+                    Privacy Policy
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="disclaimer"
+                    className="text-gray-600 hover:text-primary cursor-pointer"
+                  >
+                    Disclaimer
                   </Link>
                 </li>
               </ul>

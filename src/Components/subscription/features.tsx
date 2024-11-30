@@ -26,7 +26,7 @@ const ComparePlans: React.FC = () => {
     return (
         <div className="bg-white text-black p-8 rounded-lg">
             <h2 className="text-2xl font-bold text-center mb-8">
-                Compare <span className="text-blue-500">Plans</span>
+                Compare Plans
             </h2>
             <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 p-4 bg-white rounded-lg">
                 {/* Plan Titles */}

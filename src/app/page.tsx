@@ -22,7 +22,7 @@ const Home: React.FC = () => {
 
     // Redirect to dashboard only if user is authenticated and on the public landing page
     if (user && pathname === "/") {
-      router.push("/dashboard");
+      router.replace("/dashboard");
     }
   }, [user, loading, router, pathname]);
 
