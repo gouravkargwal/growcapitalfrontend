@@ -11,6 +11,7 @@ import Reviews from "@/Components/Home/Reviews";
 import Trial from "@/Components/Home/Trial";
 import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "@/lib/firebase";
+import { logPageView } from "@/events/analytics";
 
 const Home: React.FC = () => {
   const router = useRouter();
@@ -18,6 +19,7 @@ const Home: React.FC = () => {
   const { user, loading } = useAuth(); // Use your hook to get auth state
 
   useEffect(() => {
+    logPageView();
     if (loading) return; // Wait until loading is complete
 
     // Redirect to dashboard only if user is authenticated and on the public landing page
