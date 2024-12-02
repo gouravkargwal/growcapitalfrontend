@@ -14,29 +14,29 @@ const config: Config = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
       colors: {
-        primary: "#DF732D", // Vibrant Blue (Lively for buttons and links)
-        accent: "#c25913", // Vibrant Green (For success and positive actions)
-        secondary: "#e17b37", // Vibrant Green (For success and positive actions)
+        primary: "#DF732D",
+        accent: "#c25913",
+        secondary: "#e17b37",
         tertiary: "#FBF6ED",
-        coral: "#FF6B6B", // Vibrant Coral (For call-to-action buttons)
-        neutral: "#F3F4F6", // Light gray for backgrounds and content
-        textPrimary: "#111827", // Darker text for contrast (improves readability)
-        textSecondary: "#6B7280", // Medium gray for secondary text
+        coral: "#FF6B6B",
+        neutral: "#F3F4F6",
+        textPrimary: "#111827",
+        textSecondary: "#6B7280",
       },
       fontSize: {
-        "hero-title": ["3.5rem", "1.2"], // Bolder, larger font for hero sections
-        "cta-lg": ["1.5rem", "2rem"], // Larger call-to-action buttons
-        "body-lg": ["1.125rem", "1.75rem"], // Comfortable large body text
+        "hero-title": ["3.5rem", "1.2"],
+        "cta-lg": ["1.5rem", "2rem"],
+        "body-lg": ["1.125rem", "1.75rem"],
       },
       spacing: {
-        "hero-padding": "6rem", // Padding for hero section to ensure spacing
-        "section-gap": "8rem", // Bigger gap between sections for clarity
+        "hero-padding": "6rem",
+        "section-gap": "8rem",
       },
       borderRadius: {
-        "btn-lg": "1.5rem", // Rounded buttons for a polished, modern look
+        "btn-lg": "1.5rem",
       },
       boxShadow: {
-        "btn-shadow": "0 8px 16px rgba(0, 0, 0, 0.2)", // Stronger shadow for button prominence
+        "btn-shadow": "0 8px 16px rgba(0, 0, 0, 0.2)",
       },
     },
   },

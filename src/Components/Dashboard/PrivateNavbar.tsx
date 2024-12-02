@@ -38,7 +38,7 @@ const PrivateNavbar: React.FC<PrivateNavbarProps> = ({ toggleSidebar }) => {
     switch (path) {
       case "/dashboard":
         return "Home";
-      case "/yourtimeline":
+      case "/timeline":
         return "Your Timeline";
       case "/referAndEarn":
         return "Refer And Earn";
@@ -65,9 +65,8 @@ const PrivateNavbar: React.FC<PrivateNavbarProps> = ({ toggleSidebar }) => {
               <AiOutlineMenu />
             </button>
             <span
-              className={`text-2xl text-gray-600 ${
-                pathname === "/dashboard" ? "hidden lg:block" : "block"
-              } ml-4 md:ml-0`}
+              className={`text-2xl text-gray-600 ${pathname === "/dashboard" ? "hidden lg:block" : "block"
+                } ml-4 md:ml-0`}
             >
               {getTitle(pathname) || "Home"}
             </span>
