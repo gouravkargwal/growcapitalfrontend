@@ -38,7 +38,7 @@ const Subscriptions = () => {
 
         <CurrentPlan />
         <UpgradePlan />
-        <ComparePlans />
+        {/* <ComparePlans /> */}
         <PlanHistory />
       </div>
     </>
