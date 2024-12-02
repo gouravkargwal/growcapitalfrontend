@@ -28,11 +28,10 @@ const Sidebar = ({ closeSidebar }: { closeSidebar: () => void }) => {
         <ul className="space-y-4 mt-10">
           <li>
             <button
-              className={`w-full text-left p-3 flex items-center transition-all duration-300 ease-in-out rounded-lg ${
-                isActive("/dashboard")
-                  ? "bg-primary text-white shadow-md"
-                  : "hover:bg-gray-200"
-              } `}
+              className={`w-full text-left p-3 flex items-center transition-all duration-300 ease-in-out rounded-lg ${isActive("/dashboard")
+                ? "bg-primary text-white shadow-md"
+                : "hover:bg-gray-200"
+                } `}
               onClick={() => goToPage("/dashboard")}
             >
               Home
@@ -40,23 +39,21 @@ const Sidebar = ({ closeSidebar }: { closeSidebar: () => void }) => {
           </li>
           <li>
             <button
-              className={`w-full text-left p-3 flex items-center transition-all duration-300 ease-in-out rounded-lg ${
-                isActive("/yourtimeline")
-                  ? "bg-primary text-white shadow-md"
-                  : "hover:bg-gray-200"
-              } `}
-              onClick={() => goToPage("/yourtimeline")}
+              className={`w-full text-left p-3 flex items-center transition-all duration-300 ease-in-out rounded-lg ${isActive("/timeline")
+                ? "bg-primary text-white shadow-md"
+                : "hover:bg-gray-200"
+                } `}
+              onClick={() => goToPage("/timeline")}
             >
               Your Timeline
             </button>
           </li>
           <li>
             <button
-              className={`w-full text-left p-3 flex items-center transition-all duration-300 ease-in-out rounded-lg ${
-                isActive("/referAndEarn")
-                  ? "bg-primary text-white shadow-md"
-                  : "hover:bg-gray-200"
-              } `}
+              className={`w-full text-left p-3 flex items-center transition-all duration-300 ease-in-out rounded-lg ${isActive("/referAndEarn")
+                ? "bg-primary text-white shadow-md"
+                : "hover:bg-gray-200"
+                } `}
               onClick={() => goToPage("/referAndEarn")}
             >
               Refer And Earn
@@ -64,11 +61,10 @@ const Sidebar = ({ closeSidebar }: { closeSidebar: () => void }) => {
           </li>
           <li>
             <button
-              className={`w-full text-left p-3 flex items-center transition-all duration-300 ease-in-out rounded-lg ${
-                isActive("/subscriptions")
-                  ? "bg-primary text-white shadow-md"
-                  : "hover:bg-gray-200"
-              } `}
+              className={`w-full text-left p-3 flex items-center transition-all duration-300 ease-in-out rounded-lg ${isActive("/subscriptions")
+                ? "bg-primary text-white shadow-md"
+                : "hover:bg-gray-200"
+                } `}
               onClick={() => goToPage("/subscriptions")}
             >
               Subscriptions
@@ -76,11 +72,10 @@ const Sidebar = ({ closeSidebar }: { closeSidebar: () => void }) => {
           </li>
           <li>
             <button
-              className={`w-full text-left p-3 flex items-center transition-all duration-300 ease-in-out rounded-lg ${
-                isActive("/profileSettings")
-                  ? "bg-primary text-white shadow-md"
-                  : "hover:bg-gray-200"
-              } `}
+              className={`w-full text-left p-3 flex items-center transition-all duration-300 ease-in-out rounded-lg ${isActive("/profileSettings")
+                ? "bg-primary text-white shadow-md"
+                : "hover:bg-gray-200"
+                } `}
               onClick={() => goToPage("/profileSettings")}
             >
               Profile Settings

@@ -1,13 +1,10 @@
 "use client";
-
-import { useEffect } from "react";
 import Dashboard from "@/Components/Dashboard/Dashboard";
 import { logPageView } from "@/events/analytics";
+import { useEffect } from "react";
 
 const DashboardPage = () => {
-  useEffect(() => {
-    logPageView();
-  }, []);
+  useEffect(() => { logPageView() }, []);
   return <Dashboard />;
 };
 
