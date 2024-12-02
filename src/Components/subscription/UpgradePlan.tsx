@@ -127,9 +127,9 @@ const UpgradePlan = () => {
                 </p>
               )}
 
-              <p className="text-textSecondary text-sm mb-4">
+              {/* <p className="text-textSecondary text-sm mb-4">
                 No description available
-              </p>
+              </p> */}
 
               <button
                 className={`w-full px-4 py-2 rounded-btn-lg transition text-white ${selectedPlan?.planId === plan.planId

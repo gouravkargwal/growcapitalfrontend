@@ -6,7 +6,7 @@ import FreshdeskWidget from "@/Components/help/freshdesk";
 import useAuthGuard from "@/hook/useAuthGuard";
 import { useState } from "react";
 
-export default function RootLayout({
+export default function ProtectedLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
