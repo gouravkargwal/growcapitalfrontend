@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { notFound } from "next/navigation";
 import { getNewsById } from "@/Feature/News/news.service";
 import { FaClock, FaShareAlt, FaFacebookF, FaTwitter, FaLinkedin } from "react-icons/fa";
@@ -7,6 +7,7 @@ import { FaSearch, FaHome, FaNewspaper } from 'react-icons/fa';
 import Link from 'next/link';
 import logo from "../../../../assets/logo-1.png";
 import Image from "next/image";
+import { logPageView } from "@/events/analytics";
 
 const Navbar = () => {
   return (
@@ -38,6 +39,7 @@ interface NewsDetailProps {
 }
 
 const NewsDetail = async ({ params }: NewsDetailProps) => {
+  useEffect(() => { logPageView() }, []);
   const { id } = params;
 
   let newsDetail: any = null;

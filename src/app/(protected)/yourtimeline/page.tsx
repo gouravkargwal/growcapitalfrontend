@@ -1,9 +1,11 @@
 "use client";
 import NewsList from "@/Components/timeline/NewsList";
-import React from "react";
+import { logPageView } from "@/events/analytics";
+import React, { useEffect } from "react";
 
-const ReferAndEarnPage: React.FC = () => {
+const YourTimeLine: React.FC = () => {
+  useEffect(() => { logPageView() }, []);
   return <NewsList />;
 };
 
-export default ReferAndEarnPage;
+export default YourTimeLine;

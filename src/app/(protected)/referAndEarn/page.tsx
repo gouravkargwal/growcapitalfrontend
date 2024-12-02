@@ -2,13 +2,15 @@
 
 import Referrals from "@/Components/referAndEarn/Referrals";
 import Reward from "@/Components/referAndEarn/Reward";
+import { logPageView } from "@/events/analytics";
 import { openSnackbar } from "@/Feature/Snackbar/snackbarSlice";
 import { useAppDispatch } from "@/hook/useAppDispatch";
 import { RootState } from "@/Store/store";
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 
 const ReferAndEarn: React.FC = () => {
+  useEffect(() => { logPageView() }, []);
   const dispatch = useAppDispatch();
   const { data, loading: referralsLoading } = useSelector(
     (state: RootState) => state.refer

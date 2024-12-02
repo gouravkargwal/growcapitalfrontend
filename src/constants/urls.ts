@@ -1,11 +1,11 @@
 export const urls: Record<string, string> = {
     HOME: "/",
     SIGNIN: "/signin",
-    SIGNUP: "/signun",
+    SIGNUP: "/signup",
     FORGOTPASSWORD: "/forgotpassword",
     DASHBOARD: "/dashboard",
     REFERANDEARN: "/referAndEarn",
-    YOURTIMELINE: "/yourtimeline",
+    YOURTIMELINE: "/timeline",
     PROFILE: "/profileSettings",
     NEWSDETAILS: "/news/[id]",
     SUBSCRIPTION: "/subscriptions",

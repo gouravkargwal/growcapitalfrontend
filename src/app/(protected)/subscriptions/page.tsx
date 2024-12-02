@@ -3,13 +3,15 @@ import CurrentPlan from "@/Components/subscription/CurrentPlan";
 import ComparePlans from "@/Components/subscription/features";
 import PlanHistory from "@/Components/subscription/PlanHistory";
 import UpgradePlan from "@/Components/subscription/UpgradePlan";
+import { logPageView } from "@/events/analytics";
 import { PlanState } from "@/Feature/Plan/planSlice";
 import { RootState } from "@/Store/store";
 import Script from "next/script";
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 
 const Subscriptions = () => {
+  useEffect(() => { logPageView() }, []);
   const { overlayStatus } = useSelector<RootState, PlanState>(
     (state) => state.plan
   );

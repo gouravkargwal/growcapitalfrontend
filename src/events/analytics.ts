@@ -88,19 +88,19 @@ export const logPageView = async (): Promise<void> => {
 export const logEvent = async (payload: { eventName: string; payload?: Record<string, any> }): Promise<void> => {
     const currentUrl: string = window.location.href;
     const ip: string | null = await getIp();
-    const device: string = getDeviceType();
+    // const device: string = getDeviceType();
     const pageName: string = getPageName(currentUrl);
 
     if (payload?.payload) {
         payload.payload.currentUrl = currentUrl;
         payload.payload.ip = ip;
-        payload.payload.device = device;
+        // payload.payload.device = device;
         payload.payload.pageName = pageName;
     } else {
         payload.payload = {
             currentUrl,
             ip,
-            device,
+            // device,
             pageName,
         };
     }

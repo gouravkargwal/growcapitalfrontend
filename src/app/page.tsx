@@ -15,14 +15,12 @@ import { logPageView } from "@/events/analytics";
 
 const Home: React.FC = () => {
   const router = useRouter();
-  const pathname = usePathname(); // Get the current route in Next.js App Router
-  const { user, loading } = useAuth(); // Use your hook to get auth state
-
+  const pathname = usePathname();
+  const { user, loading } = useAuth();
+  useEffect(() => { logPageView() }, []);
   useEffect(() => {
-    logPageView();
-    if (loading) return; // Wait until loading is complete
+    if (loading) return;
 
-    // Redirect to dashboard only if user is authenticated and on the public landing page
     if (user && pathname === "/") {
       router.replace("/dashboard");
     }
