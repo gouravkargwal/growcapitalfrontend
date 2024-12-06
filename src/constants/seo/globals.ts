@@ -48,7 +48,7 @@ export const seoAttributes: SeoAttributes = {
         description: 'Get real-time stock market news from BSE & NSE on Telegram and WhatsApp instantly in short formats.',
         siteName: 'Informe',
         images: [
-            { url: 'https://www.informe.in/static/website_share_image.png' },
+            { url: 'https://d140p29c73x6ns.cloudfront.net/temp/InforMe.png' },
         ]
     },
 };
@@ -56,12 +56,12 @@ export const OrganizationJsonLdAttributes: OrganizationJsonLdAttributes = {
     type: "Organization",
     name: "Informe",
     legalName: "Informe",
-    logo: "https://www.informe.in/static/informe_logo.webp",
+    logo: "https://d140p29c73x6ns.cloudfront.net/temp/InforMe.png",
     url: "https://informe.in/",
     sameAs: [
         "https://www.instagram.com/informe_in/",
         "https://www.linkedin.com/company/informe-in/",
-        "https://twitter.com/informe_in",
-        "https://www.facebook.com/informe.in/",
+        "https://x.com/informe_in",
+        "https://www.facebook.com/people/Informe/61569358967720/",
     ],
 };
