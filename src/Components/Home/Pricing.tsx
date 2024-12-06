@@ -27,7 +27,7 @@ const planDetails: Record<string, { description: string; features: string[] }> =
       features: [
         "Access to daily stock news summaries",
         "Receive updates via Telegram for instant alerts",
-        "Up to 10 stock news alerts per month",
+        "Up to 20 stock news alerts per month",
       ],
     },
     "Pro Plan": {
@@ -36,7 +36,7 @@ const planDetails: Record<string, { description: string; features: string[] }> =
       features: [
         "All features in Basic Plan",
         "Receive updates via WhatsApp and Telegram for flexible communication",
-        "Up to 50 stock news alerts per month",
+        "Up to 100 stock news alerts per month",
         "Access to premium stock news summaries with in-depth analysis",
         "Priority customer support with quicker response times",
       ],
@@ -48,7 +48,7 @@ const planDetails: Record<string, { description: string; features: string[] }> =
         "All features in Pro Plan",
         "Advanced sentiment analysis to understand market trends",
         "24/7 customer support with priority handling",
-        "Upto 100 customizable stock news alerts and notifications",
+        "Up to 500 stock news alerts per month",
       ],
     },
   };

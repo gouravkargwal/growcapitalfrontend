@@ -28,7 +28,7 @@ const Trial: React.FC = () => {
         className="max-w-3xl mx-auto px-4"
       >
         <motion.h2 className="text-4xl lg:text-5xl font-extrabold text-primary mb-6 leading-tight">
-          Start Your Journey Today. <br /> Enjoy 90 Days Free Access!
+          Start Your Journey Today. <br /> Enjoy 30 Days Free Access!
         </motion.h2>
 
         <motion.p className="text-textSecondary text-body-lg leading-relaxed mb-10">
