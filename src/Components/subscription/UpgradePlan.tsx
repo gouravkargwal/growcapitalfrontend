@@ -11,6 +11,8 @@ import {
 } from "@/Feature/Plan/planSlice";
 import { openSnackbar } from "@/Feature/Snackbar/snackbarSlice";
 import { RootState } from "@/Store/store";
+import { selectedPlanClicked, upgradeNowClicked } from "@/events/subscription/subscription-events";
+import { logEvent } from "@/events/analytics";
 
 const UpgradePlan = () => {
   const dispatch = useAppDispatch();
@@ -29,6 +31,7 @@ const UpgradePlan = () => {
   }, [dispatch]);
 
   const handleUpgrade = async () => {
+    logEvent(upgradeNowClicked(selectedPlan?.planName ?? '', durationInMonths.toString()))
     if (!selectedPlan) {
       dispatch(
         openSnackbar({ message: "Please select a plan.", severity: "warning" })
@@ -136,7 +139,7 @@ const UpgradePlan = () => {
                   ? "bg-primary"
                   : "bg-gray-400 hover:bg-primary"
                   }`}
-                onClick={() => setSelectedPlan(plan)}
+                onClick={() => { setSelectedPlan(plan); logEvent(selectedPlanClicked(plan?.planName)) }}
               >
                 {selectedPlan?.planId === plan.planId
                   ? "Selected"

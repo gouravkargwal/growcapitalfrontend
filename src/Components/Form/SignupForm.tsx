@@ -21,6 +21,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/lib/firebase";
 import AuthLayout from "./Layout";
+import { backClicked, loginClicked, signUpclicked, signUpFail, signUpSucces } from "@/events/auth/signup-events";
+import { logEvent } from "@/events/analytics";
+import { openSnackbar } from "@/Feature/Snackbar/snackbarSlice";
 
 // Validation schema
 const passwordStrength = yup
@@ -55,6 +58,10 @@ type UserFormValue = yup.InferType<typeof formSchema>;
 
 const SignupForm = ({ referralCode }: { referralCode: string | undefined }) => {
   const dispatch = useAppDispatch();
+  const back = backClicked('signup');
+  const success = signUpSucces();
+  const fail = signUpFail();
+  const login = loginClicked();
   const router = useRouter();
   const { signupLoading } = useSelector((state: RootState) => state.auth);
   const { loading: languageLoading, data: languages } = useSelector<
@@ -78,6 +85,7 @@ const SignupForm = ({ referralCode }: { referralCode: string | undefined }) => {
   }, [dispatch]);
 
   const onSubmit = async (data: UserFormValue) => {
+    logEvent(signUpclicked(data.referralCode ? true : false));
     const resultAction = await dispatch(
       signupUser({
         firstName: data?.firstName,
@@ -91,6 +99,12 @@ const SignupForm = ({ referralCode }: { referralCode: string | undefined }) => {
     if (signupUser.fulfilled.match(resultAction)) {
       await signInWithEmailAndPassword(auth, data?.email, data?.password);
       router.replace("/dashboard");
+      logEvent(success);
+    } else {
+      logEvent(fail);
+      return dispatch(
+        openSnackbar({ message: "Internal Server Error", severity: "error" })
+      );
     }
   };
 
@@ -99,7 +113,7 @@ const SignupForm = ({ referralCode }: { referralCode: string | undefined }) => {
       <div className="max-w-xl w-full p-6 sm:p-6 rounded-none md:rounded-lg shadow-none md:shadow-lg md:border md:border-gray-200">
         <button
           className="mb-4 hover:text-primary-dark"
-          onClick={() => router.push("/")}
+          onClick={() => { router.push("/"); logEvent(back) }}
         >
           ← Back
         </button>
@@ -151,8 +165,8 @@ const SignupForm = ({ referralCode }: { referralCode: string | undefined }) => {
                 <select
                   {...register("languageId")}
                   className={`shadow-sm appearance-none border rounded-btn-lg w-full py-3 px-4 text-textPrimary leading-tight focus:outline-none focus:ring-2 ${errors.languageId
-                      ? "border-red-500 focus:ring-red-500"
-                      : "border-gray-300 focus:ring-primary"
+                    ? "border-red-500 focus:ring-red-500"
+                    : "border-gray-300 focus:ring-primary"
                     }`}
                   disabled={languageLoading}
                 >
@@ -202,7 +216,7 @@ const SignupForm = ({ referralCode }: { referralCode: string | undefined }) => {
           <FormButton label="Continue" loading={signupLoading} />
           <p className="text-center text-gray-600 text-sm mt-3">
             Already have an account?{" "}
-            <Link href="signin" className="text-accent hover:underline">
+            <Link href="signin" className="text-accent hover:underline" onClick={() => logEvent(login)}>
               Login
             </Link>
           </p>

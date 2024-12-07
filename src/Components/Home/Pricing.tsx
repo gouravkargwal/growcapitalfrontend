@@ -5,6 +5,8 @@ import { useAppDispatch } from "@/hook/useAppDispatch";
 import { useSelector } from "react-redux";
 import { RootState } from "@/Store/store";
 import { useRouter } from "next/navigation";
+import { getStartedClicked } from "@/events/home/home-events";
+import { logEvent } from "@/events/analytics";
 
 interface PlanProps {
   plan: {
@@ -20,38 +22,38 @@ interface PlanProps {
 
 // Hardcoded descriptions and features
 const planDetails: Record<string, { description: string; features: string[] }> =
-  {
-    "Basic Plan": {
-      description:
-        "Ideal for individuals just starting out with stock market insights.",
-      features: [
-        "Access to daily stock news summaries",
-        "Receive updates via Telegram for instant alerts",
-        "Up to 10 stock news alerts per month",
-      ],
-    },
-    "Pro Plan": {
-      description:
-        "Designed for professionals looking for advanced tools and insights.",
-      features: [
-        "All features in Basic Plan",
-        "Receive updates via WhatsApp and Telegram for flexible communication",
-        "Up to 50 stock news alerts per month",
-        "Access to premium stock news summaries with in-depth analysis",
-        "Priority customer support with quicker response times",
-      ],
-    },
-    "Premium Plan": {
-      description:
-        "Tailored for large teams and businesses with comprehensive needs.",
-      features: [
-        "All features in Pro Plan",
-        "Advanced sentiment analysis to understand market trends",
-        "24/7 customer support with priority handling",
-        "Upto 100 customizable stock news alerts and notifications",
-      ],
-    },
-  };
+{
+  "Basic Plan": {
+    description:
+      "Ideal for individuals just starting out with stock market insights.",
+    features: [
+      "Access to daily stock news summaries",
+      "Receive updates via Telegram for instant alerts",
+      "Up to 10 stock news alerts per month",
+    ],
+  },
+  "Pro Plan": {
+    description:
+      "Designed for professionals looking for advanced tools and insights.",
+    features: [
+      "All features in Basic Plan",
+      "Receive updates via WhatsApp and Telegram for flexible communication",
+      "Up to 50 stock news alerts per month",
+      "Access to premium stock news summaries with in-depth analysis",
+      "Priority customer support with quicker response times",
+    ],
+  },
+  "Premium Plan": {
+    description:
+      "Tailored for large teams and businesses with comprehensive needs.",
+    features: [
+      "All features in Pro Plan",
+      "Advanced sentiment analysis to understand market trends",
+      "24/7 customer support with priority handling",
+      "Upto 100 customizable stock news alerts and notifications",
+    ],
+  },
+};
 
 const pricingVariant = {
   initial: { scale: 1, zIndex: 0 },
@@ -75,11 +77,10 @@ const PricingPlan: React.FC<PlanProps> = ({
 
   return (
     <motion.div
-      className={`${
-        isHighlighted
-          ? "border-2 border-primary bg-white text-primary shadow-xl transform scale-105"
-          : "border border-gray-200 bg-gray-50 text-gray-700 shadow-md"
-      } transition-all duration-300 rounded-xl p-8 hover:shadow-lg flex flex-col justify-between h-full`}
+      className={`${isHighlighted
+        ? "border-2 border-primary bg-white text-primary shadow-xl transform scale-105"
+        : "border border-gray-200 bg-gray-50 text-gray-700 shadow-md"
+        } transition-all duration-300 rounded-xl p-8 hover:shadow-lg flex flex-col justify-between h-full`}
       variants={pricingVariant}
       initial="initial"
       animate={isHighlighted ? "lg:highlighted" : "initial"}
@@ -125,12 +126,14 @@ const PricingPlan: React.FC<PlanProps> = ({
 
       {/* Call to Action Button */}
       <button
-        className={`w-full py-3 rounded-lg font-semibold text-lg transition-colors mt-auto ${
-          isHighlighted
-            ? "bg-primary text-white hover:bg-primary-dark"
-            : "bg-gray-200 text-gray-700 hover:bg-gray-300"
-        }`}
-        onClick={() => router.push("signup")}
+        className={`w-full py-3 rounded-lg font-semibold text-lg transition-colors mt-auto ${isHighlighted
+          ? "bg-primary text-white hover:bg-primary-dark"
+          : "bg-gray-200 text-gray-700 hover:bg-gray-300"
+          }`}
+        onClick={() => {
+          router.push("signup");
+          logEvent(getStartedClicked(`Pricing ${plan.planName}`))
+        }}
       >
         {plan.planName === "Custom" ? "Book a Call" : "Get Started"}
       </button>

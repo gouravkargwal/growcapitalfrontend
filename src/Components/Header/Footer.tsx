@@ -3,11 +3,27 @@ import Link from "next/link";
 import React from "react";
 import logo from "../../../assets/logo-1.png";
 import Image from "next/image";
+import { aboutusClicked, disclaimerClicked, emailClicked, facebookClicked, faqsClicked, featuresClicked, homeFtClicked, instagramClicked, linkedinClicked, pricingClicked, privacyClicked, tncClicked, xClicked, youtubeClicked } from "@/events/common/footer-events";
+import { logEvent } from "@/events/analytics";
 interface FooterProps {
   intenalFooter?: boolean;
 }
 const Footer: React.FC<FooterProps> = ({ intenalFooter = false }) => {
   const year = new Date().getFullYear();
+  const email = emailClicked();
+  const x = xClicked();
+  const facebook = facebookClicked();
+  const linkedin = linkedinClicked();
+  const youtube = youtubeClicked();
+  const instagram = instagramClicked();
+  const about = aboutusClicked();
+  const tnc = tncClicked();
+  const privacy = privacyClicked();
+  const disclaimer = disclaimerClicked();
+  const faqs = faqsClicked();
+  const pricing = pricingClicked();
+  const home = homeFtClicked();
+  const features = featuresClicked();
 
   return (
     <footer className={`${intenalFooter ? "bg-white px-2 md:px-10" : "bg-[#FDF8F1]"} py-10 border-t`}>
@@ -25,38 +41,48 @@ const Footer: React.FC<FooterProps> = ({ intenalFooter = false }) => {
               add/remove stocks, stay informed! 📲
             </p>
             <p className="mt-4 text-primary font-semibold hidden md:flex">
-              info@informe.in
+              <a href="mailto:info@informe.in" className="hover:underline"
+                onClick={() => logEvent(email)}>
+                info@informe.in
+              </a>
             </p>
 
             <div className="mt-4 space-x-4 flex">
-              <a href="#" aria-label="X">
+              <Link href="https://x.com/informe_in" aria-label="X" onClick={() => logEvent(x)}>
                 <img
                   src="https://img.icons8.com/color/48/000000/twitterx.png"
-                  alt="Twitter"
+                  alt="X"
                   className="w-6 h-6"
                 />
-              </a>
-              <a href="#" aria-label="Facebook">
+              </Link>
+              <Link href="https://www.facebook.com/people/Informe/61569358967720/" aria-label="Facebook" onClick={() => logEvent(facebook)}>
                 <img
                   src="https://img.icons8.com/color/48/000000/facebook-new.png"
                   alt="Facebook"
                   className="w-6 h-6"
                 />
-              </a>
-              <a href="#" aria-label="LinkedIn">
+              </Link>
+              <Link href="https://www.linkedin.com/company/informe-in/" aria-label="LinkedIn" onClick={() => logEvent(linkedin)}>
                 <img
                   src="https://img.icons8.com/color/48/000000/linkedin.png"
                   alt="LinkedIn"
                   className="w-6 h-6"
                 />
-              </a>
-              <a href="#" aria-label="YouTube">
+              </Link>
+              <Link href="https://www.instagram.com/informe_in/" aria-label="Instagram" onClick={() => logEvent(instagram)}>
+                <img
+                  src="https://img.icons8.com/color/48/000000/instagram-new.png"
+                  alt="YouTube"
+                  className="w-6 h-6"
+                />
+              </Link>
+              <Link href="https://www.youtube.com/@informe-in" aria-label="YouTube" onClick={() => logEvent(youtube)}>
                 <img
                   src="https://img.icons8.com/color/48/000000/youtube-play.png"
                   alt="YouTube"
                   className="w-6 h-6"
                 />
-              </a>
+              </Link>
             </div>
           </div>
 
@@ -66,7 +92,9 @@ const Footer: React.FC<FooterProps> = ({ intenalFooter = false }) => {
               <ul className="space-y-2">
                 {!intenalFooter &&
                   <li>
-                    <a href="/#hero" className="text-gray-600 hover:text-primary">
+                    <a href="/#hero"
+                      className="text-gray-600 hover:text-primary"
+                      onClick={() => logEvent(home)}>
                       Home
                     </a>
                   </li>
@@ -76,6 +104,7 @@ const Footer: React.FC<FooterProps> = ({ intenalFooter = false }) => {
                     <a
                       href="/#features"
                       className="text-gray-600 hover:text-primary"
+                      onClick={() => logEvent(features)}
                     >
                       Features
                     </a>
@@ -85,12 +114,15 @@ const Footer: React.FC<FooterProps> = ({ intenalFooter = false }) => {
                   <a
                     href={intenalFooter ? "/subscriptions" : "/#pricing"}
                     className="text-gray-600 hover:text-primary"
+                    onClick={() => logEvent(pricing)}
                   >
                     Pricing
                   </a>
                 </li>
                 <li>
-                  <a href={intenalFooter ? "/faqs" : "/#faqs"} className="text-gray-600 hover:text-primary">
+                  <a href={intenalFooter ? "/faqs" : "/#faqs"}
+                    className="text-gray-600 hover:text-primary"
+                    onClick={() => logEvent(faqs)}>
                     FAQ
                   </a>
                 </li>
@@ -104,6 +136,7 @@ const Footer: React.FC<FooterProps> = ({ intenalFooter = false }) => {
                   <Link
                     href="about"
                     className="text-gray-600 hover:text-primary cursor-pointer"
+                    onClick={() => logEvent(about)}
                   >
                     About Us
                   </Link>
@@ -112,6 +145,7 @@ const Footer: React.FC<FooterProps> = ({ intenalFooter = false }) => {
                   <Link
                     href="terms-and-conditions"
                     className="text-gray-600 hover:text-primary cursor-pointer"
+                    onClick={() => logEvent(tnc)}
                   >
                     Terms & Conditions
                   </Link>
@@ -120,6 +154,7 @@ const Footer: React.FC<FooterProps> = ({ intenalFooter = false }) => {
                   <Link
                     href="privacy-policy"
                     className="text-gray-600 hover:text-primary cursor-pointer"
+                    onClick={() => logEvent(privacy)}
                   >
                     Privacy Policy
                   </Link>
@@ -127,6 +162,7 @@ const Footer: React.FC<FooterProps> = ({ intenalFooter = false }) => {
                 <li>
                   <Link
                     href="disclaimer"
+                    onClick={() => logEvent(disclaimer)}
                     className="text-gray-600 hover:text-primary cursor-pointer"
                   >
                     Disclaimer
@@ -148,7 +184,7 @@ const Footer: React.FC<FooterProps> = ({ intenalFooter = false }) => {
           </div>
         </div>
       </div>
-    </footer>
+    </footer >
   );
 };
 

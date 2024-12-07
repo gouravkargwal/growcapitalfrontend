@@ -5,7 +5,10 @@ const eventNames = {
     X: 'Clicked x',
     FACEBOOK: 'Clicked facebook',
     LINKEDIN: "Clicked linkedin",
+    INSTAGRAM: "Clicked instagram",
     YOUTUBE: "Clicked youtube",
+    HOME: 'Clicked homeft',
+    FEATURES: 'Clicked features',
     ABOUTUS: "Clicked aboutus",
     TNC: "Clicked tnc",
     PRIVACY: "Clicked privacy",
@@ -14,7 +17,7 @@ const eventNames = {
     PRICING: "Clicked pricing",
 };
 
-const { EMAIL, X, FACEBOOK, LINKEDIN, YOUTUBE, ABOUTUS, TNC, PRIVACY, DISCLAIMER, FAQS, PRICING } = eventNames;
+const { EMAIL, X, FACEBOOK, LINKEDIN, YOUTUBE, ABOUTUS, TNC, PRIVACY, DISCLAIMER, FAQS, PRICING, INSTAGRAM, HOME, FEATURES } = eventNames;
 
 interface EventFunction {
     eventName: string;
@@ -42,6 +45,13 @@ export const facebookClicked = (): EventFunction => ({
     },
 });
 
+export const instagramClicked = (): EventFunction => ({
+    eventName: INSTAGRAM,
+    payload: {
+        url: getPathFromUrl(null),
+    },
+});
+
 export const linkedinClicked = (): EventFunction => ({
     eventName: LINKEDIN,
     payload: {
@@ -55,7 +65,18 @@ export const youtubeClicked = (): EventFunction => ({
         url: getPathFromUrl(null),
     },
 });
-
+export const homeFtClicked = (): EventFunction => ({
+    eventName: HOME,
+    payload: {
+        url: getPathFromUrl(null),
+    },
+});
+export const featuresClicked = (): EventFunction => ({
+    eventName: FEATURES,
+    payload: {
+        url: getPathFromUrl(null),
+    },
+});
 export const aboutusClicked = (): EventFunction => ({
     eventName: ABOUTUS,
     payload: {

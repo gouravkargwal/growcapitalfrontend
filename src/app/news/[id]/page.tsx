@@ -8,7 +8,8 @@ import Footer from "@/Components/Header/Footer";
 import Link from 'next/link';
 import logo from "../../../../assets/logo-1.png";
 import Image from "next/image";
-import { logPageView } from "@/events/analytics";
+import { logEvent, logPageView } from "@/events/analytics";
+import { filingClicked, relatedClicked, shareClicked } from "@/events/news/news-details-events";
 
 const Navbar = () => {
   return (
@@ -26,7 +27,7 @@ const Navbar = () => {
           </Link>
           <Link href="/about" className="text-sm text-gray-600 hover:text-primary">About
           </Link>
-          <Link href="/contact" className="text-sm text-gray-600 hover:text-primary">Contact
+          <Link href="https://informe.freshdesk.com" className="text-sm text-gray-600 hover:text-primary">Contact
           </Link>
         </div>
       </div>
@@ -52,12 +53,32 @@ const NewsDetail = async ({ params }: NewsDetailProps) => {
   }
 
   if (!newsDetail) {
-    notFound();
+    <div className="text-center">
+      <h2>Sorry, this news item is not available.</h2>
+      <Link href="/">Go back to homepage</Link>
+    </div>
   }
 
   const formatDate = (dateString: string) => {
     const options: Intl.DateTimeFormatOptions = { year: "numeric", month: "long", day: "numeric" };
     return new Date(dateString).toLocaleDateString("en-US", options);
+  };
+  const handleShare = async () => {
+    if (navigator.share) {
+      try {
+        const shareMessage = `${newsDetail.shortSummary}\n\nRead more: ${window.location.origin}/news/${newsDetail.newsId}\n\nAI-powered stock news update by informe.in`;
+        await navigator.share({
+          title: newsDetail.heading,
+          text: shareMessage,
+          url: `${window.location.origin}/news/${newsDetail.newsId}`
+        });
+      } catch (error) {
+        console.error('Error sharing content:', error);
+      }
+    } else {
+      alert('Sharing is not supported on this browser.');
+    }
+    logEvent(shareClicked(newsDetail.newsId));
   };
 
   return (
@@ -82,12 +103,14 @@ const NewsDetail = async ({ params }: NewsDetailProps) => {
               </div>
             </div>
             <div className="flex items-center space-x-4 mt-4 mb:mt-0">
-              <button className="bg-primary text-white px-4 py-2 rounded-full text-sm flex items-center space-x-2 hover:accent transition-all duration-200">
+              <button className="bg-primary text-white px-4 py-2 rounded-full text-sm flex items-center space-x-2 hover:accent transition-all duration-200"
+                onClick={handleShare}
+              >
                 <FaShareAlt />
                 <span>Share</span>
               </button>
 
-              <div className="flex space-x-3 text-gray-600">
+              {/* <div className="flex space-x-3 text-gray-600">
                 <a href="#" className="hover:text-blue-600">
                   <FaFacebookF />
                 </a>
@@ -97,7 +120,7 @@ const NewsDetail = async ({ params }: NewsDetailProps) => {
                 <a href="#" className="hover:text-blue-700">
                   <FaLinkedin />
                 </a>
-              </div>
+              </div> */}
             </div>
           </div>
 
@@ -111,6 +134,7 @@ const NewsDetail = async ({ params }: NewsDetailProps) => {
                 href={newsDetail.pdfLink}
                 target="_blank"
                 className="inline-flex items-center text-primary hover:text-accent text-sm font-semibold"
+                onClick={() => logEvent(filingClicked(newsDetail.newsId))}
               >
                 <span>View Exchange Filing</span>
               </a>
@@ -143,6 +167,7 @@ const NewsDetail = async ({ params }: NewsDetailProps) => {
                   <a
                     href={`/news/${related.stockNewsId}`}
                     className="text-primary hover:text-accent text-sm font-semibold inline-block"
+                    onClick={() => logEvent(relatedClicked(newsDetail.newsId))}
                   >
                     Read More
                   </a>

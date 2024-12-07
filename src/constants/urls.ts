@@ -9,19 +9,25 @@ export const urls: Record<string, string> = {
     PROFILE: "/profileSettings",
     NEWSDETAILS: "/news/[id]",
     SUBSCRIPTION: "/subscriptions",
+    ABOUT: "/about",
+    DISCLAIMER: "/disclaimer",
+    PRIVACY: "/privacy-policy",
+    TNC: "/terms-and-conditions",
+    FAQS: "/faqs",
 };
 
 // Check if the URL is a landing page
 export const isLandingPage = (url: string): boolean =>
     url === urls.HOME;
 
-// Extract path from URL
 export const getPathFromUrl = (url: string | null): string => {
-    const currentUrl = window.location.href;
-    const urlObj = new URL(url || currentUrl);
-    return urlObj.pathname;
+    if (typeof window !== 'undefined') {
+        const currentUrl = window.location.href;
+        const urlObj = new URL(url || currentUrl);
+        return urlObj.pathname;
+    }
+    return '';
 };
-
 // Get page name by URL
 export const getPageName = (url: string): string => {
     const path = getPathFromUrl(url);

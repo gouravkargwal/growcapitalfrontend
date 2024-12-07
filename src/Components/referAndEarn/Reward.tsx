@@ -1,3 +1,5 @@
+import { logEvent } from "@/events/analytics";
+import { claimClicked } from "@/events/refer/refer-events";
 import { fetchRewards } from "@/Feature/Reward/rewardSlice";
 import { openSnackbar } from "@/Feature/Snackbar/snackbarSlice";
 import { useAppDispatch } from "@/hook/useAppDispatch";
@@ -52,7 +54,7 @@ const Reward = () => {
               </p>
               {reward.isEligible && (
                 <button
-                  onClick={() => handleClaimReward(reward.configId)}
+                  onClick={() => { handleClaimReward(reward.configId); logEvent(claimClicked(reward.rewardType, reward.referralCount.toString())) }}
                   className="mt-4 bg-accent text-white py-2 px-4 rounded-lg hover:bg-accent-dark transition-all duration-300"
                 >
                   Claim

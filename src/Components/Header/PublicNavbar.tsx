@@ -5,6 +5,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
 import logo from "../../../assets/logo-1.png";
 import Image from "next/image";
+import { getStartedClicked, signInClicked } from "@/events/home/home-events";
+import { logEvent } from "@/events/analytics";
 
 const Navbar = () => {
   const router = useRouter();
@@ -13,6 +15,8 @@ const Navbar = () => {
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
+  const getStarted = getStartedClicked("navbar");
+  const signIn = signInClicked("navbar");
 
   const menuVariants = {
     hidden: { opacity: 0, x: "100%" },
@@ -47,6 +51,7 @@ const Navbar = () => {
             className="px-6 py-2 border border-primary text-primary rounded-btn-lg font-semibold hover:bg-primary hover:text-white transition-all duration-300 transform hover:scale-105 shadow-btn-shadow"
             onClick={() => {
               router.push("/signin");
+              logEvent(signIn);
             }}
           >
             Sign In
@@ -55,6 +60,7 @@ const Navbar = () => {
             className="px-6 py-2 bg-primary text-white rounded-btn-lg font-semibold hover:bg-accent transition-all duration-300 transform hover:scale-105 shadow-btn-shadow"
             onClick={() => {
               router.push("/signup");
+              logEvent(getStarted);
             }}
           >
             Get Started
@@ -97,6 +103,7 @@ const Navbar = () => {
                   onClick={() => {
                     router.push("/signin");
                     toggleMenu();
+                    logEvent(signIn);
                   }}
                 >
                   Sign In
@@ -112,6 +119,7 @@ const Navbar = () => {
                   onClick={() => {
                     router.push("/signin");
                     toggleMenu();
+                    logEvent(getStarted);
                   }}
                 >
                   Get Started

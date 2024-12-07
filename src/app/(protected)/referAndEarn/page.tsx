@@ -2,7 +2,9 @@
 
 import Referrals from "@/Components/referAndEarn/Referrals";
 import Reward from "@/Components/referAndEarn/Reward";
-import { logPageView } from "@/events/analytics";
+import { logEvent, logPageView } from "@/events/analytics";
+import { facebookClicked, linkedinClicked, xClicked } from "@/events/common/footer-events";
+import { copyClicked, instaClicked } from "@/events/refer/refer-events";
 import { openSnackbar } from "@/Feature/Snackbar/snackbarSlice";
 import { useAppDispatch } from "@/hook/useAppDispatch";
 import { RootState } from "@/Store/store";
@@ -12,6 +14,11 @@ import { useSelector } from "react-redux";
 const ReferAndEarn: React.FC = () => {
   useEffect(() => { logPageView() }, []);
   const dispatch = useAppDispatch();
+  const copy = copyClicked();
+  const x = xClicked();
+  const facebook = facebookClicked();
+  const linkedin = linkedinClicked();
+  const insta = instaClicked();
   const { data, loading: referralsLoading } = useSelector(
     (state: RootState) => state.refer
   );
@@ -20,6 +27,7 @@ const ReferAndEarn: React.FC = () => {
 
   const handleCopy = () => {
     navigator.clipboard.writeText(referralLink);
+    logEvent(copy);
     dispatch(
       openSnackbar({
         message: "Referral link copied to clipboard!",
@@ -27,6 +35,58 @@ const ReferAndEarn: React.FC = () => {
       })
     );
   };
+  // Share function for Twitter
+  const handleShareTwitter = () => {
+    const shareMessage = `Check out this amazing referral link: ${referralLink} #ReferralLink #ShareIt`;
+    if (navigator.share) {
+      navigator.share({
+        title: "Referral Link",
+        text: shareMessage,
+        url: referralLink,
+      }).then(() => {
+        logEvent(x);
+      }).catch(err => console.error('Sharing failed', err));
+    } else {
+      window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareMessage)}`, '_blank');
+    }
+    dispatch(openSnackbar({
+      message: "Link shared on X!",
+      severity: "success",
+    }));
+  };
+
+  // Share function for Facebook
+  const handleShareFacebook = () => {
+    const shareMessage = `Check out this amazing referral link: ${referralLink}`;
+    window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(referralLink)}`, '_blank');
+    logEvent(facebook);
+    dispatch(openSnackbar({
+      message: "Link shared on Facebook!",
+      severity: "success",
+    }));
+  };
+
+  // Share function for LinkedIn
+  const handleShareLinkedIn = () => {
+    const shareMessage = `Check out this amazing referral link: ${referralLink}`;
+    window.open(`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(referralLink)}`, '_blank');
+    logEvent(linkedin);
+    dispatch(openSnackbar({
+      message: "Link shared on LinkedIn!",
+      severity: "success",
+    }));
+  };
+
+  // Share function for Instagram
+  const handleShareInstagram = () => {
+    window.open(`https://www.instagram.com/?url=${encodeURIComponent(referralLink)}`, '_blank');
+    logEvent(insta);
+    dispatch(openSnackbar({
+      message: "Link shared on Instagram!",
+      severity: "success",
+    }));
+  };
+
 
   return (
     <div className="p-6 sm:p-8 max-w-7xl mx-auto">
@@ -75,8 +135,9 @@ const ReferAndEarn: React.FC = () => {
                 <button className="p-3 bg-gray-200 rounded-full hover:bg-gray-300 transition-all duration-300">
                   <img
                     src="https://img.icons8.com/color/48/000000/twitterx.png"
-                    alt="Twitter"
+                    alt="X"
                     className="w-6 h-6"
+                    onClick={handleShareTwitter}
                   />
                 </button>
                 <button className="p-3 bg-gray-200 rounded-full hover:bg-gray-300 transition-all duration-300">
@@ -84,6 +145,7 @@ const ReferAndEarn: React.FC = () => {
                     src="https://img.icons8.com/color/48/000000/facebook.png"
                     alt="Facebook"
                     className="w-6 h-6"
+                    onClick={handleShareFacebook}
                   />
                 </button>
                 <button className="p-3 bg-gray-200 rounded-full hover:bg-gray-300 transition-all duration-300">
@@ -91,6 +153,7 @@ const ReferAndEarn: React.FC = () => {
                     src="https://img.icons8.com/color/48/000000/linkedin.png"
                     alt="LinkedIn"
                     className="w-6 h-6"
+                    onClick={handleShareLinkedIn}
                   />
                 </button>
                 <button className="p-3 bg-gray-200 rounded-full hover:bg-gray-300 transition-all duration-300">
@@ -98,6 +161,7 @@ const ReferAndEarn: React.FC = () => {
                     src="https://img.icons8.com/color/48/000000/instagram-new.png"
                     alt="Instagram"
                     className="w-6 h-6"
+                    onClick={handleShareInstagram}
                   />
                 </button>
               </>

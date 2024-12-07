@@ -53,7 +53,6 @@ export const contactUsClicked = (): EventFunction => ({
     eventName: CONTACTUS,
     payload: {
         url,
-        location,
     },
 });
 export const faqReadClicked = (title: string, opened: boolean): EventFunction => ({
