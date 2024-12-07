@@ -2,7 +2,6 @@ import * as yup from "yup";
 
 import FormButton from "../UI/FormButton";
 import GoogleAuthentication from "./GoogleAuthentication";
-import Image from "next/image";
 import InputField from "../UI/InputField";
 import Link from "next/link";
 import { RootState } from "@/Store/store";
@@ -16,7 +15,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { openSnackbar } from "@/Feature/Snackbar/snackbarSlice";
 import AuthLayout from "./Layout";
 import { backClicked, forgotClicked, registerClicked, signInclicked, signInFail, signInSucces } from "@/events/auth/signin-events";
-import { logEvent } from "@/events/analytics";
+import { logEvent, login, logout } from "@/events/analytics";
 
 // Validation schema
 const passwordStrength = yup
@@ -78,11 +77,17 @@ const SigninForm = () => {
           const user = result.payload.user;
           if (user) {
             router.replace("/dashboard");
+            login({
+              userId: auth.currentUser?.uid ?? '', userInfo: {
+                email: data?.email,
+              }
+            });
             logEvent(success);
           }
         } else {
           await auth.signOut();
           logEvent(fail);
+          logout();
         }
       }
     } else {
