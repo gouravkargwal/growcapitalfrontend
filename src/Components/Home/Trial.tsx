@@ -1,9 +1,12 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
+import { claimTrialClicked } from "@/events/home/home-events";
+import { logEvent } from "@/events/analytics";
 
 const Trial: React.FC = () => {
   const router = useRouter();
+  const trial = claimTrialClicked();
   const containerVarient = {
     offscreen: { opacity: 0, y: 20 },
     onscreen: {
@@ -41,6 +44,7 @@ const Trial: React.FC = () => {
           className="bg-primary hover:bg-accent text-white font-semibold py-4 px-8 rounded-btn-lg shadow-btn-shadow transition-all duration-300 ease-in-out transform hover:scale-105"
           onClick={() => {
             router.push("signup");
+            logEvent(trial);
           }}
         >
           Claim Your Free Trial

@@ -8,11 +8,19 @@ import { auth } from "@/lib/firebase";
 import { signOut } from "firebase/auth";
 import { useRouter, usePathname } from "next/navigation";
 import logo from "../../../assets/logo-1.png";
+import { helpCenterClicked, homeClicked, logoutClicked, profileClicked, referClicked, subscriptionClicked, timelineClicked } from "@/events/common/sidebar-events";
+import { logEvent } from "@/events/analytics";
 
 const Sidebar = ({ closeSidebar }: { closeSidebar: () => void }) => {
   const router = useRouter();
   const pathname = usePathname();
-
+  const home = homeClicked();
+  const timeline = timelineClicked();
+  const refer = referClicked();
+  const subscription = subscriptionClicked();
+  const profile = profileClicked();
+  const helpCenter = helpCenterClicked();
+  const logout = logoutClicked();
   // Check if the current route matches the given route path
   const isActive = (routePath: string) => pathname === routePath;
 
@@ -32,7 +40,7 @@ const Sidebar = ({ closeSidebar }: { closeSidebar: () => void }) => {
                 ? "bg-primary text-white shadow-md"
                 : "hover:bg-gray-200"
                 } `}
-              onClick={() => goToPage("/dashboard")}
+              onClick={() => { goToPage("/dashboard"); logEvent(home); }}
             >
               Home
             </button>
@@ -43,7 +51,7 @@ const Sidebar = ({ closeSidebar }: { closeSidebar: () => void }) => {
                 ? "bg-primary text-white shadow-md"
                 : "hover:bg-gray-200"
                 } `}
-              onClick={() => goToPage("/timeline")}
+              onClick={() => { goToPage("/timeline"); logEvent(timeline); }}
             >
               Your Timeline
             </button>
@@ -54,7 +62,7 @@ const Sidebar = ({ closeSidebar }: { closeSidebar: () => void }) => {
                 ? "bg-primary text-white shadow-md"
                 : "hover:bg-gray-200"
                 } `}
-              onClick={() => goToPage("/referAndEarn")}
+              onClick={() => { goToPage("/referAndEarn"); logEvent(refer); }}
             >
               Refer And Earn
             </button>
@@ -65,7 +73,7 @@ const Sidebar = ({ closeSidebar }: { closeSidebar: () => void }) => {
                 ? "bg-primary text-white shadow-md"
                 : "hover:bg-gray-200"
                 } `}
-              onClick={() => goToPage("/subscriptions")}
+              onClick={() => { goToPage("/subscriptions"), logEvent(subscription); }}
             >
               Subscriptions
             </button>
@@ -76,7 +84,7 @@ const Sidebar = ({ closeSidebar }: { closeSidebar: () => void }) => {
                 ? "bg-primary text-white shadow-md"
                 : "hover:bg-gray-200"
                 } `}
-              onClick={() => goToPage("/profileSettings")}
+              onClick={() => { goToPage("/profileSettings"), logEvent(profile); }}
             >
               Profile Settings
             </button>
@@ -88,8 +96,10 @@ const Sidebar = ({ closeSidebar }: { closeSidebar: () => void }) => {
           <li>
             <button
               className="w-full text-left p-3 hover:bg-gray-200 rounded-lg transition-all duration-300 ease-in-out flex gap-3 items-center"
-              onClick={() =>
+              onClick={() => {
                 window.open(`https://informe.freshdesk.com`, "_blank")
+                logEvent(helpCenter);
+              }
               }
             >
               <IoMdHelpCircleOutline className="text-xl" />
@@ -102,6 +112,7 @@ const Sidebar = ({ closeSidebar }: { closeSidebar: () => void }) => {
               onClick={() => {
                 signOut(auth);
                 closeSidebar();
+                logEvent(logout);
               }}
             >
               <CiLogout className="text-xl" />

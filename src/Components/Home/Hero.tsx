@@ -2,9 +2,13 @@ import React from "react";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import { FaTelegramPlane } from "react-icons/fa";
+import { getStartedClicked, joinBotClicked } from "@/events/home/home-events";
+import { logEvent } from "@/events/analytics";
 
 const Hero = () => {
   const router = useRouter();
+  const getStarted = getStartedClicked("hero");
+  const joinBot = joinBotClicked();
   return (
     <section
       className="h-screen flex items-center justify-center relative overflow-hidden pt-hero-padding sm:pt-20 md:pt-hero-padding"
@@ -40,6 +44,7 @@ const Hero = () => {
             className="w-64 px-8 py-4 items-center justify-center sm:px-10 sm:py-4 bg-primary text-white rounded-btn-lg font-semibold shadow-btn-shadow hover:bg-accent transition-all duration-300 transform hover:scale-105"
             onClick={() => {
               router.push("signup");
+              logEvent(getStarted);
             }}
           >
             Get Started
@@ -49,6 +54,7 @@ const Hero = () => {
             className="w-64 flex items-center justify-center px-8 py-4 sm:px-10 sm:py-4 border-2 border-primary text-primary rounded-btn-lg font-semibold shadow-btn-shadow hover:bg-primary hover:text-white transition-all duration-300 transform hover:scale-105"
             onClick={() => {
               router.push("signup");
+              logEvent(joinBot);
             }}
           >
             <FaTelegramPlane className="mr-2" />

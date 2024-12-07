@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 
 import { motion } from "framer-motion";
+import { contactUsClicked, faqReadClicked } from "@/events/home/home-events";
+import { logEvent } from "@/events/analytics";
 
 interface AccordionProps {
   question: string;
 }
 
 const Faqs: React.FC = () => {
+  const contactUs = contactUsClicked();
   const cardVariants = {
     offscreen: {
       opacity: 0,
@@ -48,7 +51,10 @@ const Faqs: React.FC = () => {
           whileInView="onscreen"
           viewport={{ once: true, amount: 0.1 }}
           className="hidden md:flex mt-5 px-8 py-4 bg-primary text-white font-semibold rounded-btn-lg shadow-btn-shadow hover:bg-accent transition-all duration-300 ease-in-out transform hover:scale-105"
-          onClick={() => window.open("https://informe.freshdesk.com", "_blank")}
+          onClick={() => {
+            window.open("https://informe.freshdesk.com", "_blank");
+            logEvent(contactUs);
+          }}
         >
           Contact Us
         </motion.button>
@@ -72,7 +78,7 @@ const Faqs: React.FC = () => {
         whileInView="onscreen"
         viewport={{ once: true, amount: 0.1 }}
         className="flex md:hidden mt-5 px-8 py-4 bg-primary text-white font-semibold rounded-btn-lg shadow-btn-shadow hover:bg-accent transition-all duration-300 ease-in-out transform hover:scale-105"
-        onClick={() => window.open("https://informe.freshdesk.com", "_blank")}
+        onClick={() => { window.open("https://informe.freshdesk.com", "_blank"); logEvent(contactUs); }}
       >
         Contact Us
       </motion.button>
@@ -85,7 +91,7 @@ const Accordion: React.FC<AccordionProps> = ({ question }) => {
 
   return (
     <div
-      onClick={() => setIsOpen(!isOpen)}
+      onClick={() => { setIsOpen(!isOpen); logEvent(faqReadClicked(question, !isOpen)) }}
       className="p-4 border border-gray-300 rounded-lg shadow-sm cursor-pointer hover:shadow-md transition-all duration-200"
     >
       <h2 className="text-lg font-semibold text-textPrimary flex justify-between items-center">
@@ -119,22 +125,22 @@ const Accordion: React.FC<AccordionProps> = ({ question }) => {
 
             {question ===
               "Can I customize the types of stocks I want updates for?" && (
-              <span>
-                Yes, you can customize the stocks you want to follow, ensuring
-                you get relevant updates tailored to your portfolio or
-                interests.
-              </span>
-            )}
+                <span>
+                  Yes, you can customize the stocks you want to follow, ensuring
+                  you get relevant updates tailored to your portfolio or
+                  interests.
+                </span>
+              )}
 
             {question ===
               "Do I need to use Telegram to receive stock news?" && (
-              <span>
-                Telegram is one of our primary channels for delivering stock
-                news. However, if you're on the Pro or Premium plans, you can
-                also receive updates via WhatsApp, making it easier to stay
-                informed across different platforms.
-              </span>
-            )}
+                <span>
+                  Telegram is one of our primary channels for delivering stock
+                  news. However, if you're on the Pro or Premium plans, you can
+                  also receive updates via WhatsApp, making it easier to stay
+                  informed across different platforms.
+                </span>
+              )}
 
             {question === "How do I manage my stock news alerts?" && (
               <span>

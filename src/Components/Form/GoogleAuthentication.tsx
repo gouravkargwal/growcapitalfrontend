@@ -6,9 +6,14 @@ import { useRouter } from "next/navigation";
 import { useSelector } from "react-redux";
 import { RootState } from "@/Store/store";
 import { FcGoogle } from "react-icons/fc";
+import { googleSigninClicked, signInFail, signInSucces } from "@/events/auth/signin-events";
+import { logEvent } from "@/events/analytics";
 
 const GoogleAuthentication = () => {
   const dispatch = useAppDispatch();
+  const googleSIgnIn = googleSigninClicked();
+  const success = signInSucces();
+  const fail = signInFail();
   const router = useRouter();
   const { googleAuthLoading } = useSelector((state: RootState) => state.auth);
 
@@ -16,9 +21,12 @@ const GoogleAuthentication = () => {
     const result = await dispatch(googleAuth());
     if (googleAuth.fulfilled.match(result)) {
       router.replace("/dashboard");
+      logEvent(success);
     } else {
       await auth.signOut();
+      logEvent(fail);
     }
+    logEvent(googleSIgnIn);
   };
 
   return (

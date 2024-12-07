@@ -3,7 +3,6 @@ import axios from "axios";
 import { localStore } from "../utils/storageFactory";
 import mixpanel from 'mixpanel-browser';
 import ReactGA from 'react-ga4';
-import { UAParser } from 'ua-parser-js';
 
 // Type for the analytics providers
 interface AnalyticsProvider {
@@ -75,12 +74,10 @@ function removeSecuredKeys(profileParams: Record<string, any>): Record<string, a
 export const logPageView = async (): Promise<void> => {
     const currentUrl: string = window.location.href;
     const ip: string | null = await getIp();
-    const device: string = getDeviceType();
     pushEvent("Page Viewed", {
         currentUrl,
         ip,
         pageName: getPageName(currentUrl),
-        device,
     });
 };
 
@@ -94,13 +91,11 @@ export const logEvent = async (payload: { eventName: string; payload?: Record<st
     if (payload?.payload) {
         payload.payload.currentUrl = currentUrl;
         payload.payload.ip = ip;
-        // payload.payload.device = device;
         payload.payload.pageName = pageName;
     } else {
         payload.payload = {
             currentUrl,
             ip,
-            // device,
             pageName,
         };
     }
@@ -128,14 +123,4 @@ const fetchIp = async (): Promise<string> => {
         console.error(err);
         return "";
     }
-};
-
-// Get device type function
-const getDeviceType = (): string => {
-    if (typeof window !== "undefined") {
-        const parser = new UAParser();
-        const result = parser.getResult();
-        return result.device.type || "unknown";
-    }
-    return "unknown";
 };

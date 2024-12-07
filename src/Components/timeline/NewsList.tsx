@@ -62,6 +62,7 @@ const NewsList: React.FC = () => {
                 <div ref={lastNewsElementRef} key={index}>
                   <NewsCard
                     {...newsItem}
+                    index={index}
                   />
                 </div>
               );
@@ -69,6 +70,7 @@ const NewsList: React.FC = () => {
               return (
                 <NewsCard
                   {...newsItem}
+                  index={index}
                 />
               );
             }

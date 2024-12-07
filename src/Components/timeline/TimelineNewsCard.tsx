@@ -1,30 +1,52 @@
+import { shareClicked } from "@/events/news/timeline-events";
 import { News } from "@/Feature/News/newsSlice";
-import getTimeAgoOrDate from "@/utils/getTimeAgoOrDate";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { FaClock, FaShareAlt } from "react-icons/fa";
+import { formatDistanceToNow } from "date-fns";
+import { logEvent } from "@/events/analytics";
 
-const NewsCard: React.FC<News> = ({
+interface NewsCardProps extends News {
+  index: number;
+}
+const NewsCard: React.FC<NewsCardProps> = ({
   companyName,
   heading,
   industry,
   newsId,
   newsTime,
   shortSummary,
-  longSummary
+  longSummary,
+  index,
 }) => {
   const router = useRouter();
-  const handleShowMore = () => {
-    router.push(`/news/${newsId}`);
+
+  const handleShare = async () => {
+    if (navigator.share) {
+      try {
+        const shareMessage = `$${shortSummary}\n\nRead more: ${window.location.origin}/news/${newsId}\n\nAI-powered stock news update by informe.in`;
+        await navigator.share({
+          title: heading,
+          text: shareMessage,
+          url: `${window.location.origin}/news/${newsId}`
+        });
+      } catch (error) {
+        console.error('Error sharing content:', error);
+      }
+    } else {
+      alert('Sharing is not supported on this browser.');
+    }
+    logEvent(shareClicked(index.toString(), newsId));
   };
 
   const calculateReadTime = (text: string): string => {
-    const wordsPerMinute = 200; 
+    const wordsPerMinute = 200;
     const wordCount = text.split(/\s+/).length;
-    const readTimeMinutes = Math.ceil(wordCount / wordsPerMinute); 
+    const readTimeMinutes = Math.ceil(wordCount / wordsPerMinute);
     return `${readTimeMinutes} min read`;
   };
+  const timeAgo = formatDistanceToNow(new Date(newsTime), { addSuffix: true });
 
   return (
     <>
@@ -34,12 +56,13 @@ const NewsCard: React.FC<News> = ({
             <span className="text-lg font-semibold text-primary">BSE News</span>
             <div className="text-xs text-gray-500 flex items-center space-x-1">
               <FaClock className="text-gray-400" />
-              <span>{getTimeAgoOrDate(newsTime)}</span>
+              <span>{timeAgo}</span>
             </div>
           </div>
 
-          <button className="flex items-center text-primary border border-secondary rounded-2xl px-3 lg:px-4 py-1 hover:text-white hover:bg-secondary whitespace-nowrap">
-            <FaShareAlt className="mr-2"/>
+          <button className="flex items-center text-primary border border-secondary rounded-2xl px-3 lg:px-4 py-1 hover:text-white hover:bg-secondary whitespace-nowrap"
+            onClick={handleShare}>
+            <FaShareAlt className="mr-2" />
             <span>Share</span>
           </button>
         </div>

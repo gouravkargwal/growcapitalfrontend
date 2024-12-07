@@ -15,6 +15,8 @@ import { useSelector } from "react-redux";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { openSnackbar } from "@/Feature/Snackbar/snackbarSlice";
 import AuthLayout from "./Layout";
+import { backClicked, forgotClicked, registerClicked, signInclicked, signInFail, signInSucces } from "@/events/auth/signin-events";
+import { logEvent } from "@/events/analytics";
 
 // Validation schema
 const passwordStrength = yup
@@ -40,6 +42,12 @@ const formSchema = yup.object().shape({
 type UserFormValue = yup.InferType<typeof formSchema>;
 
 const SigninForm = () => {
+  const back = backClicked("signin");
+  const signIn = signInclicked();
+  const success = signInSucces();
+  const fail = signInFail();
+  const forgot = forgotClicked();
+  const registerEvent = registerClicked();
   const dispatch = useAppDispatch();
   const router = useRouter();
   const { signinLoading } = useSelector((state: RootState) => state.auth);
@@ -52,6 +60,7 @@ const SigninForm = () => {
   });
 
   const onSubmit = async (data: UserFormValue) => {
+    logEvent(signIn);
     const forcePassword = await dispatch(checkPasswordChange(data?.email));
     if (checkPasswordChange.fulfilled.match(forcePassword)) {
       const x = forcePassword?.payload?.data;
@@ -69,12 +78,15 @@ const SigninForm = () => {
           const user = result.payload.user;
           if (user) {
             router.replace("/dashboard");
+            logEvent(success);
           }
         } else {
           await auth.signOut();
+          logEvent(fail);
         }
       }
     } else {
+      logEvent(fail);
       return dispatch(
         openSnackbar({ message: "Internal Server Error", severity: "error" })
       );
@@ -86,7 +98,7 @@ const SigninForm = () => {
       <div className="max-w-xl w-full p-6 sm:p-8 rounded-none md:rounded-lg shadow-none md:shadow-lg md:border md:border-gray-200">
         <button
           className="mb-4 hover:text-primary-dark"
-          onClick={() => router.push("/")}
+          onClick={() => { router.push("/"); logEvent(back) }}
         >
           ← Back
         </button>
@@ -112,6 +124,7 @@ const SigninForm = () => {
             <Link
               href="forgotpassword"
               className="text-sm text-primary hover:underline"
+              onClick={() => logEvent(forgot)}
             >
               Forgot Password?
             </Link>
@@ -119,7 +132,7 @@ const SigninForm = () => {
           <FormButton label="Continue" loading={signinLoading} />
           <p className="text-center text-gray-600 mt-4">
             Don’t have an account?{" "}
-            <Link href="signup" className="text-accent hover:underline">
+            <Link href="signup" className="text-accent hover:underline" onClick={() => logEvent(registerEvent)}>
               Register
             </Link>
           </p>
@@ -127,8 +140,8 @@ const SigninForm = () => {
         <div className="mt-6">
           <GoogleAuthentication />
         </div>
-      </div>
-    </AuthLayout>
+      </div >
+    </AuthLayout >
   );
 };
 
