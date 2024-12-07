@@ -9,7 +9,7 @@ import { signOut } from "firebase/auth";
 import { useRouter, usePathname } from "next/navigation";
 import logo from "../../../assets/logo-1.png";
 import { helpCenterClicked, homeClicked, logoutClicked, profileClicked, referClicked, subscriptionClicked, timelineClicked } from "@/events/common/sidebar-events";
-import { logEvent } from "@/events/analytics";
+import { logEvent, logout } from "@/events/analytics";
 
 const Sidebar = ({ closeSidebar }: { closeSidebar: () => void }) => {
   const router = useRouter();
@@ -20,7 +20,7 @@ const Sidebar = ({ closeSidebar }: { closeSidebar: () => void }) => {
   const subscription = subscriptionClicked();
   const profile = profileClicked();
   const helpCenter = helpCenterClicked();
-  const logout = logoutClicked();
+  const logoutclicked = logoutClicked();
   // Check if the current route matches the given route path
   const isActive = (routePath: string) => pathname === routePath;
 
@@ -112,7 +112,8 @@ const Sidebar = ({ closeSidebar }: { closeSidebar: () => void }) => {
               onClick={() => {
                 signOut(auth);
                 closeSidebar();
-                logEvent(logout);
+                logEvent(logoutclicked);
+                logout();
               }}
             >
               <CiLogout className="text-xl" />

@@ -22,7 +22,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/lib/firebase";
 import AuthLayout from "./Layout";
 import { backClicked, loginClicked, signUpclicked, signUpFail, signUpSucces } from "@/events/auth/signup-events";
-import { logEvent } from "@/events/analytics";
+import { logEvent, login } from "@/events/analytics";
 import { openSnackbar } from "@/Feature/Snackbar/snackbarSlice";
 
 // Validation schema
@@ -61,7 +61,7 @@ const SignupForm = ({ referralCode }: { referralCode: string | undefined }) => {
   const back = backClicked('signup');
   const success = signUpSucces();
   const fail = signUpFail();
-  const login = loginClicked();
+  const loginEvent = loginClicked();
   const router = useRouter();
   const { signupLoading } = useSelector((state: RootState) => state.auth);
   const { loading: languageLoading, data: languages } = useSelector<
@@ -99,6 +99,13 @@ const SignupForm = ({ referralCode }: { referralCode: string | undefined }) => {
     if (signupUser.fulfilled.match(resultAction)) {
       await signInWithEmailAndPassword(auth, data?.email, data?.password);
       router.replace("/dashboard");
+      login({
+        userId: auth.currentUser?.uid ?? '', userInfo: {
+          firstName: data?.firstName,
+          lastName: data?.lastName,
+          email: data?.email,
+        }
+      });
       logEvent(success);
     } else {
       logEvent(fail);
@@ -216,7 +223,7 @@ const SignupForm = ({ referralCode }: { referralCode: string | undefined }) => {
           <FormButton label="Continue" loading={signupLoading} />
           <p className="text-center text-gray-600 text-sm mt-3">
             Already have an account?{" "}
-            <Link href="signin" className="text-accent hover:underline" onClick={() => logEvent(login)}>
+            <Link href="signin" className="text-accent hover:underline" onClick={() => logEvent(loginEvent)}>
               Login
             </Link>
           </p>
