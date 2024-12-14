@@ -30,7 +30,7 @@ const Hero = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
         >
-          🌐 Stay ahead with real-time BSE updates! 100-word summaries 🗣️,
+          🌐 Stay ahead with real-time stock updates! 100-word summaries 🗣️,
           add/remove stocks, stay informed! 📲
         </motion.p>
 

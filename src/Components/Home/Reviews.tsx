@@ -19,7 +19,7 @@ const Reviews: React.FC = () => {
       id: 1,
       name: "Amit Sharma",
       role: "Financial Analyst, Wealth Corp",
-      image: "https://randomuser.me/api/portraits/men/48.jpg",
+      image: "https://d140p29c73x6ns.cloudfront.net/temp/amitsharma.jpg",
       rating: 4,
       testimonial: `${globalEnums.brandName} has completely transformed the way I receive stock news. The summaries are concise and the sentiment scores provide valuable insights that help me make quicker investment decisions.`,
     },
@@ -27,7 +27,7 @@ const Reviews: React.FC = () => {
       id: 2,
       name: "Neha Gupta",
       role: "Investment Manager, Capital Dynamics",
-      image: "https://randomuser.me/api/portraits/women/84.jpg",
+      image: "https://d140p29c73x6ns.cloudfront.net/temp/nehagupta.jpg",
       rating: 4.9,
       testimonial: `The stock news updates from ${globalEnums.brandName} are incredibly helpful. I get the latest news with sentiment analysis straight to my phone, making it easier to monitor the market and act quickly.`,
     },
@@ -35,7 +35,7 @@ const Reviews: React.FC = () => {
       id: 3,
       name: "Rajesh Kumar",
       role: "Portfolio Manager, Growth Investments",
-      image: "https://randomuser.me/api/portraits/men/39.jpg",
+      image: "https://d140p29c73x6ns.cloudfront.net/temp/rajeshkumar.jpg",
       rating: 4,
       testimonial: `As a portfolio manager, ${globalEnums.brandName} has been a game-changer. I get a quick summary of stock news along with sentiment scores that help me gauge market sentiment before making any moves.`,
     },
@@ -43,15 +43,15 @@ const Reviews: React.FC = () => {
       id: 4,
       name: "Priya Patel",
       role: "Stock Analyst, Market Experts",
-      image: "https://randomuser.me/api/portraits/women/15.jpg",
+      image: "https://d140p29c73x6ns.cloudfront.net/temp/priyapatel.jpg",
       rating: 4.0,
       testimonial: `${globalEnums.brandName}’s ability to send personalized stock news directly to my Telegram is incredibly useful. The sentiment score feature helps me stay on top of market trends and adjust my strategy accordingly.`,
     },
     {
       id: 5,
-      name: "Ravi Singh",
+      name: "Ravi Kumar",
       role: "Risk Analyst, Future Finance",
-      image: "https://randomuser.me/api/portraits/men/56.jpg",
+      image: "https://d140p29c73x6ns.cloudfront.net/temp/ravikumar.jpg",
       rating: 4.9,
       testimonial: `With ${globalEnums.brandName}, I receive not only stock news but also insights into how the market is reacting to those events. The sentiment score feature is a real-time indicator that helps me gauge market movements effectively.`,
     },
@@ -59,7 +59,7 @@ const Reviews: React.FC = () => {
       id: 6,
       name: "Atul Mehta",
       role: "Investment Strategist, Visionary Traders",
-      image: "https://randomuser.me/api/portraits/men/69.jpg",
+      image: "https://d140p29c73x6ns.cloudfront.net/temp/atulmehta.jpg",
       rating: 4.8,
       testimonial: `${globalEnums.brandName} has streamlined my approach to keeping up with the market. The stock news summaries and sentiment scores keep me informed and ready to make data-driven decisions quickly.`,
     },
@@ -107,11 +107,10 @@ const Reviews: React.FC = () => {
                   {[...Array(5)].map((_, i) => (
                     <FaStar
                       key={i}
-                      className={`w-5 h-5 ${
-                        i < Math.round(testimonial.rating)
-                          ? "text-yellow-400"
-                          : "text-gray-300"
-                      }`}
+                      className={`w-5 h-5 ${i < Math.round(testimonial.rating)
+                        ? "text-yellow-400"
+                        : "text-gray-300"
+                        }`}
                     />
                   ))}
                 </div>

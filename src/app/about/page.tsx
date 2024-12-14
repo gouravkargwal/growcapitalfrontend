@@ -61,29 +61,29 @@ const AboutUs = () => {
                         {/* Team Member 1 */}
                         <div className="flex flex-col items-center text-center">
                             <img
-                                src="/images/team/member1.jpg"
-                                alt="Team Member 1"
+                                src="https://d140p29c73x6ns.cloudfront.net/temp/hirdesh.jpeg"
+                                alt="Hirdesh Garg"
                                 className="w-32 h-32 rounded-full object-cover mb-4"
                             />
-                            <h3 className="text-primary font-semibold mb-2">John Doe</h3>
-                            <p className="text-body-lg text-textSecondary mb-2">CEO & Founder</p>
-                            <p className="text-body-lg text-textSecondary">
+                            <h3 className="text-primary font-semibold mb-2">Hirdesh Garg</h3>
+                            {/* <p className="text-body-lg text-textSecondary mb-2">CEO & Founder</p> */}
+                            {/* <p className="text-body-lg text-textSecondary">
                                 John is the visionary behind {globalEnums.brandName}. With over 10 years of experience in the industry, he leads our company with a focus on innovation and growth.
-                            </p>
+                            </p> */}
                         </div>
 
                         {/* Team Member 2 */}
                         <div className="flex flex-col items-center text-center">
                             <img
-                                src="/images/team/member2.jpg"
-                                alt="Team Member 2"
+                                src="https://d140p29c73x6ns.cloudfront.net/temp/gourav.jpg"
+                                alt="Gourav Kargwal"
                                 className="w-32 h-32 rounded-full object-cover mb-4"
                             />
-                            <h3 className="text-primary font-semibold mb-2">Jane Smith</h3>
-                            <p className="text-body-lg text-textSecondary mb-2">Head of Operations</p>
-                            <p className="text-body-lg text-textSecondary">
+                            <h3 className="text-primary font-semibold mb-2">Gourav Kargwal</h3>
+                            {/* <p className="text-body-lg text-textSecondary mb-2">CEO & Founder</p> */}
+                            {/* <p className="text-body-lg text-textSecondary">
                                 Jane is responsible for overseeing the daily operations of the company. With a strong background in management, she ensures everything runs smoothly and efficiently.
-                            </p>
+                            </p> */}
                         </div>
                     </div>
                 </section>

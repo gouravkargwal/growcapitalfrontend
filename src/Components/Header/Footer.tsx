@@ -37,7 +37,7 @@ const Footer: React.FC<FooterProps> = ({ intenalFooter = false }) => {
               className="mb-4"
             />
             <p className="text-gray-600 hidden md:flex">
-              🌐 Stay ahead with real-time BSE updates! 100-word summaries 🗣️,
+              🌐 Stay ahead with real-time stock updates! 100-word summaries 🗣️,
               add/remove stocks, stay informed! 📲
             </p>
             <p className="mt-4 text-primary font-semibold hidden md:flex">

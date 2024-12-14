@@ -1,13 +1,17 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { FaNewspaper, FaChartLine, FaCommentAlt, FaBell } from "react-icons/fa"; // Importing necessary icons
 import { globalEnums } from "@/enum";
+import sentiment from '../../../assets/rocket.svg';
+import newsIcon from '../../../assets/news.svg';
+import message from '../../../assets/message.svg';
+import bell from '../../../assets/bell.svg';
+import Image from "next/image";
 
 interface CardProps {
   title: string;
   description: string;
-  icon: React.ReactNode; // Change the type to ReactNode to accept React Icons
+  icon: string
   direction: "left" | "right";
 }
 
@@ -17,28 +21,28 @@ const Features: React.FC = () => {
       title: "Stock News Summaries",
       description:
         "Get the latest stock news delivered directly to your messaging app of choice, summarized so you can stay informed with minimal time investment.",
-      icon: <FaNewspaper size={40} className="text-primary" />, // Use React Icon here
+      icon: newsIcon,
       direction: "left",
     },
     {
       title: "Sentiment Analysis",
       description:
         "Receive sentiment scores alongside news summaries, helping you gauge the market's mood and make informed decisions.",
-      icon: <FaChartLine size={40} className="text-primary" />, // Use React Icon here
+      icon: sentiment,
       direction: "right",
     },
     {
       title: "Telegram & WhatsApp Support",
       description:
         "Choose your preferred messaging platform—Telegram or WhatsApp—to receive updates, giving you flexibility and convenience.",
-      icon: <FaCommentAlt size={40} className="text-primary" />, // Use React Icon here
+      icon: message,
       direction: "left",
     },
     {
       title: "Customizable Alerts",
       description:
         "Set up alerts based on your favorite stocks and news types, ensuring you only receive the information you want.",
-      icon: <FaBell size={40} className="text-primary" />, // Use React Icon here
+      icon: bell,
       direction: "right",
     },
   ];
@@ -101,7 +105,7 @@ const FeatureCard: React.FC<CardProps> = ({
       variants={variants}
       className="bg-white p-8 rounded-xl shadow-lg transform transition-all duration-300 hover:scale-105 hover:shadow-2xl flex flex-col items-start"
     >
-      <div className="text-5xl mb-4">{icon}</div>
+      <Image className="mb-4" src={icon} alt={title} height={50}></Image>
       <h3 className="text-2xl font-bold text-gray-800 mb-4">{title}</h3>
       <p className="text-gray-600">{description}</p>
     </motion.div>

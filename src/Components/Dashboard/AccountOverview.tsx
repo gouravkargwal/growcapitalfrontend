@@ -6,6 +6,10 @@ import { RootState } from "@/Store/store";
 import { useSelector } from "react-redux";
 import { fetchUserAccountOverview } from "@/Feature/User/userSlice";
 import CardSkeleton from "../UI/CardSkeleton";
+import stockIcon from '../../../assets/chart.svg';
+import newsIcon from '../../../assets/news.svg';
+import referralsIcon from '../../../assets/child.svg';
+import planIcon from '../../../assets/light.svg';
 
 const AccountOverview: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -28,25 +32,25 @@ const AccountOverview: React.FC = () => {
     }
   > = {
     "Stock Subscribed": {
-      icon: "📈",
+      icon: stockIcon,
       color: "#dcfce7",
       borderColor: "#4ade80",
       route: "",
     },
     "News Types": {
-      icon: "📰",
+      icon: newsIcon,
       color: "#f3e8ff",
       borderColor: "#c084fc",
       route: "",
     },
     "Total Referrals": {
-      icon: "👦",
+      icon: referralsIcon,
       color: "#ffedd5",
       borderColor: "#fb923c",
       route: "/referAndEarn",
     },
     "Current Plan": {
-      icon: "⚡️",
+      icon: planIcon,
       color: "#dbeafe",
       borderColor: "#60a5fa",
       route: "/subscriptions",
@@ -65,19 +69,19 @@ const AccountOverview: React.FC = () => {
       <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {accountOverviewLoading
           ? Array(4)
-              .fill(null)
-              .map((_, index) => <CardSkeleton />)
+            .fill(null)
+            .map((_, index) => <CardSkeleton key={index} />)
           : cards.map((card, index) => (
-              <Card
-                key={index}
-                icon={card.icon}
-                color={card.color}
-                count={card.value}
-                label={card.title}
-                borderColor={card.borderColor}
-                route={card.route}
-              />
-            ))}
+            <Card
+              key={index}
+              icon={card.icon}
+              color={card.color}
+              count={card.value}
+              label={card.title}
+              borderColor={card.borderColor}
+              route={card.route}
+            />
+          ))}
       </div>
     </div>
   );
