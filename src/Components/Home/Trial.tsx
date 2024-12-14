@@ -35,7 +35,7 @@ const Trial: React.FC = () => {
         </motion.h2>
 
         <motion.p className="text-textSecondary text-body-lg leading-relaxed mb-10">
-          🚀 Stay ahead of the market with real-time BSE updates! Get concise
+          🚀 Stay ahead of the market with real-time stock updates! Get concise
           100-word stock news summaries 📰, easily add or remove stocks, and
           stay informed on-the-go. 📱
         </motion.p>

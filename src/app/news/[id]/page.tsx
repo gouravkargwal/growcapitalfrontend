@@ -96,7 +96,7 @@ const NewsDetail = async ({ params }: NewsDetailProps) => {
         <div className="p-6 border-b border-gray-200">
           <div className="flex items-start justify-between mb-6 flex-col md:flex-row ">
             <div className="flex items-center space-x-4">
-              <span className="text-2xl font-semibold text-primary">BSE News</span>
+              <span className="text-2xl font-semibold text-primary">News</span>
               <div className="text-sm text-gray-500 flex items-center space-x-2">
                 <FaClock className="text-gray-400" />
                 <span>{formatDate(newsDetail.exchange_receive_time)}</span>
