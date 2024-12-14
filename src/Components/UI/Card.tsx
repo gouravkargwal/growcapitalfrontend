@@ -27,7 +27,7 @@ const Card: React.FC<CardProps> = ({
     >
       <div className="flex flex-row justify-start p-4">
         <div className="bg-white p-3 rounded-lg flex justify-center items-center mr-4 mb-2 sm:mb-0 w-fit">
-          <Image className="mb-4" src={icon} alt={label} height={40}></Image>
+          <Image src={icon} alt={label} height={30}></Image>
         </div>
         <div className="flex flex-col justify-center">
           <div className="text-xl font-bold text-black mb-1">{count}</div>
