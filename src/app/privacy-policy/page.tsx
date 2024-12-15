@@ -127,6 +127,8 @@ const PrivacyPolicy = () => {
           <p className="text-body-lg text-primary font-semibold">
             info@informe.in
           </p>
+          <br />
+          Last Updated: 15th December 2024
         </section>
       </div>
     </div>
