@@ -24,13 +24,13 @@ const TermsAndConditions = () => {
             1. Introduction
           </h2>
           <p className="text-body-lg mb-4">
-            These terms and conditions govern your use of our platform and services. By accessing or using the platform, you agree to be bound by these terms, which include our privacy policy and any other policies we may implement from time to time.
+            Welcome to Informe. By accessing and using this website, you agree to comply with and be bound by the following terms and conditions.
           </p>
         </section>
 
         <section className="flex flex-col">
           <h2 className="text-cta-lg font-semibold text-primary mb-4">
-            2. Use of Platform
+            2. Acceptance of Terms
           </h2>
           <p className="text-body-lg mb-4">
             You agree to use the platform for lawful purposes only. You must not use the platform for any activities that violate local, state, or international laws or regulations.
@@ -39,93 +39,75 @@ const TermsAndConditions = () => {
 
         <section className="flex flex-col">
           <h2 className="text-cta-lg font-semibold text-primary mb-4">
-            3. Account Registration and Security
+            3. Intellectual Property Rights
           </h2>
           <p className="text-body-lg mb-4">
-            In order to access certain services, you may be required to create an account. You agree to provide accurate and complete information during the registration process and to keep your account details confidential. You are responsible for all activities that occur under your account.
+            All content on this website, including text, graphics, logos, images, and software, is the property of our company and is protected by intellectual property laws. You may not reproduce, distribute, modify, create derivative works of, publicly display, publicly perform, republish, download, store, or transmit any of the material on our website without prior written consent.
           </p>
         </section>
 
         <section className="flex flex-col">
           <h2 className="text-cta-lg font-semibold text-primary mb-4">
-            4. Intellectual Property
+            4. User Responsibilities
           </h2>
+          <h3 className="text-body-lg font-semibold text-primary">
+            4.1 Account Security
+          </h3>
           <p className="text-body-lg mb-4">
-            All content, trademarks, logos, and other intellectual property displayed on the platform are the property of{" "}
-            <span className="text-primary font-semibold">
-              {globalEnums.brandName}
-            </span>{" "}
-            or its licensors. You are not permitted to use, copy, or distribute any content without prior written consent.
+            If you create an account on our website, you are responsible for maintaining the confidentiality of your account and password. You agree to accept responsibility for all activities that occur under your account.
+          </p>
+          <h3 className="text-body-lg font-semibold text-primary">
+            4.2 Prohibited Activities
+          </h3>
+          <p className="text-body-lg mb-4">
+            You agree not to:<br />
+            - Use the website for any illegal or unauthorized purpose<br />
+            - Violate any local, state, national, or international law<br />
+            - Attempt to gain unauthorized access to any portion of the website<br />
+            - Introduce any viruses, trojans, or other malicious code<br />
+            - Collect personal information about other users without consent
           </p>
         </section>
 
         <section className="flex flex-col">
           <h2 className="text-cta-lg font-semibold text-primary mb-4">
-            5. Third-Party Services and Links
+            5. Limitation of Liability
           </h2>
           <p className="text-body-lg mb-4">
-            Our platform may contain links to third-party websites and services. We do not control or endorse these external sites, and we are not responsible for their content or practices. By accessing such sites, you do so at your own risk.
+            The website and its contents are provided "as is" and "as available" without any warranties, express or implied. We do not guarantee the accuracy, completeness, or usefulness of any information on the website. In no event shall our company be liable for any direct, indirect, incidental, special, consequential, or punitive damages arising out of or related to your use of the website.
           </p>
         </section>
 
         <section className="flex flex-col">
           <h2 className="text-cta-lg font-semibold text-primary mb-4">
-            6. Limitation of Liability
+            6. Modifications to Terms
           </h2>
           <p className="text-body-lg mb-4">
-            To the fullest extent permitted by applicable law,{" "}
-            <span className="text-primary font-semibold">
-              {globalEnums.brandName}
-            </span>{" "}
-            will not be liable for any indirect, incidental, or consequential damages arising out of your use of the platform or services, including any loss of data, revenue, or profits.
+            We reserve the right to modify these terms and conditions at any time. Changes will be effective immediately upon posting on the website. Your continued use of the website after changes constitutes acceptance of the new terms.
           </p>
         </section>
 
         <section className="flex flex-col">
           <h2 className="text-cta-lg font-semibold text-primary mb-4">
-            7. Suspension and Termination
+            7. Governing Law
           </h2>
           <p className="text-body-lg mb-4">
-            We reserve the right to suspend or terminate your access to the platform at any time, with or without cause, if we believe you have violated these terms or engaged in unlawful activities.
+            These terms and conditions are governed by and construed in accordance with the laws of India. Any disputes relating to these terms shall be subject to the exclusive jurisdiction of the courts in Karnataka.
           </p>
         </section>
 
         <section className="flex flex-col">
           <h2 className="text-cta-lg font-semibold text-primary mb-4">
-            8. Privacy and Data Protection
+            8. Contact Information
           </h2>
           <p className="text-body-lg mb-4">
-            We value your privacy and are committed to protecting your personal information. Please refer to our Privacy Policy for more details on how we collect, use, and protect your data.
-          </p>
-        </section>
+            If you have any questions about these terms and conditions, please contact us at:<br />
 
-        <section className="flex flex-col">
-          <h2 className="text-cta-lg font-semibold text-primary mb-4">
-            9. Changes to Terms and Conditions
-          </h2>
-          <p className="text-body-lg mb-4">
-            We may update or amend these terms from time to time. Any changes will be posted on this page, and your continued use of the platform after such changes will constitute your acceptance of the new terms.
-          </p>
-        </section>
-
-        <section className="flex flex-col">
-          <h2 className="text-cta-lg font-semibold text-primary mb-4">
-            10. Governing Law
-          </h2>
-          <p className="text-body-lg mb-4">
-            These terms are governed by the laws of [Your Jurisdiction]. Any disputes arising from the use of the platform or services will be resolved under the exclusive jurisdiction of the courts in [Your Location].
-          </p>
-        </section>
-
-        <section className="flex flex-col">
-          <h2 className="text-cta-lg font-semibold text-primary mb-4">
-            11. Contact Us
-          </h2>
-          <p className="text-body-lg mb-4">
-            If you have any questions or concerns about these Terms and Conditions, please contact us at:
-          </p>
-          <p className="text-body-lg text-primary font-semibold">
-            info@informe.in
+            <p className="text-body-lg text-primary font-semibold">
+              info@informe.in
+            </p>
+            <br />
+            Last Updated: 15th December 2024
           </p>
         </section>
       </div>
