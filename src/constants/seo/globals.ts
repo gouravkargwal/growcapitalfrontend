@@ -5,19 +5,15 @@ interface OpenGraph {
     type: string,
     locale: string,
     siteName: string,
-    images: OpenGraphImage[],
-}
-
-interface OpenGraphImage {
-    url: string;
+    images: string[],
 }
 
 interface SeoAttributes {
     title: string;
     titleTemplate: string;
     description: string;
-    additionalMetaTags: { name: string; content: string }[];
     openGraph: OpenGraph;
+    other: any,
 }
 
 interface OrganizationJsonLdAttributes {
@@ -33,21 +29,10 @@ export const seoAttributes: SeoAttributes = {
     title: 'Informe | Real-Time Stock News on Telegram & WhatsApp',
     description: 'Get real-time stock market news from BSE & NSE on Telegram and WhatsApp instantly in short formats.',
     titleTemplate: "Informe",
-    additionalMetaTags: [
-        {
-            name: "keywords",
-            content:
-                "stock news, real-time stock updates, BSE, NSE, stock market, stock news Telegram, stock news WhatsApp, market news alerts, stock market updates, finance news, live stock news",
-        },
-        {
-            name: "viewport",
-            content: "width=device-width, initial-scale=1.0"
-        },
-        {
-            name: "facebook-domain-verification",
-            content: "s4pkqfke9pyi45nyyqthxy22gfirm6",
-        }
-    ],
+    other: {
+        "keywords": 'stock news, real-time stock updates, BSE, NSE, stock market, stock news Telegram, stock news WhatsApp, market news alerts, stock market updates, finance news, live stock news',
+        "facebook-domain-verification": 's4pkqfke9pyi45nyyqthxy22gfirm6'
+    },
     openGraph: {
         type: 'website',
         locale: 'en_IN',
@@ -56,7 +41,7 @@ export const seoAttributes: SeoAttributes = {
         description: 'Get real-time stock market news from BSE & NSE on Telegram and WhatsApp instantly in short formats.',
         siteName: 'Informe',
         images: [
-            { url: 'https://d140p29c73x6ns.cloudfront.net/temp/InforMe.png' },
+            'https://d140p29c73x6ns.cloudfront.net/temp/InforMe.png',
         ]
     },
 };
