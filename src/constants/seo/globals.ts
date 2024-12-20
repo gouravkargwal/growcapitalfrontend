@@ -5,7 +5,11 @@ interface OpenGraph {
     type: string,
     locale: string,
     siteName: string,
-    images: any,
+    images: OpenGraphImage[],
+}
+
+interface OpenGraphImage {
+    url: string;
 }
 
 interface SeoAttributes {
