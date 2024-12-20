@@ -39,6 +39,10 @@ export const seoAttributes: SeoAttributes = {
             name: "viewport",
             content: "width=device-width, initial-scale=1.0"
         },
+        {
+            name: "facebook-domain-verification",
+            content: "s4pkqfke9pyi45nyyqthxy22gfirm6",
+        }
     ],
     openGraph: {
         type: 'website',
