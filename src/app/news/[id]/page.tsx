@@ -1,15 +1,15 @@
 "use client"
 
-import React, { useEffect } from "react";
-import { notFound } from "next/navigation";
+import React, { useEffect, useState } from "react";
 import { getNewsById } from "@/Feature/News/news.service";
-import { FaClock, FaShareAlt, FaFacebookF, FaTwitter, FaLinkedin } from "react-icons/fa";
+import { FaClock, FaShareAlt } from "react-icons/fa";
 import Footer from "@/Components/Header/Footer";
 import Link from 'next/link';
 import logo from "../../../../assets/logo-1.png";
 import Image from "next/image";
 import { logEvent, logPageView } from "@/events/analytics";
 import { filingClicked, relatedClicked, shareClicked } from "@/events/news/news-details-events";
+import { NewsArticleJsonLd } from 'next-seo';
 
 const Navbar = () => {
   return (
@@ -35,42 +35,59 @@ const Navbar = () => {
   );
 };
 
-
 interface NewsDetailProps {
   params: { id: string };
 }
 
 const NewsDetail = async ({ params }: NewsDetailProps) => {
-  useEffect(() => { logPageView() }, []);
   const { id } = params;
+  const [newsDetail, setNewsDetail] = useState<any>(null);
+  const [error, setError] = useState(false);
 
-  let newsDetail: any = null;
-  try {
-    const { data } = await getNewsById(id);
-    newsDetail = await data;
-  } catch (error) {
-    console.error("Error fetching news detail:", error);
+  useEffect(() => {
+    logPageView();
+    const fetchNewsDetail = async () => {
+      try {
+        const { data } = await getNewsById(id);
+        setNewsDetail(data);
+      } catch (err) {
+        console.error("Error fetching news detail:", err);
+        setError(true);
+      }
+    };
+    fetchNewsDetail();
+  }, [id]);
+
+  if (error) {
+    return (
+      <div className="text-center">
+        <h2>Sorry, this news item is not available.</h2>
+        <Link href="/">Go back to homepage</Link>
+      </div>
+    );
   }
 
   if (!newsDetail) {
-    <div className="text-center">
-      <h2>Sorry, this news item is not available.</h2>
-      <Link href="/">Go back to homepage</Link>
-    </div>
+    return (
+      <div className="text-center">
+        <h2>Loading...</h2>
+      </div>
+    );
   }
 
   const formatDate = (dateString: string) => {
     const options: Intl.DateTimeFormatOptions = { year: "numeric", month: "long", day: "numeric" };
     return new Date(dateString).toLocaleDateString("en-US", options);
   };
+
   const handleShare = async () => {
     if (navigator.share) {
       try {
-        const shareMessage = `${newsDetail.shortSummary}\n\nRead more: ${window.location.origin}/news/${newsDetail.newsId}\n\nAI-powered stock news update by informe.in`;
+        const shareMessage = `${newsDetail.shortSummary}\n\nRead more: ${window.location.origin}/news/${newsDetail.stockNewsId}\n\nAI-powered stock news update by informe.in`;
         await navigator.share({
           title: newsDetail.heading,
           text: shareMessage,
-          url: `${window.location.origin}/news/${newsDetail.newsId}`
+          url: `${window.location.origin}/news/${newsDetail.stockNewsId}`
         });
       } catch (error) {
         console.error('Error sharing content:', error);
@@ -78,12 +95,29 @@ const NewsDetail = async ({ params }: NewsDetailProps) => {
     } else {
       alert('Sharing is not supported on this browser.');
     }
-    logEvent(shareClicked(newsDetail.newsId));
+    logEvent(shareClicked(newsDetail.stockNewsId));
   };
 
   return (
     <div>
       <Navbar />
+      <NewsArticleJsonLd
+        useAppDir={true}
+        url={`https://informe.in/news/${newsDetail.stockNewsId}`}
+        title={newsDetail.heading}
+        images={[]}
+        section="Financial Markets,Stock Market,Investment News,Market Analysis"
+        keywords={`${newsDetail.keywords}, stock market, financial news, market analysis, trading, investing, ${newsDetail.stockNewsId.split('-').join(', ')}, stock prices, market trends, financial markets, investment strategy, stock trading, market updates, business news${newsDetail.heading.toLowerCase().split(' ').join(', ')}`}
+        datePublished={newsDetail.exchange_receive_time}
+        dateCreated={newsDetail.createdAt}
+        dateModified={newsDetail.createdAt}
+        authorName="Informe"
+        publisherName="Informe"
+        publisherLogo="https://d140p29c73x6ns.cloudfront.net/temp/InforMe.png"
+        description={newsDetail.shortSummary}
+        body={newsDetail.paragraph}
+        isAccessibleForFree={true}
+      />
       <div className="bg-white overflow-hidden pb-12">
         {/* <div className="relative w-full h-80 bg-gray-200">
           <img
@@ -123,7 +157,6 @@ const NewsDetail = async ({ params }: NewsDetailProps) => {
               </div> */}
             </div>
           </div>
-
           <h1 className="text-5xl font-bold text-gray-900">{newsDetail.heading}</h1>
         </div>
         <div className="prose prose-lg mx-auto text-gray-800 mb-8 px-6 mt-4">
@@ -134,7 +167,7 @@ const NewsDetail = async ({ params }: NewsDetailProps) => {
                 href={newsDetail.pdfLink}
                 target="_blank"
                 className="inline-flex items-center text-primary hover:text-accent text-sm font-semibold"
-                onClick={() => logEvent(filingClicked(newsDetail.newsId))}
+                onClick={() => logEvent(filingClicked(newsDetail.stockNewsId))}
               >
                 <span>View Exchange Filing</span>
               </a>
@@ -167,16 +200,14 @@ const NewsDetail = async ({ params }: NewsDetailProps) => {
                   <a
                     href={`/news/${related.stockNewsId}`}
                     className="text-primary hover:text-accent text-sm font-semibold inline-block"
-                    onClick={() => logEvent(relatedClicked(newsDetail.newsId))}
+                    onClick={() => logEvent(relatedClicked(newsDetail.stockNewsId))}
                   >
                     Read More
                   </a>
                 </div>
               ))}
             </div>
-
           </div>
-
         </div>
       </div>
       <Footer intenalFooter={false} />
