@@ -29,6 +29,7 @@ interface PrivateNavbarProps {
 
 const PrivateNavbar: React.FC<PrivateNavbarProps> = ({ toggleSidebar }) => {
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
+  const [isTutorialOpen, setIsTutorialOpen] = useState(false);
   const notificationRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
 
@@ -73,15 +74,43 @@ const PrivateNavbar: React.FC<PrivateNavbarProps> = ({ toggleSidebar }) => {
           </div>
         </div>
         {pathname === "/dashboard" && (
-          <div className="flex space-x-4 items-center">
-            {/* <div className="relative">
-              <input
-                type="text"
-                placeholder="Search for stocks..."
-                className="bg-gray-100 pl-10 pr-10 py-2 rounded-full focus:outline-none border border-gray-300"
-              />
-              <FaSearch className="absolute top-3 left-3 text-gray-500" />
-            </div> */}
+          <div className="flex space-x-4 mr-5 items-center justify-center">
+            <div>
+              <button
+                className="bg-primary text-white px-4 py-2 rounded-md hover:hover:bg-accent focus:outline-none"
+                onClick={() => setIsTutorialOpen(true)}
+              >
+                Watch Tutorial
+              </button>
+              {isTutorialOpen && (
+                <div
+                  className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
+                  onClick={() => setIsTutorialOpen(false)}
+                >
+                  <div
+                    className="bg-white rounded-lg shadow-lg overflow-hidden"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <div className="p-4 flex justify-end">
+                      <button
+                        className="text-gray-500 hover:text-gray-700"
+                        onClick={() => setIsTutorialOpen(false)}
+                      >
+                        &times;
+                      </button>
+                    </div>
+                    <iframe
+                      width="560"
+                      height="315"
+                      src="https://www.youtube.com/embed/BILM01l3PJo?si=Kpf78rK1JzSPjmyK"
+                      title="Informe Tutorial"
+                      color="primary"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    ></iframe>
+                  </div>
+                </div>
+              )}
+            </div>
             <div className="relative">
               <button
                 className="relative"
