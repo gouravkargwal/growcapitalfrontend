@@ -119,24 +119,25 @@ const NewsDetail = async ({ params }: NewsDetailProps) => {
         isAccessibleForFree={true}
       />
       <div className="bg-white overflow-hidden pb-12">
-        {/* <div className="relative w-full h-80 bg-gray-200">
-          <img
-            src={newsDetail.imageUrl || "/default-image.jpg"}
-            alt="Featured Image"
-            className="w-full h-full object-cover"
-          />
-        </div> */}
-
+        {newsDetail.image &&
+          <div className="relative w-full h-80 bg-gray-200">
+            <img
+              src={newsDetail.image || ""}
+              alt="Featured Image"
+              className="w-full h-full object-cover"
+            />
+          </div>
+        }
         <div className="p-6 border-b border-gray-200">
-          <div className="flex items-start justify-between mb-6 flex-col md:flex-row ">
-            <div className="flex items-center space-x-4">
+          <div className="flex items-start justify-between mb-6 flex-row">
+            <div className="flex items-center justify-center space-x-4">
               <span className="text-2xl font-semibold text-primary">News</span>
               <div className="text-sm text-gray-500 flex items-center space-x-2">
                 <FaClock className="text-gray-400" />
                 <span>{formatDate(newsDetail.exchange_receive_time)}</span>
               </div>
             </div>
-            <div className="flex items-center space-x-4 mt-4 mb:mt-0">
+            <div className="flex items-center space-x-4 mt-0">
               <button className="bg-primary text-white px-4 py-2 rounded-full text-sm flex items-center space-x-2 hover:accent transition-all duration-200"
                 onClick={handleShare}
               >
@@ -157,7 +158,7 @@ const NewsDetail = async ({ params }: NewsDetailProps) => {
               </div> */}
             </div>
           </div>
-          <h1 className="text-5xl font-bold text-gray-900">{newsDetail.heading}</h1>
+          <h1 className="text-3xl md:text-5xl font-bold text-gray-900">{newsDetail.heading}</h1>
         </div>
         <div className="prose prose-lg mx-auto text-gray-800 mb-8 px-6 mt-4">
           <p>{newsDetail.paragraph}</p>
@@ -180,7 +181,7 @@ const NewsDetail = async ({ params }: NewsDetailProps) => {
             <span className="font-medium">Ai Powered Summary by Informe</span>
             <div className="flex items-center space-x-4">
               <span className="text-gray-400">Source: BSE</span>
-              <span className="text-gray-400">Industry: {newsDetail.stock.industry}</span>
+              <span className="text-gray-400 hidden md:visible">Industry: {newsDetail.stock.industry}</span>
             </div>
           </div>
         </div>
