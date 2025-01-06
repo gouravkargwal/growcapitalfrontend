@@ -15,5 +15,16 @@ export const getSentUserNews = async (page: number, limit?: number) => {
 };
 
 export const getNewsById = async (id: string) => {
-  return await axiosPublicInstance.get(`/stock-news/${id}`);
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_BASE_URL}/stock-news/${id}`,
+    {
+      next: { revalidate: 60 },
+    }
+  );
+
+  if (!res.ok) {
+    throw new Error(`Failed to fetch news with id: ${id}`);
+  }
+  const data = await res.json();
+  return data;
 };

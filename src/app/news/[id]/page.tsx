@@ -5,14 +5,12 @@ import Footer from "@/Components/Header/Footer";
 import Link from "next/link";
 import logo from "../../../../assets/logo-1.png";
 import Image from "next/image";
-import { logEvent, logPageView } from "@/events/analytics";
-import {
-  filingClicked,
-  relatedClicked,
-} from "@/events/news/news-details-events";
+import { logPageView } from "@/events/analytics";
 import { NewsArticleJsonLd } from "next-seo";
 import ShareNewsBtn from "@/Components/News/ShareNewsBtn";
 import { notFound } from "next/navigation";
+import RelatedArticleLink from "@/Components/News/RelatedArticleLink";
+import FilingLink from "@/Components/News/FilingLink";
 
 const Navbar = () => {
   return (
@@ -52,11 +50,10 @@ const NewsDetail = async ({ params }: NewsDetailProps) => {
 
   let newsDetail;
   try {
-    const { data } = await getNewsById(id);
-    if (!data) {
+    newsDetail = await getNewsById(id);
+    if (!newsDetail) {
       notFound();
     }
-    newsDetail = data;
   } catch (err) {
     console.error("Error fetching news detail:", err);
     notFound();
@@ -142,8 +139,6 @@ const NewsDetail = async ({ params }: NewsDetailProps) => {
                 src={newsDetail.image || ""}
                 className="w-full h-full object-fill"
                 alt={`${newsDetail.heading} - Featured Image`}
-                layout="fill"
-                objectFit="cover"
                 priority={true}
               />
             </div>
@@ -151,14 +146,10 @@ const NewsDetail = async ({ params }: NewsDetailProps) => {
           <p>{newsDetail.summary}</p>
           {newsDetail.pdfLink && (
             <div className="mt-6">
-              <a
-                href={newsDetail.pdfLink}
-                target="_blank"
-                className="inline-flex items-center text-primary hover:text-accent text-sm font-semibold"
-                onClick={() => logEvent(filingClicked(newsDetail.stockNewsId))}
-              >
-                <span>View Exchange Filing</span>
-              </a>
+              <FilingLink
+                pdfLink={newsDetail.pdfLink}
+                stockNewsId={newsDetail.stockNewsId}
+              />
             </div>
           )}
         </div>
@@ -191,15 +182,9 @@ const NewsDetail = async ({ params }: NewsDetailProps) => {
                   <p className="text-sm text-gray-600 mb-4 line-clamp-3">
                     {related.shortSummary}
                   </p>
-                  <a
-                    href={`/news/${related.stockNewsId}`}
-                    className="text-primary hover:text-accent text-sm font-semibold inline-block"
-                    onClick={() =>
-                      logEvent(relatedClicked(newsDetail.stockNewsId))
-                    }
-                  >
+                  <RelatedArticleLink stockNewsId={related.stockNewsId}>
                     Read More
-                  </a>
+                  </RelatedArticleLink>
                 </div>
               ))}
             </div>
