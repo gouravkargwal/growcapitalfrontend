@@ -115,7 +115,7 @@ const NewsDetail = async ({ params }: NewsDetailProps) => {
         publisherName="Informe"
         publisherLogo="https://d140p29c73x6ns.cloudfront.net/temp/InforMe.png"
         description={newsDetail.shortSummary}
-        body={newsDetail.paragraph}
+        body={newsDetail.summary}
         isAccessibleForFree={true}
       />
       <div className="bg-white overflow-hidden pb-12">
@@ -161,7 +161,7 @@ const NewsDetail = async ({ params }: NewsDetailProps) => {
           <h1 className="text-3xl md:text-5xl font-bold text-gray-900">{newsDetail.heading}</h1>
         </div>
         <div className="prose prose-lg mx-auto text-gray-800 mb-8 px-6 mt-4">
-          <p>{newsDetail.paragraph}</p>
+          <p>{newsDetail.summary}</p>
           {newsDetail.pdfLink && (
             <div className="mt-6">
               <a
