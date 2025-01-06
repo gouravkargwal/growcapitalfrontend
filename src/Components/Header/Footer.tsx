@@ -1,3 +1,4 @@
+"use client"
 import { globalEnums } from "@/enum";
 import Link from "next/link";
 import React from "react";

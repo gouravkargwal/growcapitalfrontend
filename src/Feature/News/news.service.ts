@@ -16,7 +16,7 @@ export const getSentUserNews = async (page: number, limit?: number) => {
 
 export const getNewsById = async (id: string) => {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_BASE_URL}/stock-news/${id}`,
+    `${process.env.NEXT_PUBLIC_NEST_URL}/stock-news/${id}`,
     {
       next: { revalidate: 60 },
     }

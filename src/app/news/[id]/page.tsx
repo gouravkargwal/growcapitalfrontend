@@ -59,7 +59,7 @@ const NewsDetail = async ({ params }: NewsDetailProps) => {
     notFound();
   }
 
-  logPageView();
+  // logPageView();
   const formatDate = (dateString: string) => {
     const options: Intl.DateTimeFormatOptions = {
       year: "numeric",
@@ -78,19 +78,18 @@ const NewsDetail = async ({ params }: NewsDetailProps) => {
         title={newsDetail.heading}
         images={[]}
         section="Financial Markets,Stock Market,Investment News,Market Analysis"
-        keywords={`${
-          newsDetail.keywords
-        }, stock market, financial news, market analysis, trading, investing, ${newsDetail.stockNewsId
-          .split("-")
-          .join(
-            ", "
-          )}, stock prices, market trends, financial markets, investment strategy, stock trading, market updates, business news${newsDetail.heading
-          .toLowerCase()
-          .split(" ")
-          .join(", ")}`}
+        keywords={`${newsDetail.keywords
+          }, stock market, financial news, market analysis, trading, investing, ${newsDetail.stockNewsId
+            .split("-")
+            .join(
+              ", "
+            )}, stock prices, market trends, financial markets, investment strategy, stock trading, market updates, business news${newsDetail.heading
+              .toLowerCase()
+              .split(" ")
+              .join(", ")}`}
         datePublished={newsDetail.exchange_receive_time}
-        dateCreated={newsDetail.createdAt}
-        dateModified={newsDetail.createdAt}
+        dateCreated={newsDetail.exchange_receive_time}
+        dateModified={newsDetail.exchange_receive_time}
         authorName="Informe"
         publisherName="Informe"
         publisherLogo="https://d140p29c73x6ns.cloudfront.net/temp/InforMe.png"
@@ -137,6 +136,8 @@ const NewsDetail = async ({ params }: NewsDetailProps) => {
             <div className="float-left w-full md:w-1/4 bg-gray-200 mr-4 mb-2">
               <Image
                 src={newsDetail.image || ""}
+                width={500}
+                height={500}
                 className="w-full h-full object-fill"
                 alt={`${newsDetail.heading} - Featured Image`}
                 priority={true}
