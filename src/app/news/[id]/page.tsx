@@ -119,15 +119,6 @@ const NewsDetail = async ({ params }: NewsDetailProps) => {
         isAccessibleForFree={true}
       />
       <div className="bg-white overflow-hidden pb-12">
-        {newsDetail.image &&
-          <div className="relative w-full h-80 bg-gray-200">
-            <img
-              src={newsDetail.image || ""}
-              alt="Featured Image"
-              className="w-full h-full object-cover"
-            />
-          </div>
-        }
         <div className="p-6 border-b border-gray-200">
           <div className="flex items-start justify-between mb-6 flex-row">
             <div className="flex items-center justify-center space-x-4">
@@ -160,7 +151,16 @@ const NewsDetail = async ({ params }: NewsDetailProps) => {
           </div>
           <h1 className="text-3xl md:text-5xl font-bold text-gray-900">{newsDetail.heading}</h1>
         </div>
-        <div className="prose prose-lg mx-auto text-gray-800 mb-8 px-6 mt-4">
+        <div className="mx-auto text-gray-800 mb-8 px-6 mt-4">
+          {newsDetail.image && (
+            <div className="float-left w-full md:w-1/4 bg-gray-200 mr-4 mb-2">
+              <img
+                src={newsDetail.image || ""}
+                alt="Featured Image"
+                className="w-full h-full object-fill"
+              />
+            </div>
+          )}
           <p>{newsDetail.summary}</p>
           {newsDetail.pdfLink && (
             <div className="mt-6">
