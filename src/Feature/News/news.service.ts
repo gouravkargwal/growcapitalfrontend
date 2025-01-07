@@ -1,6 +1,5 @@
 import axiosInstance from "@/lib/axiosInstance";
 import { UpdateNewsTypeDto } from "./news.dto";
-import axiosPublicInstance from "@/lib/axiosPublicInstance";
 
 export const getAllNewsType = async () => {
   return await axiosInstance.get("/user-news-plan");
@@ -18,7 +17,7 @@ export const getNewsById = async (id: string) => {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_NEST_URL}/stock-news/${id}`,
     {
-      next: { revalidate: 60 },
+      next: { revalidate: 43200 }, // 12 hours = 43200 seconds
     }
   );
 

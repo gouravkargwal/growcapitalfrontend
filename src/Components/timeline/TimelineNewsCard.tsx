@@ -19,6 +19,7 @@ const NewsCard: React.FC<NewsCardProps> = ({
   shortSummary,
   longSummary,
   index,
+  urlPath,
 }) => {
   const router = useRouter();
 
@@ -77,7 +78,7 @@ const NewsCard: React.FC<NewsCardProps> = ({
 
         <div className="mt-auto mb-4">
           <Link
-            href={`/news/${newsId}`}
+            href={urlPath ? `/news/${urlPath}` : `/news/${newsId}`}
             className="inline-flex items-center text-primary hover:text-accent text-xs font-semibold"
           >
             <span>Read the full report</span>
