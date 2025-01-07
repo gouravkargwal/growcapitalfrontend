@@ -121,9 +121,15 @@ export const logout = () => {
     });
 };
 
+const getCurrentUrl = async (isSSR: boolean, getSSRUrl?: () => Promise<string>): Promise<string> => {
+    if (isSSR && getSSRUrl) {
+        return await getSSRUrl();
+    }
+    return window.location.href;
+};
 // Log page view function
-export const logPageView = async (): Promise<void> => {
-    const currentUrl: string = window.location.href;
+export const logPageView = async (isSSR: boolean = false, getSSRUrl?: () => Promise<string>): Promise<void> => {
+    const currentUrl: string = await getCurrentUrl(isSSR, getSSRUrl);
     const ip: string | null = await getIp();
     pushEvent("Page Viewed", {
         currentUrl,
@@ -131,10 +137,13 @@ export const logPageView = async (): Promise<void> => {
         pageName: getPageName(currentUrl),
     });
 };
-
 // Log event function
-export const logEvent = async (payload: { eventName: string; payload?: Record<string, any> }): Promise<void> => {
-    const currentUrl: string = window.location.href;
+export const logEvent = async (
+    payload: { eventName: string; payload?: Record<string, any> },
+    isSSR: boolean = false,
+    getSSRUrl?: () => Promise<string>
+): Promise<void> => {
+    const currentUrl: string = await getCurrentUrl(isSSR, getSSRUrl);
     const ip: string | null = await getIp();
     const pageName: string = getPageName(currentUrl);
 

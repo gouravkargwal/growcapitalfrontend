@@ -49,7 +49,11 @@ const NewsDetail = async ({ params }: NewsDetailProps) => {
   const { id } = params;
 
   let newsDetail;
+  const getSSRUrl = async (): Promise<string> => {
+    return `https://informe.in/news/${id}`;
+  };
   try {
+    await logPageView(true, getSSRUrl);
     newsDetail = await getNewsById(id);
     if (!newsDetail) {
       notFound();
@@ -59,7 +63,6 @@ const NewsDetail = async ({ params }: NewsDetailProps) => {
     notFound();
   }
 
-  // logPageView();
   const formatDate = (dateString: string) => {
     const options: Intl.DateTimeFormatOptions = {
       year: "numeric",

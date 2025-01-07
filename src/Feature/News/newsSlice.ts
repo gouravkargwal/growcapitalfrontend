@@ -22,6 +22,7 @@ export type News = {
   longSummary: string;
   stockIndex: number;
   tickerSymbol: string;
+  urlPath: string,
 };
 
 export type NewsState = {

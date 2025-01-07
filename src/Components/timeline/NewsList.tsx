@@ -4,7 +4,6 @@ import { useAppDispatch } from "@/hook/useAppDispatch";
 import { useSelector } from "react-redux";
 import { RootState } from "@/Store/store";
 import { fetchNews } from "@/Feature/News/newsSlice";
-import getTimeAgoOrDate from "@/utils/getTimeAgoOrDate";
 
 // Skeleton Loader
 const NewsSkeleton: React.FC = () => (
