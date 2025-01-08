@@ -77,7 +77,7 @@ const UpgradePlan = () => {
     }
 
     const result = await dispatch(
-      createPaymentOrderId({ planId: selectedPlan.planId, durationInMonths, couponCode })
+      createPaymentOrderId({ planId: selectedPlan.planId, durationInMonths, couponCode: (couponApplied ? couponCode : undefined) })
     );
     if (createPaymentOrderId.fulfilled.match(result)) {
       const paymentOptions = result.payload; // Options from backend
