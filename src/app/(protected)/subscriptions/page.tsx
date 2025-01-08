@@ -1,6 +1,5 @@
 "use client";
 import CurrentPlan from "@/Components/subscription/CurrentPlan";
-import ComparePlans from "@/Components/subscription/features";
 import PlanHistory from "@/Components/subscription/PlanHistory";
 import UpgradePlan from "@/Components/subscription/UpgradePlan";
 import { logPageView } from "@/events/analytics";

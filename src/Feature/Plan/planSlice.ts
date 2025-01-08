@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import {
+  applyCouponApi,
   checkPaymentStatusApi,
   createPaymentOrderIdApi,
   getAllPlans,
@@ -32,6 +33,9 @@ export interface PlanState {
   overlayStatus: boolean;
   planHistoryLoading: boolean;
   planHistory: PlanHistory[];
+  couponLoading: boolean;
+  couponFinalPrice: number | null;
+  couponDiscount: number | null;
 }
 
 const initialState: PlanState = {
@@ -41,13 +45,21 @@ const initialState: PlanState = {
   overlayStatus: false,
   planHistoryLoading: false,
   planHistory: [],
+  couponLoading: false,
+  couponFinalPrice: null,
+  couponDiscount: null,
 };
 
 export type PlanPayload = {
   planId: number;
   durationInMonths: number;
+  couponCode?: string;
 };
 
+export type CouponPayload = {
+  couponCode: string;
+  planPrice: number;
+};
 export const fetchAllPlans = createAsyncThunk(
   "plan/fetchAllPlans",
   async (_, { rejectWithValue, dispatch }) => {
@@ -89,6 +101,20 @@ export const createPaymentOrderId = createAsyncThunk(
     }
   }
 );
+export const applyCoupon = createAsyncThunk(
+  "coupons/apply",
+  async (payload: CouponPayload, { rejectWithValue, dispatch }) => {
+    try {
+      const { data } = await applyCouponApi(payload);
+      return data;
+    } catch (error) {
+      const axiosError = handleAxiosError(error, rejectWithValue, dispatch);
+      if (axiosError) return axiosError;
+      return rejectWithValue(error);
+    }
+  }
+);
+
 
 export const pollPaymentStatus = createAsyncThunk(
   "plan/pollStatus",
@@ -145,6 +171,10 @@ const planSlice = createSlice({
     paymentOverlay: (state, action) => {
       state.overlayStatus = action.payload;
     },
+    resetCoupon: (state) => {
+      state.couponFinalPrice = null;
+      state.couponDiscount = null;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -182,6 +212,23 @@ const planSlice = createSlice({
       });
 
     builder
+      .addCase(applyCoupon.pending, (state) => {
+        state.couponLoading = true;
+        state.couponFinalPrice = null;
+        state.couponDiscount = null;
+      })
+      .addCase(applyCoupon.fulfilled, (state, action) => {
+        state.couponLoading = false;
+        state.couponFinalPrice = action.payload.finalPrice;
+        state.couponDiscount = action.payload.discount;
+      })
+      .addCase(applyCoupon.rejected, (state) => {
+        state.couponLoading = false;
+        state.couponFinalPrice = null;
+        state.couponDiscount = null;
+      })
+
+    builder
       .addCase(pollPaymentStatus.pending, (state) => {
         state.overlayStatus = true;
       })
@@ -194,6 +241,6 @@ const planSlice = createSlice({
   },
 });
 
-export const { paymentOverlay } = planSlice.actions; // Correctly export the action
+export const { paymentOverlay, resetCoupon } = planSlice.actions;
 
 export default planSlice.reducer;

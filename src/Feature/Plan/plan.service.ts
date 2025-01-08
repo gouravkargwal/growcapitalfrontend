@@ -1,5 +1,5 @@
 import axiosInstance from "@/lib/axiosInstance";
-import { PlanPayload } from "./planSlice";
+import { CouponPayload, PlanPayload } from "./planSlice";
 
 export const getAllPlans = async () => {
   return await axiosInstance.get("/plans");
@@ -11,6 +11,10 @@ export const getPlansHistory = async () => {
 
 export const createPaymentOrderIdApi = async (data: PlanPayload) => {
   return await axiosInstance.post("/payments/create-order", data);
+};
+
+export const applyCouponApi = async (data: CouponPayload) => {
+  return await axiosInstance.post("/coupons/apply", data);
 };
 
 export const checkPaymentStatusApi = async (
