@@ -10,7 +10,7 @@ interface FooterProps {
   intenalFooter?: boolean;
 }
 const Footer: React.FC<FooterProps> = ({ intenalFooter = false }) => {
-  const year = new Date().getFullYear();
+  const year = '2024';
   const email = emailClicked();
   const x = xClicked();
   const facebook = facebookClicked();
