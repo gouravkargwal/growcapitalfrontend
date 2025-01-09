@@ -59,6 +59,7 @@ export type PlanPayload = {
 export type CouponPayload = {
   couponCode: string;
   planPrice: number;
+  planId: number;
 };
 export const fetchAllPlans = createAsyncThunk(
   "plan/fetchAllPlans",

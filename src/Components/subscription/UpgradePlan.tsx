@@ -54,6 +54,7 @@ const UpgradePlan = () => {
       applyCoupon({
         couponCode,
         planPrice: selectedPlan.finalPrice,
+        planId: selectedPlan.planId,
       })
     );
     if (applyCoupon.fulfilled.match(result)) {
